@@ -165,7 +165,7 @@ export default function Catalogue() {
     <div className={`${plusJakarta.className} relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-abyss dark:bg-background-dark dark:text-background-light`}>
       <SiteHeader />
 
-      <main className="mx-auto w-full max-w-[1440px] flex-1 px-6 pb-24 pt-28 lg:px-12">
+      <main className="mx-auto w-full max-w-[1440px] flex-1 px-6 pb-24 pt-36 md:pt-40 lg:px-12">
         <div className="mb-16">
           <h2 className="serif-heading mb-6 text-5xl text-abyss dark:text-white md:text-7xl">Catalogue des Itinéraires</h2>
           <p className="max-w-2xl font-serif text-xl italic text-abyss/60 dark:text-background-light/60">

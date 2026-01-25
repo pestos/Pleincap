@@ -44,5 +44,4 @@ export interface NavigationMenuProps {
   backgroundColor?: string;
   textColor?: string;
   accentColor?: string;
-  mobileBreakpoint?: number;
 }

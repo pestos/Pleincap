@@ -14,11 +14,9 @@ const isSectionWithTypes = (section: typeof sectionContent[NavigationSection]): 
 export default function NavigationMenu({
   backgroundColor = "transparent",
   textColor = "#ffffff",
-  accentColor = "#3182ce",
-  mobileBreakpoint = 768
+  accentColor = "#3182ce"
 }: NavigationMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [activeItem, setActiveItem] = useState<NavigationSection | "">("");
   const [hoverItem, setHoverItem] = useState<NavigationSection | null>(null);
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -187,7 +185,7 @@ export default function NavigationMenu({
       </header>
 
       {/* Expanded content section */}
-      {activeItem && (
+      {activeItem && currentSection && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: "auto" }}
@@ -201,7 +199,7 @@ export default function NavigationMenu({
           }}
         >
           <div className="container mx-auto px-4 py-12">
-            {currentSection && isTypeSection ? (
+            {isTypeSection ? (
               <div className="flex flex-col md:flex-row">
                 {/* Left section */}
                 <div className="md:w-1/3 mb-8 md:mb-0 md:pr-10">
@@ -216,7 +214,7 @@ export default function NavigationMenu({
                   </p>
                   
                   <div className="space-y-4 mb-8">
-                    {isTypeSection && currentSection.types.map((type, index: number) => (
+                    {isTypeSection && currentSection?.types.map((type, index: number) => (
                       <div 
                         key={index} 
                         className="p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-md"
@@ -256,7 +254,7 @@ export default function NavigationMenu({
 
                 {/* Right section with cards */}
                 <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {isTypeSection && currentSection.offers.map((offer, index: number) => (
+                  {isTypeSection && currentSection?.offers.map((offer, index: number) => (
                     <div 
                       key={index}
                       className={`rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg border border-gray-200 ${offer.highlight==='rose' ? 'hover:border-rose-400' : 'hover:border-blue-300'}`}
@@ -342,7 +340,7 @@ export default function NavigationMenu({
 
                 {/* Right section with items grid */}
                 <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {!isTypeSection && currentSection.items.map((item, index: number) => (
+                  {!isTypeSection && currentSection?.items.map((item, index: number) => (
                     <div 
                       key={index}
                       className={`p-5 rounded-lg transition-all duration-300 hover:shadow-lg relative overflow-hidden group`}
