@@ -87,13 +87,14 @@ export default function NosConferenciersPage() {
       <input className="peer hidden" id="drawer-toggle" type="checkbox" />
       <Drawer />
       <SiteHeader />
-      <main className="flex-1 px-6 pb-12 pt-24 md:px-16 md:pt-28 lg:px-28">
+      <main className="flex-1 px-4 pb-12 pt-24 md:px-12 md:pt-28 lg:px-20 xl:px-28">
         <Hero />
         <Filters />
         <ExpertsGrid />
         <CTA />
       </main>
       <SiteFooter />
+
     </div>
   )
 }

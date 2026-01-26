@@ -1,13 +1,12 @@
+'use client'
+
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import { Plus_Jakarta_Sans } from 'next/font/google'
+import { useMemo, useState } from 'react'
 
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'] })
 
-export const metadata = {
-  title: 'Notre Flotte: Les Navires Plein Cap',
-  description: "La flotte Plein Cap : navires fluviaux et maritimes d'exception.",
-}
 
 type Ship = {
   name: string
@@ -58,14 +57,20 @@ const ships: Ship[] = [
 ]
 
 export default function NosBateauxPage() {
+  const [activeTag, setActiveTag] = useState<'Fluvial' | 'Maritime' | 'Tous'>('Tous')
+  const filteredShips = useMemo(() => {
+    if (activeTag === 'Tous') return ships
+    return ships.filter((ship) => ship.tag === activeTag)
+  }, [activeTag])
+
   return (
     <div className={`${plusJakarta.className} flex min-h-screen flex-col bg-[#f8f7f6] text-[#1A2433]`}>
       <SiteHeader />
       <main className="flex-1 pt-24 md:pt-28">
         <Hero />
         <Intro />
-        <CategoryTabs />
-        <ShipGrid />
+        <CategoryTabs activeTag={activeTag} onSelect={setActiveTag} />
+        <ShipGrid ships={filteredShips} />
         <Philosophy />
       </main>
       <SiteFooter />
@@ -114,24 +119,54 @@ function Intro() {
   )
 }
 
-function CategoryTabs() {
+type CategoryTabsProps = {
+  activeTag: 'Tous' | 'Fluvial' | 'Maritime'
+  onSelect: (tag: 'Tous' | 'Fluvial' | 'Maritime') => void
+}
+
+function CategoryTabs({ activeTag, onSelect }: CategoryTabsProps) {
+  const tabs: Array<{ label: string; value: 'Tous' | 'Fluvial' | 'Maritime' }> = [
+    { label: 'Tous', value: 'Tous' },
+    { label: 'Croisières Fluviales', value: 'Fluvial' },
+    { label: 'Croisières Maritimes', value: 'Maritime' },
+  ]
+
   return (
     <section className="mx-auto max-w-[1440px] px-6 pb-12 lg:px-[120px]">
       <div className="flex justify-center border-b border-[#e7e0cf]">
-        <div className="flex gap-12">
-          <button className="flex flex-col items-center border-b-2 border-[#eeb32b] pb-4">
-            <span className="text-sm font-bold uppercase tracking-widest text-[#1A2433]">Croisières Fluviales</span>
-          </button>
-          <button className="flex flex-col items-center border-b-2 border-transparent pb-4 transition-all hover:border-[#eeb32b]/50">
-            <span className="text-sm font-bold uppercase tracking-widest text-[#1A2433]/50">Croisières Maritimes</span>
-          </button>
+        <div className="flex gap-8 md:gap-12">
+          {tabs.map((tab) => {
+            const active = activeTag === tab.value
+            return (
+              <button
+                key={tab.value}
+                type="button"
+                onClick={() => onSelect(tab.value)}
+                className={`flex flex-col items-center border-b-2 pb-4 transition-all ${
+                  active ? 'border-[#eeb32b]' : 'border-transparent hover:border-[#eeb32b]/50'
+                }`}
+              >
+                <span
+                  className={`text-sm font-bold uppercase tracking-widest ${
+                    active ? 'text-[#1A2433]' : 'text-[#1A2433]/50'
+                  }`}
+                >
+                  {tab.label}
+                </span>
+              </button>
+            )
+          })}
         </div>
       </div>
     </section>
   )
 }
 
-function ShipGrid() {
+type ShipGridProps = {
+  ships: Ship[]
+}
+
+function ShipGrid({ ships }: ShipGridProps) {
   return (
     <section className="mx-auto max-w-[1440px] px-6 pb-32 lg:px-[120px]">
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
@@ -157,9 +192,16 @@ function ShipGrid() {
                 <Info label="Ponts" value={ship.decks} icon="layers" />
               </div>
               <div className="mt-auto">
-                <button className="w-full border border-[#eeb32b] px-8 py-4 text-xs font-bold uppercase tracking-widest text-[#1A2433] transition-all hover:bg-[#eeb32b] hover:text-[#1A2433]">
+                <a
+                  href={`/nos-bateaux/${ship.name
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-+|-+$/g, '')
+                    .replace(/^(m-s-|ms-)/, '')}`}
+                  className="block w-full border border-[#eeb32b] px-8 py-4 text-center text-xs font-bold uppercase tracking-widest text-[#1A2433] transition-all hover:bg-[#eeb32b] hover:text-[#1A2433]"
+                >
                   Découvrir le navire
-                </button>
+                </a>
               </div>
             </div>
           </article>

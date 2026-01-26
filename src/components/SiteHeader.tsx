@@ -47,7 +47,8 @@ export default function SiteHeader() {
                       Livre d'or
                   </a>
               </div>
-              <div className="flex items-center justify-between py-5 gap-6">
+               <div className="flex flex-wrap items-center justify-between gap-4 py-5 lg:flex-nowrap lg:gap-6">
+
                   <a className="group/logo flex items-center gap-4" href="/">
                       <div className="size-9 text-primary">
                           <svg
@@ -64,17 +65,19 @@ export default function SiteHeader() {
                               />
                           </svg>
                       </div>
-                      <div className="flex flex-col">
-                          <h1 className="serif-heading text-xl font-black tracking-[0.25em] leading-none">
-                              PLEIN CAP
-                          </h1>
-                          <span className="-mr-[0.45em] text-[7px] uppercase tracking-[0.45em] text-primary">
-                              Luxury Cultural Voyages
-                          </span>
-                      </div>
+                       <div className="flex flex-col whitespace-nowrap">
+                           <h1 className="serif-heading text-xl font-black tracking-[0.22em] leading-none">
+                               PLEIN CAP
+                           </h1>
+                           <span className="-mr-[0.2em] text-[8px] uppercase tracking-[0.38em] text-primary">
+                               Luxury Cultural Voyages
+                           </span>
+                       </div>
+
                   </a>
-                  <div className="flex items-center gap-6 lg:gap-10">
-                      <nav className="hidden items-center gap-6 lg:gap-8 xl:gap-10 lg:flex">
+                   <div className="flex items-center gap-4 lg:gap-8">
+                       <nav className="hidden items-center gap-5 lg:gap-7 xl:gap-8 lg:flex whitespace-nowrap">
+
                           <a
                               className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
                               href="/catalogue"
@@ -129,9 +132,10 @@ export default function SiteHeader() {
 
                       </nav>
                       <div className="mx-2 hidden h-8 w-[1px] bg-primary/20 lg:block" />
-                      <button className="sharp-edge bg-abyss px-8 py-3 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-primary">
-                          Nous contacter
-                      </button>
+                       <button className="sharp-edge whitespace-nowrap bg-abyss px-10 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition-all hover:bg-primary">
+                           Nous contacter
+                       </button>
+
                   </div>
               </div>
           </div>
