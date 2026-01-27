@@ -102,12 +102,12 @@ export default function SiteHeader() {
                           >
                               Inspiration Voyages
                           </a>
-                          <a
-                              className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
-                              href="#"
-                          >
-                              Voyages en train
-                          </a>
+                           <a
+                               className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
+                               href="/voyages-en-train"
+                           >
+                               Voyages en train
+                           </a>
                            <div className="relative group">
                                <a
                                    className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"

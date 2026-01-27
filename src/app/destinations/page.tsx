@@ -2,6 +2,7 @@ import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 
+
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'] })
 
 export const metadata = {
@@ -86,38 +87,38 @@ export default function DestinationsPage() {
 
 function Hero() {
   return (
-    <section className="relative flex h-[85vh] items-center justify-center overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A1128]/40 via-transparent to-[#F9F8F6]" />
-        <div
-          className="h-full w-full bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://lh3.googleusercontent.com/aida-public/AB6AXuACmvAEJ8OFlxx34FsfUJIpSX0VWKAQotlyBkMKG6AXG03fgYq0gah7ArSyQJ0McN_jaKjSLy49EmqoGHezC8gU8_pSydTfm9en9fHkguhlbYPsubX6ARCPtBXMS6KbT-MCFfap2DPmWAcT_DXnqqxrjs8o5AnblUoC1QJz3NJvmru_I7Si0BE6iepotdoyD8e4dN7YP4vUB0qv6tq8jEDNlQjCtWgKAbarIYQgrm6Osyz-u9p0nY_N42mzSktNt4l7AhsOfvvXu7U')",
-          }}
-        />
-      </div>
-      <div className="relative z-10 px-4 text-center">
-        <span className="mb-6 block text-sm font-bold uppercase tracking-[0.4em] text-[#f4c025]">Voyages d'Exception</span>
-        <h1 className="mb-8 text-5xl font-bold leading-tight text-white md:text-7xl">Explorez le Monde: Destinations Culturelles</h1>
-        <p className="mx-auto mb-10 max-w-2xl text-lg font-light italic text-white/90">
-          L'art de la navigation au service de la culture et de la découverte.
-        </p>
-        <div className="flex flex-col justify-center gap-4 sm:flex-row">
-          <button className="rounded-sm bg-[#f4c025] px-10 py-4 font-bold uppercase tracking-widest text-[#0A1128] transition-transform hover:scale-105">
-            Découvrir nos continents
-          </button>
-        </div>
-      </div>
-    </section>
-  )
+      <section className="relative flex h-[85vh] items-center justify-center overflow-hidden">
+          <div className="absolute inset-0">
+              <div
+                  className="h-full w-full bg-cover bg-center"
+                  style={{
+                      backgroundImage: "url('/bannerDestination.jpg')",
+                  }}
+              />
+              <div className="absolute inset-0 bg-black/30" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#0A1128]/45 via-transparent to-[#F9F8F6]" />
+          </div>
+          <div className="relative z-10 px-4 text-center drop-shadow-[0_6px_20px_rgba(0,0,0,0.45)]">
+              <span className="mb-6 block text-sm font-bold uppercase tracking-[0.4em] text-[#c5a050]">
+                  Voyages d'Exception
+              </span>
+              <h1 className="mb-8 text-5xl font-bold leading-tight text-white md:text-7xl">
+                  Explorez le Monde: Destinations Culturelles
+              </h1>
+              <p className="mx-auto mb-10 max-w-2xl text-lg font-light italic text-white/90">
+                  L'art de la navigation au service de la culture et de la
+                  découverte.
+              </p>
+          </div>
+      </section>
+  );
 }
 
 function ContinentTabs() {
   return (
-    <div className="sticky top-[73px] z-40 border-b border-[#f4c025]/10 bg-white/90 backdrop-blur">
+    <div className="sticky top-[73px] z-40 border-b border-[#c5a050]/10 bg-white/90 backdrop-blur">
       <div className="mx-auto max-w-[1440px] px-4 py-8">
-        <h4 className="mb-6 text-center text-[10px] font-bold uppercase tracking-[0.3em] text-[#f4c025]">Choisissez un continent</h4>
+        <h4 className="mb-6 text-center text-[10px] font-bold uppercase tracking-[0.3em] text-[#c5a050]">Choisissez un continent</h4>
         <div className="flex flex-wrap justify-center gap-8 md:gap-16 lg:gap-24">
           <Tab label="Europe" active />
           <Tab label="Afrique" />
@@ -137,7 +138,7 @@ function Tab({ label, active = false }: { label: string; active?: boolean }) {
       className={`group flex flex-col items-center ${active ? 'opacity-100' : 'opacity-60 hover:opacity-100 transition-all'}`}
     >
       <span
-        className={`text-lg font-medium tracking-wide ${active ? 'border-b-2 border-[#f4c025] text-[#f4c025]' : 'border-b-2 border-transparent text-[#0A1128] group-hover:border-[#f4c025]'}`}
+      className={`text-lg font-medium tracking-wide ${active ? 'border-b-2 border-[#c5a050] text-[#c5a050]' : 'border-b-2 border-transparent text-[#0A1128] group-hover:border-[#c5a050]'}`}
       >
         {label}
       </span>
@@ -155,10 +156,10 @@ function RegionGrid() {
             <p className="mt-2 text-[#0A1128]/60">Le berceau des arts et de la civilisation.</p>
           </div>
           <div className="flex gap-2">
-            <button className="rounded-full border border-[#f4c025]/30 p-2 hover:bg-[#f4c025]/10">
+            <button className="rounded-full border border-[#c5a050]/30 p-2 hover:bg-[#c5a050]/10">
               <span className="material-symbols-outlined">chevron_left</span>
             </button>
-            <button className="rounded-full border border-[#f4c025]/30 p-2 hover:bg-[#f4c025]/10">
+            <button className="rounded-full border border-[#c5a050]/30 p-2 hover:bg-[#c5a050]/10">
               <span className="material-symbols-outlined">chevron_right</span>
             </button>
           </div>
@@ -175,7 +176,7 @@ function RegionGrid() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/80 via-transparent to-transparent" />
               </div>
               <div className="absolute bottom-0 left 0 w-full p-8 transition-transform group-hover:-translate-y-2">
-                <span className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-[#f4c025]">{region.area}</span>
+                <span className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-[#c5a050]">{region.area}</span>
                 <h4 className="mb-4 text-3xl font-bold text-white">{region.title}</h4>
                 <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/80">
                   <span className="material-symbols-outlined text-sm">sailing</span>
@@ -192,18 +193,18 @@ function RegionGrid() {
 
 function TopItineraries() {
   return (
-    <section className="border-t border-[#f4c025]/5 bg-white px-6 pb-24 pt-24 lg:px-40">
+    <section className="border-t border-[#c5a050]/5 bg-white px-6 pb-24 pt-24 lg:px-40">
       <div className="mx-auto max-w-4xl">
         <div className="mb-16 text-center">
-          <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.4em] text-[#f4c025]">Sélection Premium</h4>
+          <h4 className="mb-4 text-xs font-bold uppercase tracking-[0.4em] text-[#c5a050]">Sélection Premium</h4>
           <h2 className="text-4xl font-bold italic md:text-5xl">Itinéraires de la Grèce Antique</h2>
-          <div className="mx-auto mt-8 h-px w-24 bg-[#f4c025]" />
+          <div className="mx-auto mt-8 h-px w-24 bg-[#c5a050]" />
         </div>
         <div className="space-y-12">
           {itineraries.map((item) => (
             <article
               key={item.title}
-              className="group flex flex-col items-start gap-8 border-b border-[#f4c025]/10 pb-12 md:flex-row"
+              className="group flex flex-col items-start gap-8 border-b border-[#c5a050]/10 pb-12 md:flex-row"
             >
               <div className="aspect-[3/2] w-full overflow-hidden md:w-1/3">
                 <img
@@ -215,8 +216,8 @@ function TopItineraries() {
               </div>
               <div className="flex-1">
                 <div className="mb-4 flex items-start justify-between">
-                  <h3 className="text-2xl font-bold italic transition-colors group-hover:text-[#f4c025]">{item.title}</h3>
-                  <span className="text-sm font-bold tracking-widest text-[#f4c025]">{item.price}</span>
+                  <h3 className="text-2xl font-bold italic transition-colors group-hover:text-[#c5a050]">{item.title}</h3>
+                  <span className="text-sm font-bold tracking-widest text-[#c5a050]">{item.price}</span>
                 </div>
                 <p className="mb-6 leading-relaxed text-[#0A1128]/70">{item.description}</p>
                 <div className="flex items-center gap-6">
@@ -224,7 +225,7 @@ function TopItineraries() {
                     <span className="material-symbols-outlined text-base">calendar_today</span>
                     {item.days}
                   </div>
-                  <button className="ml-auto flex items-center gap-2 border-b-2 border-[#f4c025] pb-1 text-xs font-bold uppercase tracking-widest transition-all group-hover:pr-2">
+                  <button className="ml-auto flex items-center gap-2 border-b-2 border-[#c5a050] pb-1 text-xs font-bold uppercase tracking-widest transition-all group-hover:pr-2">
                     Découvrir <span className="material-symbols-outlined text-sm">arrow_forward</span>
                   </button>
                 </div>
@@ -233,7 +234,7 @@ function TopItineraries() {
           ))}
         </div>
         <div className="mt-16 text-center">
-          <button className="rounded-sm border-2 border-[#f4c025] px-12 py-4 font-bold uppercase tracking-[0.2em] text-[#f4c025] transition-all hover:bg-[#f4c025] hover:text-[#0A1128]">
+          <button className="rounded-sm border-2 border-[#c5a050] px-12 py-4 font-bold uppercase tracking-[0.2em] text-[#c5a050] transition-all hover:bg-[#c5a050] hover:text-[#0A1128]">
             Voir tous les itinéraires
           </button>
         </div>

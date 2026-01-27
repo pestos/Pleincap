@@ -227,21 +227,19 @@ export default function EscapadesCulturelles() {
           </article>
         </div>
 
-        <div className="mt-32 flex items-center justify-between border-t border-abyss/10 pt-20">
-          <div className="flex items-center gap-12">
-            <button className="group flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.4em] opacity-30 transition-opacity hover:opacity-100">
-              <span className="material-symbols-outlined">west</span> Précédent
+        <div className="mt-32 border-t border-abyss/10 pt-20">
+          <div className="flex items-center justify-center gap-2">
+            <button className="flex h-12 w-12 items-center justify-center border border-abyss/10 opacity-30">
+              <span className="material-symbols-outlined">chevron_left</span>
             </button>
-            <div className="flex gap-8">
-              <span className="border-b border-primary pb-1 text-[10px] font-bold">01</span>
-              <span className="cursor-pointer text-[10px] font-bold opacity-30 transition-opacity hover:opacity-100">02</span>
-              <span className="cursor-pointer text-[10px] font-bold opacity-30 transition-opacity hover:opacity-100">03</span>
-            </div>
-            <button className="group flex items-center gap-4 text-[10px] font-bold uppercase tracking-[0.4em] transition-colors hover:text-primary">
-              Suivant <span className="material-symbols-outlined">east</span>
+            <span className="flex h-12 w-12 items-center justify-center bg-abyss text-xs font-bold text-white">01</span>
+            <button className="flex h-12 w-12 items-center justify-center text-xs font-bold transition-colors hover:bg-abyss/5">02</button>
+            <button className="flex h-12 w-12 items-center justify-center text-xs font-bold transition-colors hover:bg-abyss/5">03</button>
+            <button className="flex h-12 w-12 items-center justify-center border border-abyss/20">
+              <span className="material-symbols-outlined">chevron_right</span>
             </button>
           </div>
-          <span className="font-serif text-sm italic opacity-40">Découvrir la suite de la collection</span>
+          <div className="mt-6 text-center font-serif text-sm italic opacity-40">Découvrir la suite de la collection</div>
         </div>
 
         <section className="mt-40">
