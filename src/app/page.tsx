@@ -14,7 +14,6 @@ export default function Home() {
                   loop
                   muted
                   playsInline
-                  poster="https://lh3.googleusercontent.com/aida-public/AB6AXuDkwXMqr9VAa6Kx29S1C5RuKoJl1XTOwEej31rQExdkmwztO7KkXwbVZPq8HuSP680oozhoCWAT7nlkY_qbyavo9GBLSTeeTuGSOgegazLsoLZq879rrQqRPfUlBqTZMTZh1U19nWkwccIH_a-7vxbDvmSawqW37npr4p-yNM4O7A3Dd4WHvpCCHOHvOut7FekRioDoD98VowzqNIB3wM577-59bE4mfdWlh8__Gv8bVDnbjqYsSWPNpBU6gYsrbyEay6sF8U5pRPA"
               >
                   <source
                       src="/travel%20video%20footage.mp4"

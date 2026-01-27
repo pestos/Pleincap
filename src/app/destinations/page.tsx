@@ -47,6 +47,34 @@ const regions: Region[] = [
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuB1J_yZhAd-GR1343o0IekwbT_-B7ietBaL24lQKfghmRKPZrOEPkchBdFSm165CVV69Uszo8E-c9Vj836kTzTjERtsAqP_2g4MGPQRW1dmpAexxVxWVezqeGri-0xmshRJkZtAMnOTXhTfmyTQDiomizCKKgjlDsaCjE23cSLUy2d5sBwIMZhCqQ6_g2TxXZpmIX9u6vTTXKxArbDymG6Fo7DUuQqLxSUHjLKcPRzBGIjD8O44wDabthYGCDw0Sx5eQlNwYnffnBw',
   },
+  {
+    area: 'Amériques',
+    title: 'Patagonie & Andes',
+    itineraries: 7,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCGEQCJ-v36Y9Sf8ywHDFmMcCJr3GIID0ETJjmfNnOLSzThzJbXfbce3lBqlM5KX33QFIxy2YAFj0QpnazhvukmDmm15IUHuBDfxVUZTMrWfIOeUa-frchlZ1Omk-9N_9ivDJbAzPkHMwMG6Rt6O7a5ozALaHG9g1__TJ37dO2qI1nH65dwaKw9IiRIG6YOCNiD9qSfHZDzhmkluU5x3lIUhdls5vG3h9yNGk28SgCdOBFftTthxODEf2z8i1qxqZ6XK3jGYddCbcg',
+  },
+  {
+    area: 'Asie Pacifique',
+    title: 'Japon & Corée',
+    itineraries: 9,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCMX6Z0jbcI-w0UbU_u0ZdxdOmkmruKTItptJy6ZnvoBQ5DGEn-ZEzmB6JjThpWjMuWn3JXhjGw-KBYVeGsD2LblMoz4cZVMPJg8i16-LUA_vtlX-wS9ChM2C4_P-nkjxZi9ziPOBxoECHZgUyUZblsPAgRLMBFtZpdBB_N91oqkpwiwjhQyDmhzxAnXi1xTCNuAfqe7IEJbJ5JBe3baEjA2FhIQcwPSjvh88v9JRL9vrhT3PJBa2lktjbEyd9I2d5747J6p-CNunA',
+  },
+  {
+    area: 'Afrique Australe',
+    title: 'Namibie & Cap',
+    itineraries: 5,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuA8njPqwi3fRZJZgttqk2WI4HWK15cZJBIIorzwoBhv7iFLfIlOgP_d3e6iKigmQWaLSfKgu0OwrHOlPhqgWBbciIN779zUehBjRpvKsjkdkJlK-htTKdiq09U2NDcdufEi-d34gMRwA_Qz9BfT64uwhPII22qq4NUO2CEzOG3KCnvqcRCPbSpWGYKMu2zQEH8DdiZYY8awG6NeI3W6Kb5tFY0hcp7eDbHolwybuXCjNn-W0-TXvSJucgBBTYT-mE3NNfp7Q1J3RKU',
+  },
+  {
+    area: 'Océanie',
+    title: 'Déserts Rouges & Top End',
+    itineraries: 4,
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAWTPnrfH8kjDHN344CaNdEDz8DKBdGfxNQZXMkjrtw78ejl2Lgf0SJBKmDBhkU15sHrD6C0bCM0RSvVuWd-k0MCIwdIT_8_WJmCfyXiJZby7n-hPLbOuDSAPejm5b8BT6CNbgVS0S2IndeOenwU1n1phCGcKTXuN262JIUvAF7YbGce4aaLhlwn063iXDK1PQrb_vavqnDsdZ75QZjrtm5nbNGVbbSRdA5U_2QClfUxu777ZbIVSO3N-Xt04piO8a987QY7NRsW40',
+  },
 ]
 
 const itineraries: Itinerary[] = [

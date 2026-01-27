@@ -162,156 +162,246 @@ const cruises: CruiseCard[] = [
 
 export default function Catalogue() {
   return (
-    <div className={`${plusJakarta.className} relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-abyss dark:bg-background-dark dark:text-background-light`}>
-      <SiteHeader />
+      <div
+          className={`${plusJakarta.className} relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-abyss dark:bg-background-dark dark:text-background-light`}
+      >
+          <SiteHeader />
 
-      <main className="mx-auto w-full max-w-[1440px] flex-1 px-6 pb-24 pt-36 md:pt-40 lg:px-12">
-        <div className="mb-16">
-          <h2 className="serif-heading mb-6 text-5xl text-abyss dark:text-white md:text-7xl">Catalogue des Itinéraires</h2>
-          <p className="max-w-2xl font-serif text-xl italic text-abyss/60 dark:text-background-light/60">
-            L'élégance du voyage à la française, des fleuves d'Europe aux horizons lointains.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-16 lg:flex-row">
-          <aside className="w-full flex-shrink-0 lg:w-72">
-            <div className="sticky top-32 space-y-10">
-              <div className="flex items-center justify-between border-b border-abyss/20 pb-4 dark:border-white/20">
-                <h3 className="text-xs font-bold uppercase tracking-[0.2em]">Filtres Avancés</h3>
-                <button className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline">Réinitialiser</button>
+          <main className="mx-auto w-full max-w-[1440px] flex-1 px-6 pb-24 pt-36 md:pt-40 lg:px-12">
+              <div className="mb-16">
+                  <h2 className="serif-heading mb-6 text-5xl text-abyss dark:text-white md:text-7xl">
+                      Catalogue des Itinéraires
+                  </h2>
+                  <p className="max-w-2xl font-serif text-xl italic text-abyss/60 dark:text-background-light/60">
+                      L'élégance du voyage à la française, des fleuves d'Europe
+                      aux horizons lointains.
+                  </p>
               </div>
 
-              <div className="space-y-10">
-                <FilterBlock title="Destination" options={['Méditerranée', 'Europe du Nord', 'Adriatique']} defaultChecked={[0]} />
-                <FilterBlock title="Type de croisières" options={['Fluviale', 'Maritime']} />
+              <div className="flex flex-col gap-16 lg:flex-row">
+                  <aside className="w-full flex-shrink-0 lg:w-72">
+                      <div className="sticky top-32 space-y-10">
+                          <div className="flex items-center justify-between border-b border-abyss/20 pb-4 dark:border-white/20">
+                              <h3 className="text-xs font-bold uppercase tracking-[0.2em]">
+                                  Filtres Avancés
+                              </h3>
+                              <button className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline">
+                                  Réinitialiser
+                              </button>
+                          </div>
 
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 text-abyss dark:text-white">
-                    <span className="text-xs font-bold uppercase tracking-widest">Dates</span>
-                  </div>
-                  <div className="relative">
-                    <input
-                      className="w-full rounded-none border-abyss/20 bg-transparent p-3 text-xs font-bold uppercase tracking-widest focus:border-primary focus:ring-primary dark:border-white/20"
-                      type="date"
-                    />
-                  </div>
-                </div>
+                          <div className="space-y-10">
+                              <FilterBlock
+                                  title="Destination"
+                                  options={[
+                                      "Méditerranée",
+                                      "Europe du Nord",
+                                      "Adriatique",
+                                  ]}
+                                  defaultChecked={[0]}
+                              />
+                              <FilterBlock
+                                  title="Type de croisières"
+                                  options={["Fluviale", "Maritime"]}
+                              />
 
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 text-abyss dark:text-white">
-                    <span className="text-xs font-bold uppercase tracking-widest">Bateaux</span>
+                              <div className="space-y-4">
+                                  <div className="grid grid-cols-1 gap-3">
+                                      <div className="relative">
+                                          <label className="mb-1 block text-[10px] font-bold uppercase tracking-[0.2em] opacity-50">
+                                              Date de début
+                                          </label>
+                                          <input
+                                              className="rounded-none border-abyss/20 bg-transparent p-3 text-xs font-bold uppercase tracking-widest focus:border-primary focus:ring-primary dark:border-white/20"
+                                              type="date"
+                                          />
+                                      </div>
+                                      <div className="relative">
+                                          <label className="mb-1 block text-[10px] font-bold uppercase tracking-[0.2em] opacity-50">
+                                              Date de fin
+                                          </label>
+                                          <input
+                                              className="rounded-none border-abyss/20 bg-transparent p-3 text-xs font-bold uppercase tracking-widest focus:border-primary focus:ring-primary dark:border-white/20"
+                                              type="date"
+                                          />
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div className="space-y-4">
+                                  <div className="flex items-center gap-2 text-abyss dark:text-white">
+                                      <span className="text-xs font-bold uppercase tracking-widest">
+                                          Bateaux
+                                      </span>
+                                  </div>
+                                  <div className="max-h-48 space-y-2 overflow-y-auto pr-2">
+                                      <FilterBlock
+                                          title=""
+                                          options={[
+                                              "MS Berlin",
+                                              "MS Belle de l'Adriatique",
+                                              "Vapeur Authentique",
+                                              "MS Cyrano de Bergerac",
+                                          ]}
+                                          hideTitle
+                                      />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </aside>
+
+                  <div className="flex-1">
+                      <div className="mb-10 flex items-center justify-between border-b border-abyss/10 pb-6 dark:border-white/10">
+                          <span className="font-serif text-sm italic">
+                              12 voyages de prestige sélectionnés
+                          </span>
+                          <div className="flex items-center gap-4">
+                              <span className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40">
+                                  Trier par :
+                              </span>
+                              <div className="relative">
+                                  <div className="group flex cursor-pointer items-center gap-6 border-b border-abyss/30 pb-2">
+                                      <span className="font-serif text-sm text-abyss dark:text-white">
+                                          Date de départ
+                                      </span>
+                                      <span className="material-symbols-outlined text-base text-primary">
+                                          expand_more
+                                      </span>
+                                  </div>
+                                  <div className="absolute right-0 top-full z-50 mt-[1px] hidden w-64 border border-primary/20 bg-ecru shadow-lg transition group-hover:block dark:bg-abyss">
+                                      <div className="py-1">
+                                          {[
+                                              "Date de départ",
+                                              "Prix croissants",
+                                              "Prix décroissants",
+                                          ].map((option, idx) => (
+                                              <div
+                                                  key={option}
+                                                  className={`cursor-pointer px-8 py-5 text-[11px] font-sans font-medium uppercase tracking-[0.2em] transition-colors hover:bg-primary/5 hover:text-primary ${
+                                                      idx === 0
+                                                          ? "text-abyss dark:text-white border-b border-abyss/5"
+                                                          : "text-abyss/80 dark:text-white/80"
+                                                  }`}
+                                              >
+                                                  {option}
+                                              </div>
+                                          ))}
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 gap-x-10 gap-y-16 md:grid-cols-2">
+                          {cruises.map((cruise) => (
+                              <article
+                                  key={cruise.title}
+                                  className="group flex flex-col"
+                              >
+                                  <div className="relative mb-8 aspect-[3/4] overflow-hidden bg-abyss/5">
+                                      <img
+                                          className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                          src={cruise.image}
+                                          alt={cruise.alt}
+                                      />
+                                      <div className="absolute inset-0 flex items-center justify-center bg-abyss/90 opacity-0 transition-opacity duration-400 group-hover:opacity-100">
+                                          {cruise.overlay}
+                                      </div>
+                                      <div className="absolute left-6 top-6 z-10">
+                                          <span className="border border-abyss/5 bg-white px-4 py-2 text-[9px] font-bold uppercase tracking-[0.25em] text-abyss">
+                                              {cruise.region}
+                                          </span>
+                                      </div>
+                                      <div className="absolute right-6 top-6 z-10">
+                                          <span className="border border-abyss/10 bg-background-light/90 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.25em] text-abyss dark:border-white/10 dark:bg-abyss/90 dark:text-white">
+                                              {cruise.tag}
+                                          </span>
+                                      </div>
+                                  </div>
+
+                                  <div className="mb-4">
+                                      <div className="mb-3 flex items-baseline gap-3">
+                                          <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                                              Prochain départ
+                                          </span>
+                                          <span className="border-b border-primary/30 text-lg font-serif italic">
+                                              {cruise.departure}
+                                          </span>
+                                      </div>
+                                      <h3 className="serif-heading mb-3 text-3xl leading-tight transition-colors group-hover:text-primary">
+                                          {cruise.title}
+                                      </h3>
+                                      <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] opacity-50">
+                                          {cruise.route}
+                                      </p>
+                                  </div>
+
+                                  <div className="mb-8 flex items-center gap-6 border-l border-primary/40 pl-5 text-[11px] font-bold uppercase tracking-widest">
+                                      <span className="opacity-60">
+                                          {cruise.duration}
+                                      </span>
+                                      <span className="opacity-20">/</span>
+                                      <span className="opacity-60">
+                                          {cruise.ship}
+                                      </span>
+                                      <span className="opacity-20">/</span>
+                                      <span className="text-primary">
+                                          {cruise.type}
+                                      </span>
+                                  </div>
+
+                                  <div className="mt-auto flex items-center justify-between border-t border-abyss/5 pt-6 dark:border-white/5">
+                                      <div>
+                                          <span className="mb-1 block text-[10px] font-bold uppercase tracking-[0.2em] opacity-40">
+                                              À partir de
+                                          </span>
+                                          <span className="text-2xl font-bold">
+                                              {cruise.price}
+                                          </span>
+                                          <a
+                                              className="mt-2 block text-[9px] font-bold uppercase tracking-[0.2em] text-primary hover:underline"
+                                              href="#"
+                                          >
+                                              Prochaines dates
+                                          </a>
+                                      </div>
+                                      <button className="border border-abyss px-10 py-4 text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:bg-abyss hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-abyss">
+                                          Découvrir
+                                      </button>
+                                  </div>
+                              </article>
+                          ))}
+                      </div>
+
+                      <div className="mt-24 flex items-center justify-center gap-2">
+                          <button className="flex h-12 w-12 items-center justify-center border border-abyss/10 opacity-30">
+                              <span className="material-symbols-outlined">
+                                  chevron_left
+                              </span>
+                          </button>
+                          <span className="flex h-12 w-12 items-center justify-center bg-abyss text-xs font-bold text-white">
+                              01
+                          </span>
+                          <button className="flex h-12 w-12 items-center justify-center text-xs font-bold transition-colors hover:bg-abyss/5">
+                              02
+                          </button>
+                          <button className="flex h-12 w-12 items-center justify-center text-xs font-bold transition-colors hover:bg-abyss/5">
+                              03
+                          </button>
+                          <button className="flex h-12 w-12 items-center justify-center border border-abyss/20">
+                              <span className="material-symbols-outlined">
+                                  chevron_right
+                              </span>
+                          </button>
+                      </div>
                   </div>
-                  <div className="max-h-48 space-y-2 overflow-y-auto pr-2">
-                    <FilterBlock title="" options={['MS Berlin', "MS Belle de l'Adriatique", 'Vapeur Authentique', 'MS Cyrano de Bergerac']} hideTitle />
-                  </div>
-                </div>
               </div>
-            </div>
-          </aside>
+          </main>
 
-          <div className="flex-1">
-            <div className="mb-10 flex items-center justify-between border-b border-abyss/10 pb-6 dark:border-white/10">
-              <span className="font-serif text-sm italic">12 voyages de prestige sélectionnés</span>
-              <div className="flex items-center gap-4">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40">Trier par :</span>
-                <div className="relative">
-                  <div className="group flex cursor-pointer items-center gap-6 border-b border-abyss/30 pb-2">
-                    <span className="font-serif text-sm text-abyss dark:text-white">Date de départ</span>
-                    <span className="material-symbols-outlined text-base text-primary">expand_more</span>
-                  </div>
-                  <div className="absolute right-0 top-full z-50 mt-[1px] hidden w-64 border border-primary/20 bg-ecru shadow-lg transition group-hover:block dark:bg-abyss">
-                    <div className="py-1">
-                      {['Date de départ', 'Prix croissants', 'Prix décroissants'].map((option, idx) => (
-                        <div
-                          key={option}
-                          className={`cursor-pointer px-8 py-5 text-[11px] font-sans font-medium uppercase tracking-[0.2em] transition-colors hover:bg-primary/5 hover:text-primary ${
-                            idx === 0 ? 'text-abyss dark:text-white border-b border-abyss/5' : 'text-abyss/80 dark:text-white/80'
-                          }`}
-                        >
-                          {option}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 gap-x-10 gap-y-16 md:grid-cols-2">
-              {cruises.map((cruise) => (
-                <article key={cruise.title} className="group flex flex-col">
-                  <div className="relative mb-8 aspect-[3/4] overflow-hidden bg-abyss/5">
-                    <img
-                      className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                      src={cruise.image}
-                      alt={cruise.alt}
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-abyss/90 opacity-0 transition-opacity duration-400 group-hover:opacity-100">
-                      {cruise.overlay}
-                    </div>
-                    <div className="absolute left-6 top-6 z-10">
-                      <span className="border border-abyss/5 bg-white px-4 py-2 text-[9px] font-bold uppercase tracking-[0.25em] text-abyss">
-                        {cruise.region}
-                      </span>
-                    </div>
-                    <div className="absolute right-6 top-6 z-10">
-                      <span className="border border-abyss/10 bg-background-light/90 px-4 py-2 text-[9px] font-bold uppercase tracking-[0.25em] text-abyss dark:border-white/10 dark:bg-abyss/90 dark:text-white">
-                        {cruise.tag}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mb-4">
-                    <div className="mb-3 flex items-baseline gap-3">
-                      <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Prochain départ</span>
-                      <span className="border-b border-primary/30 text-lg font-serif italic">{cruise.departure}</span>
-                    </div>
-                    <h3 className="serif-heading mb-3 text-3xl leading-tight transition-colors group-hover:text-primary">{cruise.title}</h3>
-                    <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.2em] opacity-50">{cruise.route}</p>
-                  </div>
-
-                  <div className="mb-8 flex items-center gap-6 border-l border-primary/40 pl-5 text-[11px] font-bold uppercase tracking-widest">
-                    <span className="opacity-60">{cruise.duration}</span>
-                    <span className="opacity-20">/</span>
-                    <span className="opacity-60">{cruise.ship}</span>
-                    <span className="opacity-20">/</span>
-                    <span className="text-primary">{cruise.type}</span>
-                  </div>
-
-                  <div className="mt-auto flex items-center justify-between border-t border-abyss/5 pt-6 dark:border-white/5">
-                    <div>
-                      <span className="mb-1 block text-[10px] font-bold uppercase tracking-[0.2em] opacity-40">À partir de</span>
-                      <span className="text-2xl font-bold">{cruise.price}</span>
-                      <a className="mt-2 block text-[9px] font-bold uppercase tracking-[0.2em] text-primary hover:underline" href="#">
-                        Prochaines dates
-                      </a>
-                    </div>
-                    <button className="border border-abyss px-10 py-4 text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:bg-abyss hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-abyss">
-                      Découvrir
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <div className="mt-24 flex items-center justify-center gap-2">
-              <button className="flex h-12 w-12 items-center justify-center border border-abyss/10 opacity-30">
-                <span className="material-symbols-outlined">chevron_left</span>
-              </button>
-              <span className="flex h-12 w-12 items-center justify-center bg-abyss text-xs font-bold text-white">01</span>
-              <button className="flex h-12 w-12 items-center justify-center text-xs font-bold transition-colors hover:bg-abyss/5">02</button>
-              <button className="flex h-12 w-12 items-center justify-center text-xs font-bold transition-colors hover:bg-abyss/5">03</button>
-              <button className="flex h-12 w-12 items-center justify-center border border-abyss/20">
-                <span className="material-symbols-outlined">chevron_right</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      <SiteFooter />
-    </div>
-  )
+          <SiteFooter />
+      </div>
+  );
 }
 
 function FilterBlock({ title, options, defaultChecked = [], hideTitle = false }: { title: string; options: string[]; defaultChecked?: number[]; hideTitle?: boolean }) {

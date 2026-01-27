@@ -1,5 +1,6 @@
 import SiteFooter from '@/components/SiteFooter'
 import SiteHeader from '@/components/SiteHeader'
+import EscapadesIntro from '@/components/EscapadesIntro'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'] })
@@ -103,6 +104,12 @@ export default function VoyagesEnTrainPage() {
       <SiteHeader />
       <main className="mx-auto max-w-[1200px] px-6 pt-32 pb-24 lg:px-12">
         <Hero />
+        <EscapadesIntro
+          eyebrow="Collection Journal de Bord"
+          title="Voyages en Trains : Réalisme & Anthologie"
+          description="Retrouver le rythme lent du monde, là où le voyage devient une destination en soi. Nos épopées ferroviaires ressuscitent l'art de vivre des grands explorateurs, mêlant le luxe feutré des compartiments d'époque à la découverte intime des paysages qui défilent. À travers les continents, chaque arrêt est une porte ouverte sur l'histoire, chaque dîner une célébration, chaque nuit un songe bercé par le chant des rails."
+          edition="Édition Spéciale — Itinéraires Mythiques"
+        />
         <Filters />
         <section className="space-y-28 md:space-y-36">
           {journeys.map((journey, index) => (
@@ -119,33 +126,36 @@ export default function VoyagesEnTrainPage() {
 
 function Hero() {
   return (
-    <section className="mb-16">
-      <div className="relative w-full overflow-hidden bg-abyss shadow-2xl">
-        <div className="aspect-[21/9]">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUwzb-u3iY47-2G60_hiwTn40vRPPOfLSqv5oD6V4Ct-FSWRQlcX94bV3V6BQ-o0aLeaMoj9tZTeEbEXugi9VTZE6aSj1XB6phd7OxG86Q8BH0IZwkaDDiKkTR9s7UZHp3LDDPLVgjlg_kNpThi37XBcndBc-V265ZCMBPawBdxWseNxGA9yFGde7DIVBcLiOauQvPSLMQYfkNLfDF-aIKgcagGyHB4F7G3hrgQZatxo5DWXy4l9q2Wn1uNN4KLzfaRQY6IJxvp50"
-            alt="Train de luxe d'époque dans un paysage montagneux"
-            className="h-full w-full scale-100 object-cover grayscale-[10%] transition-all duration-[2000ms] hover:scale-105 hover:grayscale-0"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-abyss/40" />
-      </div>
-      <div className="mx-auto mt-14 max-w-4xl text-center">
-        <span className="mb-6 block text-xs font-bold uppercase tracking-[0.4em] text-primary">Collection Journal de Bord</span>
-        <h2 className="mb-10 font-serif text-5xl leading-tight italic text-abyss md:text-7xl">Voyages en Trains : Réalisme &amp; Anthologie</h2>
-        <div className="mx-auto mb-10 h-px w-24 bg-primary" />
-        <div className="mx-auto mb-12 max-w-3xl text-left font-serif text-xl leading-relaxed text-abyss/80 md:text-2xl">
-          <p className="drop-cap">
-            Retrouver le rythme lent du monde, là où le voyage devient une destination en soi. Nos épopées ferroviaires
-            ressuscitent l'art de vivre des grands explorateurs, mêlant le luxe feutré des compartiments d'époque à la
-            découverte intime des paysages qui défilent. À travers les continents, chaque arrêt est une porte ouverte sur
-            l'histoire, chaque dîner une célébration, chaque nuit un songe bercé par le chant des rails.
-          </p>
-        </div>
-        <p className="text-sm font-bold uppercase tracking-[0.2em] opacity-60">Édition Spéciale — Itinéraires Mythiques</p>
-      </div>
-    </section>
-  )
+      <section className="mb-16">
+          <div className="relative w-full overflow-hidden bg-abyss shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-abyss/40" />
+          </div>
+          <div className="mx-auto mt-14 max-w-4xl text-center">
+              <span className="mb-6 block text-xs font-bold uppercase tracking-[0.4em] text-primary">
+                  Collection Journal de Bord
+              </span>
+              <h2 className="mb-10 font-serif text-5xl leading-tight italic text-abyss md:text-7xl">
+                  Voyages en Trains : Réalisme &amp; Anthologie
+              </h2>
+              <div className="mx-auto mb-10 h-px w-24 bg-primary" />
+              <div className="mx-auto mb-12 max-w-3xl text-left font-serif text-xl leading-relaxed text-abyss/80 md:text-2xl">
+                  <p className="drop-cap">
+                      Retrouver le rythme lent du monde, là où le voyage devient
+                      une destination en soi. Nos épopées ferroviaires
+                      ressuscitent l'art de vivre des grands explorateurs,
+                      mêlant le luxe feutré des compartiments d'époque à la
+                      découverte intime des paysages qui défilent. À travers les
+                      continents, chaque arrêt est une porte ouverte sur
+                      l'histoire, chaque dîner une célébration, chaque nuit un
+                      songe bercé par le chant des rails.
+                  </p>
+              </div>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] opacity-60">
+                  Édition Spéciale — Itinéraires Mythiques
+              </p>
+          </div>
+      </section>
+  );
 }
 
 function Filters() {
