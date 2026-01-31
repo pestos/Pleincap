@@ -12,6 +12,8 @@ export const metadata = {
 const reviews = [
   {
     id: 'review-1',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuB5BtHx3gNIiJ5izpLiomxkZpSq7-WraxK1VVZtvIr-JSgbM7h0q-Qj1qCwZCivKbiWVNjM9CcuJBuszE0llfSEUyqBBeDLYrPLp2GxwyNJnyg86gbC9Nnbw9K1KmmQ0-qlwx1TBavNiIRcii71IEj1X5n7dl8CwKO2lnMnFFmb7iJC2BUKtjS2D01erDYjAXUdcbH48ZM8E-vGqsxZpjDV0h_kd2J7_jkw7dkoiu6XvRYXbxK3-963Rw1P6Qt_hO0hbqz53rumS10',
     text:
       "Une parenthèse enchantée sur le Danube. Le service est d'une discrétion et d'une élégance rares. On se sent invité plus que client. Chaque matin, le paysage se renouvelle avec une poésie que seul le voyage fluvial permet de saisir pleinement. La table est d'une finesse exemplaire, rendant hommage aux terroirs traversés avec une modernité surprenante. Nous reviendrons sans aucune hésitation pour une nouvelle escapade.",
     author: 'Mme Catherine D.',
@@ -19,6 +21,8 @@ const reviews = [
   },
   {
     id: 'review-3',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDc_mdxYDNLwJo5BvSTC8_p53g35yC1BHoZqqwkYRq4Ve0fuZ00qkIakkDDSr6IxJB_rSLUEt5gdPO9FCB2d2rV4SALGzhqOC3jJ1WzI1uZLMCx2qNfA2SQjhicQKFJhMQydB2kzj4XWp9fo6NVzqRNhrXpHtPxrEFnhLtbWWfoph4Jiz_5DJWvFcYwb7mXPyykV_bOs8sYkNfX42pPwy_vH0NZYqdjQFJcZbFh6dGUxGOKTXkoIaxU6i90j5rvP0WV12IRN_Kcg_4',
     text:
       "Le silence des Fjords, rompu seulement par le souffle du navire. Une organisation impeccable qui laisse toute la place à l'émerveillement. Nous avons été particulièrement touchés par l'expertise des conférenciers à bord, qui ont su éclairer notre regard sur la géologie et l'histoire de ces contrées sauvages. Les cabines sont de véritables cocons de confort, offrant des vues imprenables sur les falaises escarpées. Un voyage pour l'esprit autant que pour les yeux.",
     author: 'Famille Bernard',
@@ -26,6 +30,8 @@ const reviews = [
   },
   {
     id: 'review-5',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuAPlcSAzvgYkoB7sbibXuxEbrtfthoUZWQIlCtLU8YJduDLcS2s8JB54MUSRFv1XGYytYz9gNzxMSWt2m1bA_kHEzT-8_FGSaEVFIkRR_UFDqhGz-ALzIogscIHNnd5ZfzGOWoUrRZ0VaXXzuDGJ_TNbgv_NnqN9vHAuP7ou1iILfT1dlMiU5WoPHdXKWU7EOQAQ9UxVdnBsTzfWzTtakkOHSZRom4dnEeM-QjoPa0h-X-Lhw8o32ahR8kKHJIPFAIJeD938_gLN1Y',
     text:
       "Une gastronomie digne des plus grandes tables, au milieu de l'océan. Chaque soir était une nouvelle découverte culinaire. Bravo au chef et à toute son équipe pour leur créativité et la qualité des produits sourcés localement à chaque escale. Le sommelier a également su nous surprendre avec des accords mets-vins audacieux et toujours justes. Un enchantement pour les papilles du début à la fin.",
     author: 'M. et Mme Duval',
@@ -151,9 +157,16 @@ function Testimonials() {
               <p className="mb-4 text-xl italic leading-relaxed">{r.text}</p>
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent transition-opacity duration-300 peer-checked:opacity-0 dark:from-[#1e1a14]" />
             </div>
-            <div className="mb-8 flex flex-col gap-2 text-sm font-bold uppercase tracking-widest">
-              <p className="text-[#1A2B3C] dark:text-primary">{r.author}</p>
-              <p className="text-xs uppercase tracking-wider opacity-60">{r.meta}</p>
+            <div className="mb-8 flex items-center gap-4">
+              {r.image ? (
+                <div className="h-14 w-14 overflow-hidden rounded-full border border-primary/20">
+                  <img alt={r.author} src={r.image} className="h-full w-full object-cover" />
+                </div>
+              ) : null}
+              <div className="flex flex-col gap-1 text-sm font-bold uppercase tracking-widest">
+                <p className="text-[#1A2B3C] dark:text-primary">{r.author}</p>
+                <p className="text-xs uppercase tracking-wider opacity-60">{r.meta}</p>
+              </div>
             </div>
             <label
               className="toggle-label inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-[#C5A059] transition-opacity hover:opacity-80"

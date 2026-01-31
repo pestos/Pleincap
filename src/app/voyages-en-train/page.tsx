@@ -100,28 +100,33 @@ const suggestions = [
 
 export default function VoyagesEnTrainPage() {
   return (
-    <div className={`${plusJakarta.className} min-h-screen bg-ecru text-abyss`}>
-      <SiteHeader />
-      <main className="mx-auto max-w-[1200px] px-6 pt-32 pb-24 lg:px-12">
-        <Hero />
-        <EscapadesIntro
-          eyebrow="Collection Journal de Bord"
-          title="Voyages en Trains : Réalisme & Anthologie"
-          description="Retrouver le rythme lent du monde, là où le voyage devient une destination en soi. Nos épopées ferroviaires ressuscitent l'art de vivre des grands explorateurs, mêlant le luxe feutré des compartiments d'époque à la découverte intime des paysages qui défilent. À travers les continents, chaque arrêt est une porte ouverte sur l'histoire, chaque dîner une célébration, chaque nuit un songe bercé par le chant des rails."
-          edition="Édition Spéciale — Itinéraires Mythiques"
-        />
-        <Filters />
-        <section className="space-y-28 md:space-y-36">
-          {journeys.map((journey, index) => (
-            <JourneyBlock key={journey.title} journey={journey} reverse={index % 2 === 1} />
-          ))}
-        </section>
-        <ArtDeVivre />
-        <Suggestions />
-      </main>
-      <SiteFooter />
-    </div>
-  )
+      <div
+          className={`${plusJakarta.className} min-h-screen bg-ecru text-abyss`}
+      >
+          <SiteHeader />
+          <main className="mx-auto max-w-[1200px] px-6 pt-32 pb-24 lg:px-12">
+              <EscapadesIntro
+                  eyebrow="Collection Journal de Bord"
+                  title="Voyages en Trains : Réalisme & Anthologie"
+                  description="Retrouver le rythme lent du monde, là où le voyage devient une destination en soi. Nos épopées ferroviaires ressuscitent l'art de vivre des grands explorateurs, mêlant le luxe feutré des compartiments d'époque à la découverte intime des paysages qui défilent. À travers les continents, chaque arrêt est une porte ouverte sur l'histoire, chaque dîner une célébration, chaque nuit un songe bercé par le chant des rails."
+                  edition="Édition Spéciale — Itinéraires Mythiques"
+              />
+              <Filters />
+              <section className="space-y-28 md:space-y-36">
+                  {journeys.map((journey, index) => (
+                      <JourneyBlock
+                          key={journey.title}
+                          journey={journey}
+                          reverse={index % 2 === 1}
+                      />
+                  ))}
+              </section>
+              <ArtDeVivre />
+              <Suggestions />
+          </main>
+          <SiteFooter />
+      </div>
+  );
 }
 
 function Hero() {

@@ -205,6 +205,11 @@ export default function Catalogue() {
                                   options={["Fluviale", "Maritime"]}
                               />
 
+                              <FilterBlock
+                                  title="Accompagnement"
+                                  options={["Voyage accompagné"]}
+                              />
+
                               <div className="space-y-4">
                                   <div className="grid grid-cols-1 gap-3">
                                       <div className="relative">

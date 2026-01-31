@@ -25,6 +25,7 @@ const specs = [
   { label: 'Pavillon', value: 'Allemagne' },
 ]
 
+
 const lifeBlocks = [
   {
     title: 'Suites Amadeus',
@@ -120,6 +121,7 @@ export default function AmadeusDiamondPage() {
     </div>
   )
 }
+
 
 function Hero() {
   return (

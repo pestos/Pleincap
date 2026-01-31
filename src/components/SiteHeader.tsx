@@ -59,7 +59,7 @@ export default function SiteHeader() {
                       Livre d'or
                   </a>
               </div>
-              <div className="flex flex-wrap items-center justify-between gap-4 py-5 lg:flex-nowrap lg:gap-6">
+                <div className="flex flex-wrap items-center justify-between gap-4 py-5 lg:flex-nowrap lg:gap-6">
                   <a className="group/logo flex items-center gap-4" href="/">
                       <div className="size-9 text-primary">
                           <svg
@@ -85,36 +85,36 @@ export default function SiteHeader() {
                           </span>
                       </div>
                   </a>
-                  <div className="flex items-center gap-4 lg:gap-8">
-                      <nav className="hidden items-center gap-5 lg:gap-7 xl:gap-8 lg:flex whitespace-nowrap">
-                          <a
-                              className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
-                              href="/catalogue"
-                          >
+                   <div className="flex items-center gap-4 lg:gap-8">
+                       <nav className="hidden items-center gap-5 lg:gap-7 xl:gap-8 lg:flex whitespace-nowrap">
+                           <a
+                               className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
+                               href="/catalogue"
+                           >
                               Croisières
                           </a>
-                          <a
-                              className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
-                              href="/destinations"
-                          >
+                           <a
+                               className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
+                               href="/destinations"
+                           >
                               Destinations
                           </a>
-                          <a
-                              className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
-                              href="/nos-bateaux"
-                          >
+                           <a
+                               className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
+                               href="/nos-bateaux"
+                           >
                               Nos bateaux
                           </a>
-                          <a
-                              className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
-                              href="/escapades-culturelles"
-                          >
+                           <a
+                               className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
+                               href="/escapades-culturelles"
+                           >
                               Inspiration Voyages
                           </a>
-                          <a
-                              className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
-                              href="/voyages-en-train"
-                          >
+                           <a
+                               className="whitespace-nowrap text-sm font-semibold uppercase tracking-widest transition-colors hover:text-primary"
+                               href="/voyages-en-train"
+                           >
                               Voyages en train
                           </a>
                           <div className="relative group">
@@ -149,16 +149,14 @@ export default function SiteHeader() {
                           </div>
                       </nav>
 
-                      <div className="mx-2 hidden h-8 w-[1px] bg-primary/20 lg:block" />
-                      <button
-                          className={`sharp-edge whitespace-nowrap px-10 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition-all ${
-                              scrolled
-                                  ? "bg-primary"
-                                  : "bg-abyss hover:bg-primary"
-                          } lg:inline-flex hidden`}
-                      >
-                          Nous contacter
-                      </button>
+                       <div className="mx-2 hidden h-8 w-[1px] bg-primary/20 lg:block" />
+                       <button
+                           className={`sharp-edge whitespace-nowrap px-10 py-3 text-xs font-bold uppercase tracking-[0.18em] text-white transition-all ${
+                               scrolled ? "bg-primary" : "bg-abyss hover:bg-primary"
+                           } lg:inline-flex hidden`}
+                       >
+                           Nous contacter
+                       </button>
 
                       <button
                           aria-label={
