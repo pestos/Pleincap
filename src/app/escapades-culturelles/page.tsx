@@ -1,6 +1,9 @@
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import EscapadesIntro from '@/components/EscapadesIntro'
+import { Plus_Jakarta_Sans } from 'next/font/google'
+
+const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'] })
 
 export const metadata = {
   title: "Escapade Culturelle - Plein Cap Croisières d'Exception",
@@ -36,10 +39,9 @@ const suggestions = [
 
 export default function EscapadesCulturelles() {
   return (
-      <div className="relative flex min-h-screen w-full flex-col bg-[#F9F8F6] text-abyss">
+      <div className={`${plusJakarta.className} relative flex min-h-screen w-full flex-col bg-[#F9F8F6] text-abyss`}>
           <SiteHeader />
-
-              <main className="mx-auto w-full max-w-[1200px] px-6 pb-20 pt-40">
+          <main className="mx-auto w-full max-w-[1200px] px-6 pb-20 pt-40">
               <EscapadesIntro />
 
               <section className="mb-24 flex flex-col items-center justify-center gap-12 border-y border-abyss/10 py-8 md:flex-row">
@@ -47,37 +49,37 @@ export default function EscapadesCulturelles() {
                       <label className="mb-3 block text-[10px] font-bold uppercase tracking-[0.3em] opacity-40">
                           Filtrer par destination
                       </label>
-              <div className="group relative">
-                  <select className="w-full appearance-none rounded-none border-none border-b border-abyss/20 bg-transparent px-0 py-2 text-xl font-serif focus:border-abyss focus:ring-0">
-                      <option>Toutes les Destinations</option>
-                      <option>Amérique du Sud</option>
-                      <option>Europe du Nord</option>
-                      <option>Europe Centrale</option>
-                      <option>Méditerranée</option>
-                  </select>
-                  <span className="material-symbols-outlined pointer-events-none absolute right-0 bottom-3 opacity-40 transition-opacity group-hover:opacity-100">
-                      keyboard_arrow_down
-                  </span>
-                  <div className="absolute bottom-0 left-0 h-px w-full bg-abyss/20 transition-colors group-hover:bg-abyss" />
-              </div>
+                      <div className="group relative">
+                          <select className="w-full appearance-none rounded-none border-none border-b border-abyss/20 bg-transparent px-0 py-2 text-xl font-serif focus:border-abyss focus:ring-0">
+                              <option>Toutes les Destinations</option>
+                              <option>Amérique du Sud</option>
+                              <option>Europe du Nord</option>
+                              <option>Europe Centrale</option>
+                              <option>Méditerranée</option>
+                          </select>
+                          <span className="material-symbols-outlined pointer-events-none absolute right-0 bottom-3 opacity-40 transition-opacity group-hover:opacity-100">
+                              keyboard_arrow_down
+                          </span>
+                          <div className="absolute bottom-0 left-0 h-px w-full bg-abyss/20 transition-colors group-hover:bg-abyss" />
+                      </div>
                   </div>
                   <div className="relative w-full max-w-[300px]">
                       <label className="mb-3 block text-[10px] font-bold uppercase tracking-[0.3em] opacity-40">
                           Filtrer par date
                       </label>
-              <div className="group relative">
-                  <select className="w-full appearance-none rounded-none border-none border-b border-abyss/20 bg-transparent px-0 py-2 text-xl font-serif focus:border-abyss focus:ring-0">
-                      <option>Toutes les Dates</option>
-                      <option>Automne 2024</option>
-                      <option>Hiver 2024</option>
-                      <option>Printemps 2025</option>
-                      <option>Été 2025</option>
-                  </select>
-                  <span className="material-symbols-outlined pointer-events-none absolute right-0 bottom-3 opacity-40 transition-opacity group-hover:opacity-100">
-                      keyboard_arrow_down
-                  </span>
-                  <div className="absolute bottom-0 left-0 h-px w-full bg-abyss/20 transition-colors group-hover:bg-abyss" />
-              </div>
+                      <div className="group relative">
+                          <select className="w-full appearance-none rounded-none border-none border-b border-abyss/20 bg-transparent px-0 py-2 text-xl font-serif focus:border-abyss focus:ring-0">
+                              <option>Toutes les Dates</option>
+                              <option>Automne 2024</option>
+                              <option>Hiver 2024</option>
+                              <option>Printemps 2025</option>
+                              <option>Été 2025</option>
+                          </select>
+                          <span className="material-symbols-outlined pointer-events-none absolute right-0 bottom-3 opacity-40 transition-opacity group-hover:opacity-100">
+                              keyboard_arrow_down
+                          </span>
+                          <div className="absolute bottom-0 left-0 h-px w-full bg-abyss/20 transition-colors group-hover:bg-abyss" />
+                      </div>
                   </div>
               </section>
 
