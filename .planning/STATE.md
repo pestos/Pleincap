@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-02-14)
 
 **Core value:** L'équipe PleinCap peut gérer l'intégralité du contenu du site sans toucher au code depuis un backoffice intuitif.
-**Current focus:** Phase 2 - Content Collections
+**Current focus:** Phase 3 - Migration & SEO
 
 ## Current Position
 
 Phase: 3 of 5 (Migration & SEO)
-Plan: 4 of 5 (in phase)
-Status: Active
-Last activity: 2026-02-14 — Completed 03-04 (Convert Remaining Pages to CMS)
+Plan: 5 of 5 (in phase) - COMPLETE (human verification pending)
+Status: Phase 3 automated work complete, awaiting human verification
+Last activity: 2026-02-14 — Completed 03-05 (SEO Infrastructure)
 
-Progress: [███████░░░] 73% (11/15 plans across all phases)
+Progress: [████████░░] 80% (12/15 plans across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
+- Total plans completed: 12
 - Average duration: 7 min
 - Total execution time: 1.7 hours
 
@@ -29,17 +29,18 @@ Progress: [███████░░░] 73% (11/15 plans across all phases)
 |-------|-------|-------|----------|
 | 01-foundation | 3 | 20 min | 7 min |
 | 02-content-collections | 4 | 12 min | 3 min |
-| 03-migration-seo | 4 | 61 min | 15 min |
+| 03-migration-seo | 5 | 63 min | 13 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-04 (5 min), 03-01 (11 min), 03-02 (14 min), 03-03 (25 min), 03-04 (11 min)
-- Trend: Phase 3 tasks stabilizing around 11-15 min with CMS integration patterns established
+- Last 5 plans: 03-01 (11 min), 03-02 (14 min), 03-03 (25 min), 03-04 (11 min), 03-05 (2 min)
+- Trend: Phase 3 complete. SEO plan fast due to established patterns from prior plans
 
 *Updated after each plan completion*
 | Phase 03 P01 | 11 | 2 tasks | 8 files |
 | Phase 03 P02 | 14 | 2 tasks | 7 files |
 | Phase 03 P03 | 25 | 2 tasks | 7 files |
 | Phase 03 P04 | 11 | 2 tasks | 10 files |
+| Phase 03 P05 | 2 | 1 task | 4 files |
 
 ## Accumulated Context
 
@@ -89,6 +90,9 @@ Recent decisions affecting current work:
 - [Phase 03-04]: Used `any` types for Payload CMS data to avoid complex type generation issues
 - [Phase 03-04]: Server/Client component split pattern for pages requiring filtering/search
 - [Phase 03-04]: Dynamic [slug] route replaces static boat detail pages
+- [Phase 03-05]: Sitemap.ts placed at app root (outside route groups) for /sitemap.xml access
+- [Phase 03-05]: Destinations included in sitemap for complete URL coverage
+- [Phase 03-05]: Fixed catalogue params to Promise pattern for Next.js 16 compatibility
 
 ### Pending Todos
 
@@ -110,6 +114,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-14 (phase 03 plan 04 execution complete)
-Stopped at: Completed 03-04-PLAN.md
+Last session: 2026-02-14 (phase 03 plan 05 execution complete)
+Stopped at: Completed 03-05-PLAN.md (human verification pending for full Phase 3 sign-off)
 Resume file: None
