@@ -20,7 +20,7 @@ import { Banners } from './src/payload/collections/Banners'
 import { Subscribers } from './src/payload/collections/Subscribers'
 import { Campaigns } from './src/payload/collections/Campaigns'
 import { CampaignSends } from './src/payload/collections/CampaignSends'
-import { EmailAnalytics } from './src/payload/collections/EmailAnalytics'
+import { sendCampaign } from './src/payload/jobs/sendCampaign'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -35,7 +35,7 @@ export default buildConfig({
     },
   },
 
-  collections: [Users, Media, Cruises, Destinations, Boats, Speakers, Team, Posts, Categories, Tags, Testimonials, Banners, Subscribers, Campaigns, CampaignSends, EmailAnalytics],
+  collections: [Users, Media, Cruises, Destinations, Boats, Speakers, Team, Posts, Categories, Tags, Testimonials, Banners, Subscribers, Campaigns, CampaignSends],
 
   editor: lexicalEditor({}),
 
@@ -54,6 +54,10 @@ export default buildConfig({
   ],
 
   sharp,
+
+  jobs: {
+    tasks: [sendCampaign],
+  },
 
   db: postgresAdapter({
     pool: {
