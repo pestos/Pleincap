@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 ## Current Position
 
 Phase: 2 of 5 (Content Collections)
-Plan: 2 of 4 in phase
+Plan: 3 of 4 in phase
 Status: In progress
-Last activity: 2026-02-14 — Completed 02-01 (Shared Utilities & First Collections)
+Last activity: 2026-02-14 — Completed 02-02 (Entity Collections)
 
-Progress: [████░░░░░░] 27% (4/15 plans across all phases)
+Progress: [████░░░░░░] 33% (5/15 plans across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 6 min
-- Total execution time: 0.4 hours
+- Total plans completed: 5
+- Average duration: 5 min
+- Total execution time: 0.5 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 3 | 20 min | 7 min |
-| 02-content-collections | 1 | 2 min | 2 min |
+| 02-content-collections | 2 | 4 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2 min), 01-02 (4 min), 01-03 (13 min), 02-01 (2 min)
-- Trend: Phase 2 starting efficiently, reusing established patterns
+- Last 5 plans: 01-02 (4 min), 01-03 (13 min), 02-01 (2 min), 02-02 (2 min)
+- Trend: Phase 2 maintaining high velocity, established patterns working well
 
 *Updated after each plan completion*
 
@@ -60,6 +60,9 @@ Recent decisions affecting current work:
 - [Phase 02-content-collections]: NFD normalization for slug generation handles French accents correctly (02-01)
 - [Phase 02-content-collections]: Collections grouped under 'Contenu' to separate from 'Administration' (02-01)
 - [Phase 02-content-collections]: Used jobTitle instead of role for Team collection to avoid confusion with user roles (02-01)
+- [Phase 02-content-collections]: Boats cabin array includes 6 fields for detailed cabin specifications (02-02)
+- [Phase 02-content-collections]: Categories and Tags admin-only to prevent taxonomy sprawl (02-02)
+- [Phase 02-content-collections]: Admin sidebar groups: 'Croisieres' for Destinations/Boats, 'Blog' for Categories/Tags (02-02)
 
 ### Pending Todos
 
@@ -82,5 +85,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-14 (phase 02 plan execution)
-Stopped at: Completed 02-01-PLAN.md (Shared Utilities & First Collections)
+Stopped at: Completed 02-02-PLAN.md (Entity Collections)
 Resume file: None
