@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-14)
 
 **Core value:** L'équipe PleinCap peut gérer l'intégralité du contenu du site sans toucher au code depuis un backoffice intuitif.
-**Current focus:** Phase 3 complete — Phase 4 next
+**Current focus:** Phase 4 — Newsletter Foundation
 
 ## Current Position
 
-Phase: 3 of 5 (Migration & SEO) — COMPLETE
-Plan: 5 of 5 (in phase) - COMPLETE (human verified)
-Status: Phase 3 fully complete. Ready for Phase 4 planning.
-Last activity: 2026-02-14 — Phase 3 human verification passed
+Phase: 4 of 5 (Newsletter Foundation) — IN PROGRESS
+Plan: 2 of 4 (in phase) - Plan 01 complete
+Status: Newsletter subscription foundation built. Next: Plan 02 (Newsletter UI)
+Last activity: 2026-02-14 — 04-01 complete
 
-Progress: [████████░░] 80% (12/15 plans across all phases)
+Progress: [████████░░] 81% (13/16 plans across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
+- Total plans completed: 13
 - Average duration: 7 min
-- Total execution time: 1.7 hours
+- Total execution time: 1.8 hours
 
 **By Phase:**
 
@@ -30,10 +30,11 @@ Progress: [████████░░] 80% (12/15 plans across all phases)
 | 01-foundation | 3 | 20 min | 7 min |
 | 02-content-collections | 4 | 12 min | 3 min |
 | 03-migration-seo | 5 | 63 min | 13 min |
+| 04-newsletter-foundation | 1 | 5 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 03-01 (11 min), 03-02 (14 min), 03-03 (25 min), 03-04 (11 min), 03-05 (2 min)
-- Trend: Phase 3 complete. SEO plan fast due to established patterns from prior plans
+- Last 5 plans: 03-02 (14 min), 03-03 (25 min), 03-04 (11 min), 03-05 (2 min), 04-01 (5 min)
+- Trend: Phase 4 started. Newsletter foundation fast build on established API patterns
 
 *Updated after each plan completion*
 | Phase 03 P01 | 11 | 2 tasks | 8 files |
@@ -41,6 +42,7 @@ Progress: [████████░░] 80% (12/15 plans across all phases)
 | Phase 03 P03 | 25 | 2 tasks | 7 files |
 | Phase 03 P04 | 11 | 2 tasks | 10 files |
 | Phase 03 P05 | 2 | 1 task | 4 files |
+| Phase 04 P01 | 5 | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -93,6 +95,10 @@ Recent decisions affecting current work:
 - [Phase 03-05]: Sitemap.ts placed at app root (outside route groups) for /sitemap.xml access
 - [Phase 03-05]: Destinations included in sitemap for complete URL coverage
 - [Phase 03-05]: Fixed catalogue params to Promise pattern for Next.js 16 compatibility
+- [Phase 04-01]: Email adapter interface with ConsoleEmailAdapter default for provider-agnostic architecture
+- [Phase 04-01]: One-click unsubscribe with immediate processing for GDPR compliance
+- [Phase 04-01]: nanoid for URL-safe token generation instead of crypto.randomBytes
+- [Phase 04-01]: Async render functions for React Email templates (render() returns Promise)
 
 ### Pending Todos
 
@@ -114,6 +120,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-14 (Phase 3 complete, human verified)
-Stopped at: Phase 3 fully complete. Next: /gsd:plan-phase 4
+Last session: 2026-02-14 (Phase 4 Plan 01 complete)
+Stopped at: Completed 04-01-PLAN.md (Newsletter subscription foundation)
 Resume file: None
