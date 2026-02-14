@@ -12,7 +12,7 @@ Transform the PleinCap Next.js site from hardcoded content to a fully dynamic CM
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - CMS infrastructure and authentication
+- [x] **Phase 1: Foundation** - CMS infrastructure and authentication
 - [ ] **Phase 2: Content Collections** - All content types as editable collections
 - [ ] **Phase 3: Migration & SEO** - Replace hardcoded content, preserve rankings
 - [ ] **Phase 4: Newsletter Foundation** - Core newsletter system with campaigns
@@ -32,9 +32,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 01-01-PLAN.md -- Upgrade Next.js 14 to 15.x and React 18 to 19.x
-- [ ] 01-02-PLAN.md -- Install Payload CMS, PostgreSQL setup, route group restructuring
-- [ ] 01-03-PLAN.md -- Create Users and Media collections with RBAC, seed admin, verify
+- [x] 01-01-PLAN.md -- Upgrade Next.js 14 to 15.x and React 18 to 19.x
+- [x] 01-02-PLAN.md -- Install Payload CMS, PostgreSQL setup, route group restructuring
+- [x] 01-03-PLAN.md -- Create Users and Media collections with RBAC, seed admin, verify
 
 ---
 
@@ -116,7 +116,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/3 | Planned | - |
+| 1. Foundation | 3/3 | ✓ Complete | 2026-02-14 |
 | 2. Content Collections | 0/? | Not started | - |
 | 3. Migration & SEO | 0/? | Not started | - |
 | 4. Newsletter Foundation | 0/? | Not started | - |
@@ -124,4 +124,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 ---
 *Roadmap created: 2026-02-14*
-*Last updated: 2026-02-14*
+*Last updated: 2026-02-14 (Phase 1 completed)*
