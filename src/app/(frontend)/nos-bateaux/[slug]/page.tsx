@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params
-  const boat = await getBoatBySlug(slug)
+  const boat = await getBoatBySlug(slug) as any
 
   if (!boat) {
     return {
@@ -27,9 +27,18 @@ export async function generateMetadata({ params }: Props) {
     }
   }
 
+  const metaTitle = boat.meta?.title || `${boat.name} | Plein Cap`
+  const metaDescription = boat.meta?.description || `Présentation du ${boat.name} : spécifications, cabines, espaces, équipements, croisières à venir.`
+  const metaImageUrl = boat.meta?.image?.url || boat.featuredImage?.url
+
   return {
-    title: `${boat.name} | Plein Cap`,
-    description: `Présentation du ${boat.name} : spécifications, cabines, espaces, équipements, croisières à venir.`,
+    title: metaTitle,
+    description: metaDescription,
+    openGraph: {
+      title: boat.meta?.title || boat.name,
+      description: metaDescription,
+      images: metaImageUrl ? [metaImageUrl] : [],
+    },
   }
 }
 

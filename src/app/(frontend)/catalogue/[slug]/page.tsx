@@ -4,9 +4,14 @@ import config from '@payload-config'
 import { notFound } from 'next/navigation'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
+import type { Metadata } from 'next'
 
 // Types inferred from Payload
 type Media = { url?: string; alt?: string; id?: number | string }
+
+type Props = {
+  params: Promise<{ slug: string }>
+}
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config })
@@ -19,8 +24,33 @@ export async function generateStaticParams() {
   return docs.map((doc) => ({ slug: doc.slug as string }))
 }
 
-export default async function CruisePage({ params }: { params: { slug: string } }) {
-  const cruise = await getCruiseBySlug(params.slug)
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const cruise = await getCruiseBySlug(slug) as any
+
+  if (!cruise) {
+    return { title: 'Croisiere non trouvee | Plein Cap' }
+  }
+
+  const featuredImage = cruise.featuredImage as Media | undefined
+  const metaTitle = cruise.meta?.title || `${cruise.title} | Plein Cap Croisieres`
+  const metaDescription = cruise.meta?.description || cruise.excerpt || ''
+  const metaImageUrl = cruise.meta?.image?.url || featuredImage?.url
+
+  return {
+    title: metaTitle,
+    description: metaDescription,
+    openGraph: {
+      title: cruise.meta?.title || cruise.title,
+      description: cruise.meta?.description || cruise.excerpt || '',
+      images: metaImageUrl ? [metaImageUrl] : [],
+    },
+  }
+}
+
+export default async function CruisePage({ params }: Props) {
+  const { slug } = await params
+  const cruise = await getCruiseBySlug(slug)
 
   if (!cruise) {
     notFound()
