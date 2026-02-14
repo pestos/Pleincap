@@ -1,11 +1,13 @@
 import { buildConfig } from 'payload'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { Users } from './src/payload/collections/Users'
 import { Media } from './src/payload/collections/Media'
+import { Cruises } from './src/payload/collections/Cruises'
 import { Speakers } from './src/payload/collections/Speakers'
 import { Team } from './src/payload/collections/Team'
 import { Testimonials } from './src/payload/collections/Testimonials'
@@ -29,9 +31,23 @@ export default buildConfig({
     },
   },
 
-  collections: [Users, Media, Speakers, Team, Testimonials, Destinations, Boats, Categories, Tags, Posts, Banners],
+  collections: [Users, Media, Cruises, Destinations, Boats, Speakers, Team, Posts, Categories, Tags, Testimonials, Banners],
 
   editor: lexicalEditor({}),
+
+  plugins: [
+    seoPlugin({
+      collections: ['cruises', 'posts', 'destinations', 'boats'],
+      tabbedUI: true,
+      uploadsCollection: 'media',
+      generateTitle: ({ doc }) => `${doc.title || doc.name} | PleinCap Croisières`,
+      generateDescription: ({ doc }) => {
+        const text = doc.excerpt || ''
+        return typeof text === 'string' ? text.substring(0, 160) : ''
+      },
+      generateURL: ({ doc }) => `https://plein-cap.com/${doc.slug || ''}`,
+    }),
+  ],
 
   sharp,
 
