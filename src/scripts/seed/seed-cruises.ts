@@ -197,7 +197,6 @@ async function seedCruises() {
       const monthMap: Record<string, string> = {
         Janvier: '01',
         Février: '02',
-        Février: '02',
         Mars: '03',
         Avril: '04',
         Mai: '05',
