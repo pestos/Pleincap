@@ -5,22 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-02-14)
 
 **Core value:** L'équipe PleinCap peut gérer l'intégralité du contenu du site sans toucher au code depuis un backoffice intuitif.
-**Current focus:** Phase 1 - Foundation
+**Current focus:** Phase 2 - Content Collections
 
 ## Current Position
 
-Phase: 1 of 5 (Foundation)
-Plan: Complete (3/3 in phase)
-Status: Phase 1 complete
-Last activity: 2026-02-14 — Completed 01-03 (Users and Media Collections)
+Phase: 2 of 5 (Content Collections)
+Plan: 2 of 4 in phase
+Status: In progress
+Last activity: 2026-02-14 — Completed 02-01 (Shared Utilities & First Collections)
 
-Progress: [████░░░░░░] 20% (3/15 plans across all phases)
+Progress: [████░░░░░░] 27% (4/15 plans across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 7 min
+- Total plans completed: 4
+- Average duration: 6 min
 - Total execution time: 0.4 hours
 
 **By Phase:**
@@ -28,10 +28,11 @@ Progress: [████░░░░░░] 20% (3/15 plans across all phases)
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 3 | 20 min | 7 min |
+| 02-content-collections | 1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (2 min), 01-02 (4 min), 01-03 (13 min)
-- Trend: Building baseline, verification adds time
+- Last 5 plans: 01-01 (2 min), 01-02 (4 min), 01-03 (13 min), 02-01 (2 min)
+- Trend: Phase 2 starting efficiently, reusing established patterns
 
 *Updated after each plan completion*
 
@@ -56,6 +57,9 @@ Recent decisions affecting current work:
 - [Phase 01-foundation]: Field-level access control on role field to prevent privilege escalation
 - [Phase 01-foundation]: Three image sizes (thumbnail/card/hero) for media uploads using sharp
 - [Phase 01-foundation]: Local media storage in public/media (Phase 1; may migrate to S3/CDN later)
+- [Phase 02-content-collections]: NFD normalization for slug generation handles French accents correctly (02-01)
+- [Phase 02-content-collections]: Collections grouped under 'Contenu' to separate from 'Administration' (02-01)
+- [Phase 02-content-collections]: Used jobTitle instead of role for Team collection to avoid confusion with user roles (02-01)
 
 ### Pending Todos
 
@@ -77,6 +81,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-14 (phase 01 plan execution)
-Stopped at: Completed 01-03-PLAN.md (Users and Media Collections) - Phase 1 complete
+Last session: 2026-02-14 (phase 02 plan execution)
+Stopped at: Completed 02-01-PLAN.md (Shared Utilities & First Collections)
 Resume file: None
