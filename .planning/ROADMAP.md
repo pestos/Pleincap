@@ -70,10 +70,14 @@ Plans:
   3. All existing URLs remain identical (no 404s or redirects needed)
   4. SEO meta tags, structured data, and sitemaps work correctly for all pages
   5. Google Search Console shows no indexing issues or ranking drops
-**Plans**: TBD
+**Plans**: 5 plans
 
 Plans:
-- [ ] TBD (plan during phase planning)
+- [ ] 03-01-PLAN.md -- Seed scripts (Speakers, Team, Testimonials) + Payload Local API query helpers
+- [ ] 03-02-PLAN.md -- Seed Destinations & Boats + replace Speakers/Team/Testimonials pages with CMS data
+- [ ] 03-03-PLAN.md -- Seed Cruises with relationships + convert catalogue to dynamic CMS pages
+- [ ] 03-04-PLAN.md -- Convert Destinations, Boats, Blog, and Homepage to CMS data
+- [ ] 03-05-PLAN.md -- SEO infrastructure (sitemap, robots, generateMetadata) + full migration verification
 
 ---
 
@@ -121,10 +125,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | ✓ Complete | 2026-02-14 |
 | 2. Content Collections | 4/4 | ✓ Complete | 2026-02-14 |
-| 3. Migration & SEO | 0/? | Not started | - |
+| 3. Migration & SEO | 0/5 | Planned | - |
 | 4. Newsletter Foundation | 0/? | Not started | - |
 | 5. Newsletter Advanced & Deployment | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-14*
-*Last updated: 2026-02-14 (Phase 2 planned)*
+*Last updated: 2026-02-14 (Phase 3 planned)*
