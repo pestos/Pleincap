@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 ## Current Position
 
 Phase: 2 of 5 (Content Collections)
-Plan: 4 of 4 in phase
-Status: In progress
-Last activity: 2026-02-14 — Completed 02-03 (Blog Posts and Banners)
+Plan: Complete (4/4 in phase)
+Status: Phase 2 complete — pending verification
+Last activity: 2026-02-14 — Completed 02-04 (Cruises & SEO Plugin) — Human verified
 
-Progress: [████░░░░░░] 40% (6/15 plans across all phases)
+Progress: [█████░░░░░] 47% (7/15 plans across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
+- Total plans completed: 7
 - Average duration: 4 min
-- Total execution time: 0.6 hours
+- Total execution time: 0.7 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 3 | 20 min | 7 min |
-| 02-content-collections | 3 | 7 min | 2 min |
+| 02-content-collections | 4 | 12 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (13 min), 02-01 (2 min), 02-02 (2 min), 02-03 (3 min)
-- Trend: Phase 2 maintaining exceptional velocity, collection patterns well-established
+- Last 5 plans: 02-01 (2 min), 02-02 (2 min), 02-03 (3 min), 02-04 (5 min)
+- Trend: Phase 2 complete, human verification added time but caught real issues
 
 *Updated after each plan completion*
 
@@ -68,6 +68,11 @@ Recent decisions affecting current work:
 - [Phase 02-content-collections]: Both Posts and Banners use 375ms autosave interval for responsive draft saving (02-03)
 - [Phase 02-content-collections]: Author field auto-defaults to current user via defaultValue hook (02-03)
 - [Phase 02-content-collections]: Public read access restricted to published posts/banners only (02-03)
+- [Phase 02-content-collections]: Cruises use tabs layout (Contenu/Details/Itineraire) for complex form (02-04)
+- [Phase 02-content-collections]: SEO plugin configured with tabbedUI on cruises, posts, destinations, boats (02-04)
+- [Phase 02-content-collections]: Banners video upload changed from URL to file upload per user requirement (02-04)
+- [Phase 02-content-collections]: Media collection accepts video mimeTypes (mp4, webm, ogg) (02-04)
+- [Phase 02-content-collections]: Boats description made optional due to richText validation issue (02-04)
 
 ### Pending Todos
 
@@ -89,6 +94,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-14 (phase 02 plan execution)
-Stopped at: Completed 02-03-PLAN.md (Blog Posts and Banners)
+Last session: 2026-02-14 (phase 02 execution complete)
+Stopped at: Phase 2 complete — all 4 plans executed, human verified
 Resume file: None
