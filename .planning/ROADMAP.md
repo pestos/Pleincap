@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - CMS infrastructure and authentication
 - [x] **Phase 2: Content Collections** - All content types as editable collections
-- [ ] **Phase 3: Migration & SEO** - Replace hardcoded content, preserve rankings
+- [x] **Phase 3: Migration & SEO** - Replace hardcoded content, preserve rankings
 - [ ] **Phase 4: Newsletter Foundation** - Core newsletter system with campaigns
 - [ ] **Phase 5: Newsletter Advanced & Deployment** - Advanced features and production launch
 
@@ -73,11 +73,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 03-01-PLAN.md -- Seed scripts (Speakers, Team, Testimonials) + Payload Local API query helpers
-- [ ] 03-02-PLAN.md -- Seed Destinations & Boats + replace Speakers/Team/Testimonials pages with CMS data
-- [ ] 03-03-PLAN.md -- Seed Cruises with relationships + convert catalogue to dynamic CMS pages
-- [ ] 03-04-PLAN.md -- Convert Destinations, Boats, Blog, and Homepage to CMS data
-- [ ] 03-05-PLAN.md -- SEO infrastructure (sitemap, robots, generateMetadata) + full migration verification
+- [x] 03-01-PLAN.md -- Seed scripts (Speakers, Team, Testimonials) + Payload Local API query helpers
+- [x] 03-02-PLAN.md -- Seed Destinations & Boats + replace Speakers/Team/Testimonials pages with CMS data
+- [x] 03-03-PLAN.md -- Seed Cruises with relationships + convert catalogue to dynamic CMS pages
+- [x] 03-04-PLAN.md -- Convert Destinations, Boats, Blog, and Homepage to CMS data
+- [x] 03-05-PLAN.md -- SEO infrastructure (sitemap, robots, generateMetadata) + full migration verification
 
 ---
 
@@ -125,10 +125,10 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | ✓ Complete | 2026-02-14 |
 | 2. Content Collections | 4/4 | ✓ Complete | 2026-02-14 |
-| 3. Migration & SEO | 0/5 | Planned | - |
+| 3. Migration & SEO | 5/5 | ✓ Complete | 2026-02-14 |
 | 4. Newsletter Foundation | 0/? | Not started | - |
 | 5. Newsletter Advanced & Deployment | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-14*
-*Last updated: 2026-02-14 (Phase 3 planned)*
+*Last updated: 2026-02-14 (Phase 3 complete)*
