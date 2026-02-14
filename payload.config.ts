@@ -3,6 +3,8 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { Users } from './src/payload/collections/Users'
+import { Media } from './src/payload/collections/Media'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -17,9 +19,7 @@ export default buildConfig({
     },
   },
 
-  collections: [
-    // Collections will be added in Plan 03
-  ],
+  collections: [Users, Media],
 
   editor: lexicalEditor({}),
 
@@ -35,4 +35,15 @@ export default buildConfig({
   },
 
   secret: process.env.PAYLOAD_SECRET!,
+
+  onInit: async (payload) => {
+    const existingUsers = await payload.find({
+      collection: 'users',
+      limit: 1,
+    })
+    if (existingUsers.totalDocs === 0) {
+      const { seed } = await import('./src/payload/seed')
+      await seed(payload)
+    }
+  },
 })
