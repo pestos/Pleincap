@@ -18,43 +18,43 @@ type Ship = {
 }
 
 const ships: Ship[] = [
-  {
-    name: 'M/S Amadeus Diamond',
-    tag: 'Fluvial',
-    atmosphere: "Un bijou d'élégance sur les rives de la Seine, alliant raffinement autrichien et art de vivre à la française.",
-    capacity: '144 Passagers',
-    decks: '4 Ponts passagers',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuA6xT7Q8LvU02vTHZTS6izBqXwC3qzAC5M6-EtBxb_lsB673TMTSEqKr-eNWyfV81jX-dlviQHIRyyTwXBCVHaQ9u-OeMPPgT5AS4_Szk67ntNEu903nyIUfapIcaX719TH2IixmkX2D2JCmoaSIhe_B65zLZ2n1i35NgWSGFC47n8-ZveMo49gEPl8YJnjC5i-vyqYOCfWpsg-oKKkCYgiUeKyc5QhI2ef4HkkHIEUADeJ4eWVbmaK7ASvQTRBIsYn9VMQjhCD8RQ',
-  },
-  {
-    name: 'M/S Nile Excellence',
-    tag: 'Fluvial',
-    atmosphere: "Le privilège de naviguer sur le Nil à bord d'une unité de grand luxe, conçue pour l'immersion historique.",
-    capacity: '60 Passagers',
-    decks: '5 Ponts',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuC3YGeIf8cqI0uTrdiAUiF_kLU-TtWs4haeWdAKQbtZ5BGNkVFZ96FOJjleHPw7WEMR8NLUldDpoWiGtrMJioNyMKkQPAShXEFebnm6Em-DdGEAH1W74W8d9E6bryB0tM05bYcSP6WrWsOohf8hHOkkG8-MgT4bsK_byM7M985jq2MChRx5S_NvItSSjuakxiAavOxiMP4vgmnPqJm02u5aOghsJiG1Ufr-gm43nTrA9OaNFPFr6JOiojJk39l303tI8aPykNESDzQ',
-  },
-  {
-    name: 'M/V Monet',
-    tag: 'Maritime',
-    atmosphere: "Un yacht de charme pour explorer l'Adriatique, privilégiant la proximité avec la mer et les escales inédites.",
-    capacity: '50 Passagers',
-    decks: '3 Ponts',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCncjeRYmk0WyvhBw587Zt_kSEBhCWGVycp1T83UVwMLXUgyDIDf51n-Nic2JrJJfCvEbxKxOtME4VGjt4fS3nns8MRo3LfzM_PTrZWlkekA5X-vnZSXqV39-w7TqQh2_a8lmwEMkH1lpdUZQSna9UmGej5oTZAxFYx2vbeLaa9pmHYLsrfSgOEKEZuinpAX-BpEIRIft5TkqYDIhMN5Un0cms7S26hckMX3jEbRsXWdd827g-UtCpQxPHhemaOEqvrxlouT-9FiNk',
-  },
-  {
-    name: 'M/S Queen Isabel',
-    tag: 'Fluvial',
-    atmosphere: 'Le Douro révélé avec majesté. Un navire aux finitions précieuses pour une navigation contemplative.',
-    capacity: '118 Passagers',
-    decks: '4 Ponts',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDOL1x-gSQnsST4TetgHmt1wD1nZCIzQ1UXmdLJ8cXzd7X1t4miQxIekQkUaq8nGN3R95rp6gYLi-81rIYGS34wgWpnG3FaLP-HQVBZBFqAIqvfXi3lZ2sFmxxdRw_up8iijyokXyH0B42L1WZk4aRoI-KnwUDJ7KPfeDLP_h3NzQ5tzvcNEeKoQIdPlWY4A8TQXZOSXabWXQwPFrZlCFlxhWwStXtHUJp1zFH6DHIP6z5r1-LDWV0ZRJN6xdLClfVoPQ52TmJ_zxk',
-  },
-]
+    {
+        name: "M/S Amadeus Diamond",
+        tag: "Fluvial",
+        atmosphere:
+            "Un bijou d'élégance sur les rives de la Seine, alliant raffinement autrichien et art de vivre à la française.",
+        capacity: "144 Passagers",
+        decks: "4 Ponts passagers",
+        image: "https://www.taoticket.fr/assets/images/navi/luftner-cruises-ms-amadeus-diamond-01-VQuun-6.webp",
+    },
+    {
+        name: "M/S Nile Excellence",
+        tag: "Fluvial",
+        atmosphere:
+            "Le privilège de naviguer sur le Nil à bord d'une unité de grand luxe, conçue pour l'immersion historique.",
+        capacity: "60 Passagers",
+        decks: "5 Ponts",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuC3YGeIf8cqI0uTrdiAUiF_kLU-TtWs4haeWdAKQbtZ5BGNkVFZ96FOJjleHPw7WEMR8NLUldDpoWiGtrMJioNyMKkQPAShXEFebnm6Em-DdGEAH1W74W8d9E6bryB0tM05bYcSP6WrWsOohf8hHOkkG8-MgT4bsK_byM7M985jq2MChRx5S_NvItSSjuakxiAavOxiMP4vgmnPqJm02u5aOghsJiG1Ufr-gm43nTrA9OaNFPFr6JOiojJk39l303tI8aPykNESDzQ",
+    },
+    {
+        name: "SH Diana",
+        tag: "Maritime",
+        atmosphere:
+            "Un yacht de charme pour explorer l'Adriatique, privilégiant la proximité avec la mer et les escales inédites.",
+        capacity: "50 Passagers",
+        decks: "3 Ponts",
+        image: "https://www.plein-cap.com/images/stories/ShDiana/sh_diana_01.jpg",
+    },
+    {
+        name: "M/S Hamburg",
+        tag: "Fluvial",
+        atmosphere:
+            "Le Douro révélé avec majesté. Un navire aux finitions précieuses pour une navigation contemplative.",
+        capacity: "118 Passagers",
+        decks: "4 Ponts",
+        image: "https://www.plein-cap.com/images/stories/MsHamburg/ms-hamburg.jpg",
+    },
+];
 
 export default function NosBateauxPage() {
   const [activeTag, setActiveTag] = useState<'Fluvial' | 'Maritime' | 'Tous'>('Tous')

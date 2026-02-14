@@ -19,67 +19,55 @@ type Expert = {
 }
 
 const experts: Expert[] = [
-  {
-    name: 'Jean-Pierre Vallat',
-    title: "Professeur d'Archéologie, Spécialiste Byzantin",
-    tag: 'Archéologie',
-    topics: ['Empire Romain', 'Mosaïques', 'Éphèse'],
-    desc:
-      "Membre émérite de l'Institut de France, il accompagne nos croisières en Méditerranée depuis plus de 15 ans. Ses récits font revivre les pierres des sites les plus secrets de la Grèce et de la Turquie.",
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuB_HKja76H9LT90laMnG-fGfmzCGsZRUzQFAI89ubZMVLdqG2ZYHgeIm2yvrQdMYlznE7gii56xw6BMAQXkJhmtkzEJqiSVIu6YvaTwsz4It8IncoDo-PHxgYQvpltG-Knqsto0eC6N8SCBIBsYtgih1HA7hGOJ9ZkYulyifOxH4roxkNVRjn0A1rbdYHJRYhy7TOLCsQ5rBwJrBxvs0c9Z9IQneqJoC8gXub1ZkRmm8dKVyJ2KCFazP_vRwniTnBv3lMyFoQXL7ps',
-  },
-  {
-    name: 'Marie-Louise Bonnaire',
-    title: "Historienne de l'Art, Conservatrice",
-    tag: 'Art & Culture',
-    topics: ['Renaissance', 'Peinture Flamande', 'Curiosités'],
-    desc:
-      'Spécialiste de la peinture européenne du XVIème siècle, elle partage son regard acéré sur les chefs-d\'œuvre des musées italiens et espagnols lors de nos escales culturelles.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBM--FXbjpasxEUJhcgraW8ecUsjPeYak-LP8Z55BbNtCgg1wVCce7iYNo5d6swaHnsdNI3WSu_96Q2LELoEHIXrgkKCeLaB4z4GlQa9iQQShT2H22tHF-EZkol6nlKtwYzfYUJuK-Oq940MRZIL7Q0W4wjFWfvJB4NPhvEVMbkg8dKjnMlMGhk5cJpY_znWeNdz4R-NpWkX9KBcEWcccEmtlRXUMTL2OjYzDVqdYmayuD-dAfaBqI4Xf-D4oDbQ18TLC2RwCaBtw4',
-  },
-  {
-    name: 'Marc-Antoine Durand',
-    title: 'Musicologue & Critique Musical',
-    tag: 'Musique',
-    topics: ['Opéra Baroque', 'Vivaldi', 'Luth'],
-    desc:
-      "Ancien directeur de programmation, il anime nos croisières musicales par des conférences-concerts illustrées au piano, explorant l'âme des cités de la musique.",
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCTBLC2jMEKbiWeGEXHkBGZgePFfyelc2hChlW_sd0Jimsx8hMWJ3Yh7OSEN6gYsc4u8LvqBOFD0kEgYAgmqMBJ86LtJNJpGCGH497pk6_5dIi3MU0TpZ9wV26026yc7JqJP3vlbYMMXQ8IaGElUEfVI5k0CqNT9_iWu_aL4uFwzYv54ZdNlK0AnpgtTgBcq--M7ReyU_WTHiZ4rfmBwHx0IT3V_ENODRfUffQvC0qe4UQ0AEpS8T3Axts4z1txTxuoJKXEFbBnbbM',
-  },
-  {
-    name: 'Hélène Girard',
-    title: 'Naturaliste & Botaniste',
-    tag: 'Sciences',
-    topics: ['Biodiversité', 'Arctique', 'Écologie'],
-    desc:
-      "Docteure en sciences de l'environnement, elle apporte un éclairage scientifique sur les écosystèmes traversés, des glaces du Grand Nord aux lagons tropicaux.",
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCRqzoVYIlXT32ZcCVVJ0X-v_wKE78HQo1GpnD3_8p-ctR9l76q8G_ri6pHM9ITxQBc3f9lrO0e-HBpj3CAqNKqdqz-ndmlkUAmUijlInF2toI3sXGB8OogSv6Q3RcthIo99FlQSUjO9j0bqIxO5q5uU0TGMKEmhcuUfjajkvFCJ5guQBMp54Ijtu_l924_CmFE1D1kDKLIq4c3FqF0CqG7F7T1uN9t_jEjxVaLgiXH3rgzOS0xbfY1FTY9_ebnh-K95oov9iSGycw',
-  },
-  {
-    name: 'François Dupont',
-    title: 'Historien de la Marine',
-    tag: 'Histoire Navale',
-    topics: ['Grandes Découvertes', 'Cartographie', 'Lorient'],
-    desc:
-      'Grand voyageur et auteur sur la Compagnie des Indes, il retrace l\'épopée des marins qui ont dessiné le monde d\'aujourd\'hui.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBiJm4gCKI8c4LnmJKhHI4i5pWy2B06KnsBpevqKseJSM0SftuT062GMsVS03mAsYlejRYeK9xRK3P0FUTzjEZu_bj-xW5Bd65OjKuQQ9It-qAPuxkoqPEUMEb5HRi2ao0ZjNzDeLb276Vr8q5piClgA-nEa5CCpRyLmP-maJifWsRu6pzTlgLbp3kW6POPxxNZx2k21LWmaKQX3DY1xKyeBWtAc6JJITmAaVJEs6R_-VC2tz7x_L2iBAaxcVMGlqsZy2NAKS8BF-I',
-  },
-  {
-    name: 'Claire Valéry',
-    title: 'Conférencière en Littérature',
-    tag: 'Littérature',
-    topics: ['Poésie XIXème', 'Récits de Voyage', 'Proust'],
-    desc:
-      "Claire explore les liens entre paysages et textes qu'ils ont inspirés, offrant des lectures au crépuscule qui enchantent nos traversées.",
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuA0rO2TYlf0AS7ppd0xmFlZa-eZ-KeoMXqJJ3V2tKrW_dLifqgXEd6diOK1KPF10B1clll_yCCVzuqLZFNmzXzNIEcBcYAERAMmLa5QL3wJJuM2oU1GjfgTHczKTnNu7uLkk33IdlzesQ0WZNuJzBj-yTRRwyueE3OyYhRA-qdQX-QavcEBqxH0Uza7gs2Rk-x-NHInP4AjHizS7FMXaJPaahGVP1fTRfJCBgSMN-08AZXOpORZwp_Tq-CHuvToz2lomFqjPBa0Zng',
-  },
-]
+    {
+        name: "Isabelle Arnon",
+        title: "Professeur d'Archéologie, Spécialiste Byzantin",
+        tag: "Archéologie",
+        topics: ["Empire Romain", "Mosaïques", "Éphèse"],
+        desc: "Membre émérite de l'Institut de France, il accompagne nos croisières en Méditerranée depuis plus de 15 ans. Ses récits font revivre les pierres des sites les plus secrets de la Grèce et de la Turquie.",
+        image: "https://www.plein-cap.com/images/stories/Conferenciers/Isabelle_Arnon_01.jpg",
+    },
+    {
+        name: "Christine Darmagnac",
+        title: "Historienne de l'Art, Conservatrice",
+        tag: "Art & Culture",
+        topics: ["Renaissance", "Peinture Flamande", "Curiosités"],
+        desc: "Spécialiste de la peinture européenne du XVIème siècle, elle partage son regard acéré sur les chefs-d'œuvre des musées italiens et espagnols lors de nos escales culturelles.",
+        image: "https://www.plein-cap.com/images/stories/Conferenciers/ChristineDarmagnac.jpg",
+    },
+    {
+        name: "Marc-Antoine Durand",
+        title: "Musicologue & Critique Musical",
+        tag: "Musique",
+        topics: ["Opéra Baroque", "Vivaldi", "Luth"],
+        desc: "Ancien directeur de programmation, il anime nos croisières musicales par des conférences-concerts illustrées au piano, explorant l'âme des cités de la musique.",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCTBLC2jMEKbiWeGEXHkBGZgePFfyelc2hChlW_sd0Jimsx8hMWJ3Yh7OSEN6gYsc4u8LvqBOFD0kEgYAgmqMBJ86LtJNJpGCGH497pk6_5dIi3MU0TpZ9wV26026yc7JqJP3vlbYMMXQ8IaGElUEfVI5k0CqNT9_iWu_aL4uFwzYv54ZdNlK0AnpgtTgBcq--M7ReyU_WTHiZ4rfmBwHx0IT3V_ENODRfUffQvC0qe4UQ0AEpS8T3Axts4z1txTxuoJKXEFbBnbbM",
+    },
+    {
+        name: "Hélène Girard",
+        title: "Naturaliste & Botaniste",
+        tag: "Sciences",
+        topics: ["Biodiversité", "Arctique", "Écologie"],
+        desc: "Docteure en sciences de l'environnement, elle apporte un éclairage scientifique sur les écosystèmes traversés, des glaces du Grand Nord aux lagons tropicaux.",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCRqzoVYIlXT32ZcCVVJ0X-v_wKE78HQo1GpnD3_8p-ctR9l76q8G_ri6pHM9ITxQBc3f9lrO0e-HBpj3CAqNKqdqz-ndmlkUAmUijlInF2toI3sXGB8OogSv6Q3RcthIo99FlQSUjO9j0bqIxO5q5uU0TGMKEmhcuUfjajkvFCJ5guQBMp54Ijtu_l924_CmFE1D1kDKLIq4c3FqF0CqG7F7T1uN9t_jEjxVaLgiXH3rgzOS0xbfY1FTY9_ebnh-K95oov9iSGycw",
+    },
+    {
+        name: "François Dupont",
+        title: "Historien de la Marine",
+        tag: "Histoire Navale",
+        topics: ["Grandes Découvertes", "Cartographie", "Lorient"],
+        desc: "Grand voyageur et auteur sur la Compagnie des Indes, il retrace l'épopée des marins qui ont dessiné le monde d'aujourd'hui.",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBiJm4gCKI8c4LnmJKhHI4i5pWy2B06KnsBpevqKseJSM0SftuT062GMsVS03mAsYlejRYeK9xRK3P0FUTzjEZu_bj-xW5Bd65OjKuQQ9It-qAPuxkoqPEUMEb5HRi2ao0ZjNzDeLb276Vr8q5piClgA-nEa5CCpRyLmP-maJifWsRu6pzTlgLbp3kW6POPxxNZx2k21LWmaKQX3DY1xKyeBWtAc6JJITmAaVJEs6R_-VC2tz7x_L2iBAaxcVMGlqsZy2NAKS8BF-I",
+    },
+    {
+        name: "Claire Valéry",
+        title: "Conférencière en Littérature",
+        tag: "Littérature",
+        topics: ["Poésie XIXème", "Récits de Voyage", "Proust"],
+        desc: "Claire explore les liens entre paysages et textes qu'ils ont inspirés, offrant des lectures au crépuscule qui enchantent nos traversées.",
+        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA0rO2TYlf0AS7ppd0xmFlZa-eZ-KeoMXqJJ3V2tKrW_dLifqgXEd6diOK1KPF10B1clll_yCCVzuqLZFNmzXzNIEcBcYAERAMmLa5QL3wJJuM2oU1GjfgTHczKTnNu7uLkk33IdlzesQ0WZNuJzBj-yTRRwyueE3OyYhRA-qdQX-QavcEBqxH0Uza7gs2Rk-x-NHInP4AjHizS7FMXaJPaahGVP1fTRfJCBgSMN-08AZXOpORZwp_Tq-CHuvToz2lomFqjPBa0Zng",
+    },
+];
 
 export default function NosConferenciersPage() {
   return (
