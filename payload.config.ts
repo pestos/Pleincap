@@ -6,6 +6,9 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { Users } from './src/payload/collections/Users'
 import { Media } from './src/payload/collections/Media'
+import { Speakers } from './src/payload/collections/Speakers'
+import { Team } from './src/payload/collections/Team'
+import { Testimonials } from './src/payload/collections/Testimonials'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -20,7 +23,7 @@ export default buildConfig({
     },
   },
 
-  collections: [Users, Media],
+  collections: [Users, Media, Speakers, Team, Testimonials],
 
   editor: lexicalEditor({}),
 
