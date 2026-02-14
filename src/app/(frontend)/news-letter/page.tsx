@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 
@@ -87,10 +88,71 @@ const issues: NewsletterIssue[] = [
 const years = ['2026', '2025', '2024', '2023']
 const themes = ['Tout', 'Croisières', 'Rail', 'Escapades']
 
-export default function NewsLetterPage() {
+function StatusBanner() {
+  const searchParams = useSearchParams()
+  const confirmed = searchParams.get('confirmed')
+  const unsubscribed = searchParams.get('unsubscribed')
+
+  if (confirmed === 'true') {
+    return (
+      <div className="w-full border-b border-primary bg-primary/10 py-4">
+        <div className="mx-auto max-w-[1600px] px-6 text-center md:px-16">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-primary">
+            ✓ Inscription confirmée ! Bienvenue dans la communauté PleinCap.
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  if (unsubscribed === 'true') {
+    return (
+      <div className="w-full border-b border-primary/30 bg-abyss/5 py-4">
+        <div className="mx-auto max-w-[1600px] px-6 text-center md:px-16">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-abyss/70">
+            Désinscription confirmée. Vous ne recevrez plus nos communications.
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  return null
+}
+
+function NewsLetterContent() {
   const [selectedYear, setSelectedYear] = useState('2026')
   const [selectedTheme, setSelectedTheme] = useState('Tout')
   const [searchQuery, setSearchQuery] = useState('')
+  const [email, setEmail] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null)
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setMessage(null)
+
+    try {
+      const res = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      const data = await res.json()
+
+      if (res.ok) {
+        setMessage({ type: 'success', text: data.message })
+        setEmail('')
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Une erreur est survenue' })
+      }
+    } catch {
+      setMessage({ type: 'error', text: 'Erreur de connexion. Veuillez réessayer.' })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const filteredIssues = issues.filter(issue => {
     return issue.entries.some(entry => {
@@ -101,7 +163,7 @@ export default function NewsLetterPage() {
   })
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-abyss dark:bg-background-dark dark:text-ecru">
+    <>
       <SiteHeader />
 
       <section className="relative flex h-[60vh] w-full items-center justify-center overflow-hidden pt-20">
@@ -331,20 +393,30 @@ export default function NewsLetterPage() {
               </p>
             </div>
 
-            <form className="mx-auto flex max-w-2xl flex-col gap-0 border border-primary/30 transition-all focus-within:border-primary md:flex-row">
+            <form onSubmit={handleSubscribe} className="mx-auto flex max-w-2xl flex-col gap-0 border border-primary/30 transition-all focus-within:border-primary md:flex-row">
               <input
                 type="email"
                 placeholder="votre@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 border-none bg-transparent px-6 py-4 text-sm text-ecru placeholder:text-ecru/40 focus:outline-none"
                 required
+                disabled={isSubmitting}
               />
               <button
                 type="submit"
-                className="sharp-edge bg-primary px-10 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-ecru hover:text-abyss"
+                disabled={isSubmitting}
+                className="sharp-edge bg-primary px-10 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-ecru hover:text-abyss disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                S'inscrire gratuitement
+                {isSubmitting ? 'Envoi en cours...' : "S'inscrire gratuitement"}
               </button>
             </form>
+
+            {message && (
+              <div className={`mt-4 text-center text-sm ${message.type === 'success' ? 'text-green-400' : 'text-red-400'}`}>
+                {message.text}
+              </div>
+            )}
 
             <p className="text-[10px] uppercase tracking-widest opacity-40">
               Vos données sont protégées. Désinscription possible à tout moment.
@@ -417,6 +489,17 @@ export default function NewsLetterPage() {
       </section>
 
       <SiteFooter />
+    </>
+  )
+}
+
+export default function NewsLetterPage() {
+  return (
+    <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-abyss dark:bg-background-dark dark:text-ecru">
+      <Suspense fallback={null}>
+        <StatusBanner />
+      </Suspense>
+      <NewsLetterContent />
     </div>
   )
 }
