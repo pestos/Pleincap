@@ -2,12 +2,13 @@ import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import DestinationsClient from "./DestinationsClient";
+import { getDestinations } from '@/lib/payload-queries'
 
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'] })
 
 export const metadata = {
   title: 'Destinations Culturelles | Plein Cap',
-  description: 'Voyages d’exception, continents et itinéraires culturels Plein Cap.',
+  description: "Voyages d'exception, continents et itinéraires culturels Plein Cap.",
 }
 
 type Itinerary = {
@@ -39,7 +40,9 @@ const itineraries: Itinerary[] = [
   },
 ]
 
-export default function DestinationsPage() {
+export default async function DestinationsPage() {
+  const destinations = await getDestinations()
+
   return (
       <div
           className={`${plusJakarta.className} flex min-h-screen flex-col bg-[#F9F8F6] text-[#0A1128]`}
@@ -47,7 +50,7 @@ export default function DestinationsPage() {
           <SiteHeader />
           <main className="flex-1">
               <Hero />
-              <DestinationsClient />
+              <DestinationsClient destinations={destinations} />
               <TopItineraries />
           </main>
           <SiteFooter />
