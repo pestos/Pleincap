@@ -3,6 +3,7 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import sharp from 'sharp'
 import { Users } from './src/payload/collections/Users'
 import { Media } from './src/payload/collections/Media'
 
@@ -22,6 +23,8 @@ export default buildConfig({
   collections: [Users, Media],
 
   editor: lexicalEditor({}),
+
+  sharp,
 
   db: postgresAdapter({
     pool: {
