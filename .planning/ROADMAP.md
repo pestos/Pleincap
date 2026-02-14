@@ -13,7 +13,7 @@ Transform the PleinCap Next.js site from hardcoded content to a fully dynamic CM
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - CMS infrastructure and authentication
-- [ ] **Phase 2: Content Collections** - All content types as editable collections
+- [x] **Phase 2: Content Collections** - All content types as editable collections
 - [ ] **Phase 3: Migration & SEO** - Replace hardcoded content, preserve rankings
 - [ ] **Phase 4: Newsletter Foundation** - Core newsletter system with campaigns
 - [ ] **Phase 5: Newsletter Advanced & Deployment** - Advanced features and production launch
@@ -53,10 +53,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 02-01-PLAN.md -- Shared utilities (formatSlug hook, SEO plugin) + Speakers, Team, Testimonials collections
-- [ ] 02-02-PLAN.md -- Destinations, Boats (cabin array), Categories, Tags collections
-- [ ] 02-03-PLAN.md -- Blog Posts (with taxonomy relationships) + Banners (blocks field)
-- [ ] 02-04-PLAN.md -- Cruises (relationships, itinerary, drafts) + SEO plugin config + Phase 2 verification
+- [x] 02-01-PLAN.md -- Shared utilities (formatSlug hook, SEO plugin) + Speakers, Team, Testimonials collections
+- [x] 02-02-PLAN.md -- Destinations, Boats (cabin array), Categories, Tags collections
+- [x] 02-03-PLAN.md -- Blog Posts (with taxonomy relationships) + Banners (blocks field)
+- [x] 02-04-PLAN.md -- Cruises (relationships, itinerary, drafts) + SEO plugin config + Phase 2 verification
 
 ---
 
@@ -120,7 +120,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | ✓ Complete | 2026-02-14 |
-| 2. Content Collections | 0/4 | Planned | - |
+| 2. Content Collections | 4/4 | ✓ Complete | 2026-02-14 |
 | 3. Migration & SEO | 0/? | Not started | - |
 | 4. Newsletter Foundation | 0/? | Not started | - |
 | 5. Newsletter Advanced & Deployment | 0/? | Not started | - |
