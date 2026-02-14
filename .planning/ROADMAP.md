@@ -92,10 +92,13 @@ Plans:
   4. Admin can send campaigns to all subscribers or specific segments
   5. Subscriber can unsubscribe in one click from any email (RGPD compliant)
   6. Email authentication (SPF, DKIM, DMARC) is configured and verified to prevent spam folder delivery
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] TBD (plan during phase planning)
+- [ ] 04-01-PLAN.md -- Subscribers collection, email adapter abstraction, double opt-in flow, GDPR unsubscribe
+- [ ] 04-02-PLAN.md -- Campaigns collection, React Email templates, jobs queue sending
+- [ ] 04-03-PLAN.md -- CSV import/export, email analytics collection, open/click tracking
+- [ ] 04-04-PLAN.md -- Frontend subscription form wiring, full Phase 4 integration verification
 
 ---
 
@@ -126,9 +129,9 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Foundation | 3/3 | ✓ Complete | 2026-02-14 |
 | 2. Content Collections | 4/4 | ✓ Complete | 2026-02-14 |
 | 3. Migration & SEO | 5/5 | ✓ Complete | 2026-02-14 |
-| 4. Newsletter Foundation | 0/? | Not started | - |
+| 4. Newsletter Foundation | 0/4 | In progress | - |
 | 5. Newsletter Advanced & Deployment | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-14*
-*Last updated: 2026-02-14 (Phase 3 complete)*
+*Last updated: 2026-02-14 (Phase 4 planned)*
