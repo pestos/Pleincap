@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 ## Current Position
 
 Phase: 2 of 5 (Content Collections)
-Plan: 3 of 4 in phase
+Plan: 4 of 4 in phase
 Status: In progress
-Last activity: 2026-02-14 — Completed 02-02 (Entity Collections)
+Last activity: 2026-02-14 — Completed 02-03 (Blog Posts and Banners)
 
-Progress: [████░░░░░░] 33% (5/15 plans across all phases)
+Progress: [████░░░░░░] 40% (6/15 plans across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 5 min
-- Total execution time: 0.5 hours
+- Total plans completed: 6
+- Average duration: 4 min
+- Total execution time: 0.6 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 3 | 20 min | 7 min |
-| 02-content-collections | 2 | 4 min | 2 min |
+| 02-content-collections | 3 | 7 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (4 min), 01-03 (13 min), 02-01 (2 min), 02-02 (2 min)
-- Trend: Phase 2 maintaining high velocity, established patterns working well
+- Last 5 plans: 01-03 (13 min), 02-01 (2 min), 02-02 (2 min), 02-03 (3 min)
+- Trend: Phase 2 maintaining exceptional velocity, collection patterns well-established
 
 *Updated after each plan completion*
 
@@ -63,6 +63,11 @@ Recent decisions affecting current work:
 - [Phase 02-content-collections]: Boats cabin array includes 6 fields for detailed cabin specifications (02-02)
 - [Phase 02-content-collections]: Categories and Tags admin-only to prevent taxonomy sprawl (02-02)
 - [Phase 02-content-collections]: Admin sidebar groups: 'Croisieres' for Destinations/Boats, 'Blog' for Categories/Tags (02-02)
+- [Phase 02-content-collections]: Posts organized with tabs (Contenu/Taxonomie/Publication) for cleaner editing UX (02-03)
+- [Phase 02-content-collections]: Banners limited to 1 block (minRows: 1, maxRows: 1) - one hero type per banner (02-03)
+- [Phase 02-content-collections]: Both Posts and Banners use 375ms autosave interval for responsive draft saving (02-03)
+- [Phase 02-content-collections]: Author field auto-defaults to current user via defaultValue hook (02-03)
+- [Phase 02-content-collections]: Public read access restricted to published posts/banners only (02-03)
 
 ### Pending Todos
 
@@ -85,5 +90,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-14 (phase 02 plan execution)
-Stopped at: Completed 02-02-PLAN.md (Entity Collections)
+Stopped at: Completed 02-03-PLAN.md (Blog Posts and Banners)
 Resume file: None
