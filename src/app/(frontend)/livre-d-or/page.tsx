@@ -1,6 +1,7 @@
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import { Plus_Jakarta_Sans } from 'next/font/google'
+import { getTestimonials } from '@/lib/payload-queries'
 
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'] })
 
@@ -8,57 +9,6 @@ export const metadata = {
   title: "Livre d'Or | Plein Cap - Témoignages Clients",
   description: "Témoignages clients Plein Cap : retours d'expérience de croisières culturelles et voyages d'exception.",
 }
-
-const reviews = [
-  {
-    id: 'review-1',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuB5BtHx3gNIiJ5izpLiomxkZpSq7-WraxK1VVZtvIr-JSgbM7h0q-Qj1qCwZCivKbiWVNjM9CcuJBuszE0llfSEUyqBBeDLYrPLp2GxwyNJnyg86gbC9Nnbw9K1KmmQ0-qlwx1TBavNiIRcii71IEj1X5n7dl8CwKO2lnMnFFmb7iJC2BUKtjS2D01erDYjAXUdcbH48ZM8E-vGqsxZpjDV0h_kd2J7_jkw7dkoiu6XvRYXbxK3-963Rw1P6Qt_hO0hbqz53rumS10',
-    text:
-      "Une parenthèse enchantée sur le Danube. Le service est d'une discrétion et d'une élégance rares. On se sent invité plus que client. Chaque matin, le paysage se renouvelle avec une poésie que seul le voyage fluvial permet de saisir pleinement. La table est d'une finesse exemplaire, rendant hommage aux terroirs traversés avec une modernité surprenante. Nous reviendrons sans aucune hésitation pour une nouvelle escapade.",
-    author: 'Mme Catherine D.',
-    meta: "Danube Impérial, Mai 2023",
-  },
-  {
-    id: 'review-3',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDc_mdxYDNLwJo5BvSTC8_p53g35yC1BHoZqqwkYRq4Ve0fuZ00qkIakkDDSr6IxJB_rSLUEt5gdPO9FCB2d2rV4SALGzhqOC3jJ1WzI1uZLMCx2qNfA2SQjhicQKFJhMQydB2kzj4XWp9fo6NVzqRNhrXpHtPxrEFnhLtbWWfoph4Jiz_5DJWvFcYwb7mXPyykV_bOs8sYkNfX42pPwy_vH0NZYqdjQFJcZbFh6dGUxGOKTXkoIaxU6i90j5rvP0WV12IRN_Kcg_4',
-    text:
-      "Le silence des Fjords, rompu seulement par le souffle du navire. Une organisation impeccable qui laisse toute la place à l'émerveillement. Nous avons été particulièrement touchés par l'expertise des conférenciers à bord, qui ont su éclairer notre regard sur la géologie et l'histoire de ces contrées sauvages. Les cabines sont de véritables cocons de confort, offrant des vues imprenables sur les falaises escarpées. Un voyage pour l'esprit autant que pour les yeux.",
-    author: 'Famille Bernard',
-    meta: 'Fjords de Norvège, Juillet 2023',
-  },
-  {
-    id: 'review-5',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAPlcSAzvgYkoB7sbibXuxEbrtfthoUZWQIlCtLU8YJduDLcS2s8JB54MUSRFv1XGYytYz9gNzxMSWt2m1bA_kHEzT-8_FGSaEVFIkRR_UFDqhGz-ALzIogscIHNnd5ZfzGOWoUrRZ0VaXXzuDGJ_TNbgv_NnqN9vHAuP7ou1iILfT1dlMiU5WoPHdXKWU7EOQAQ9UxVdnBsTzfWzTtakkOHSZRom4dnEeM-QjoPa0h-X-Lhw8o32ahR8kKHJIPFAIJeD938_gLN1Y',
-    text:
-      "Une gastronomie digne des plus grandes tables, au milieu de l'océan. Chaque soir était une nouvelle découverte culinaire. Bravo au chef et à toute son équipe pour leur créativité et la qualité des produits sourcés localement à chaque escale. Le sommelier a également su nous surprendre avec des accords mets-vins audacieux et toujours justes. Un enchantement pour les papilles du début à la fin.",
-    author: 'M. et Mme Duval',
-    meta: 'Croisière des Saveurs, Août 2023',
-  },
-  {
-    id: 'review-plain',
-    text:
-      "La Méditerranée comme nous ne l'avions jamais vue. Les escales secrètes proposées par Plein Cap sont de véritables joyaux.",
-    author: 'M. Jean-Pierre L.',
-    meta: 'Méditerranée Secrète, Septembre 2023',
-  },
-  {
-    id: 'review-plain-2',
-    text:
-      "L'élégance du salon, la qualité des conférences à bord... Tout concourt à faire de cette croisière une expérience culturelle de haut vol.",
-    author: 'Mme Sophie R.',
-    meta: 'Escapade Adriatique, Octobre 2023',
-  },
-  {
-    id: 'review-plain-3',
-    text:
-      "Ce qui frappe chez Plein Cap, c'est l'humanité du personnel. On ne se sent jamais comme un numéro. Une expérience profondément humaine.",
-    author: 'M. Luc G.',
-    meta: 'Grandes Escales Baltiques, Juin 2023',
-  },
-]
 
 const gallery = [
   {
@@ -111,13 +61,15 @@ const inspired = [
   },
 ]
 
-export default function LivreDOrPage() {
+export default async function LivreDOrPage() {
+  const testimonials = await getTestimonials()
+
   return (
     <div className={`${plusJakarta.className} flex min-h-screen flex-col bg-[#fbfaf9] text-[#1A2B3C] dark:bg-[#1e1a14] dark:text-[#F9F8F6]`}>
       <SiteHeader />
       <main className="flex-1 pt-24 md:pt-28">
         <Hero />
-        <Testimonials />
+        <Testimonials testimonials={testimonials} />
         <Inspired />
       </main>
       <SiteFooter />
@@ -142,42 +94,46 @@ function Hero() {
   )
 }
 
-function Testimonials() {
+function Testimonials({ testimonials }: { testimonials: any[] }) {
   return (
     <section className="px-6 pb-24 md:px-20 lg:px-40">
       <div className="columns-1 gap-6 sm:columns-2 lg:columns-3">
-        {reviews.map((r, idx) => (
-          <div
-            key={r.id}
-            className={`mb-6 break-inside-avoid border border-primary/10 bg-white p-8 shadow-sm transition dark:bg-[#1e1a14]/50 ${idx === 4 ? 'bg-primary/5 dark:bg-primary/10 border-primary/20' : ''}`}
-          >
-            <span className="quote-mark mb-2 block text-5xl text-primary leading-none">“</span>
-            <input className="peer hidden" id={r.id} type="checkbox" />
-            <div className="relative max-h-40 overflow-hidden transition-[max-height] duration-500 peer-checked:max-h-[2000px]">
-              <p className="mb-4 text-xl italic leading-relaxed">{r.text}</p>
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent transition-opacity duration-300 peer-checked:opacity-0 dark:from-[#1e1a14]" />
-            </div>
-            <div className="mb-8 flex items-center gap-4">
-              {r.image ? (
-                <div className="h-14 w-14 overflow-hidden rounded-full border border-primary/20">
-                  <img alt={r.author} src={r.image} className="h-full w-full object-cover" />
-                </div>
-              ) : null}
-              <div className="flex flex-col gap-1 text-sm font-bold uppercase tracking-widest">
-                <p className="text-[#1A2B3C] dark:text-primary">{r.author}</p>
-                <p className="text-xs uppercase tracking-wider opacity-60">{r.meta}</p>
-              </div>
-            </div>
-            <label
-              className="toggle-label inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-[#C5A059] transition-opacity hover:opacity-80"
-              htmlFor={r.id}
+        {testimonials.map((t, idx) => {
+          const imageUrl = t.authorPhoto?.url || t.authorPhoto?.thumbnailURL || ''
+
+          return (
+            <div
+              key={t.id}
+              className={`mb-6 break-inside-avoid border border-primary/10 bg-white p-8 shadow-sm transition dark:bg-[#1e1a14]/50 ${idx === 4 ? 'bg-primary/5 dark:bg-primary/10 border-primary/20' : ''}`}
             >
-              <span className="read-more">Lire l'avis en entier</span>
-              <span className="read-less">Fermer</span>
-              <span className="material-symbols-outlined text-sm">expand_more</span>
-            </label>
-          </div>
-        ))}
+              <span className="quote-mark mb-2 block text-5xl text-primary leading-none">"</span>
+              <input className="peer hidden" id={`testimonial-${t.id}`} type="checkbox" />
+              <div className="relative max-h-40 overflow-hidden transition-[max-height] duration-500 peer-checked:max-h-[2000px]">
+                <p className="mb-4 text-xl italic leading-relaxed">{t.content}</p>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent transition-opacity duration-300 peer-checked:opacity-0 dark:from-[#1e1a14]" />
+              </div>
+              <div className="mb-8 flex items-center gap-4">
+                {imageUrl ? (
+                  <div className="h-14 w-14 overflow-hidden rounded-full border border-primary/20">
+                    <img alt={t.authorName} src={imageUrl} className="h-full w-full object-cover" />
+                  </div>
+                ) : null}
+                <div className="flex flex-col gap-1 text-sm font-bold uppercase tracking-widest">
+                  <p className="text-[#1A2B3C] dark:text-primary">{t.authorName}</p>
+                  <p className="text-xs uppercase tracking-wider opacity-60">{t.cruiseName || ''}</p>
+                </div>
+              </div>
+              <label
+                className="toggle-label inline-flex cursor-pointer items-center gap-2 text-sm font-medium text-[#C5A059] transition-opacity hover:opacity-80"
+                htmlFor={`testimonial-${t.id}`}
+              >
+                <span className="read-more">Lire l'avis en entier</span>
+                <span className="read-less">Fermer</span>
+                <span className="material-symbols-outlined text-sm">expand_more</span>
+              </label>
+            </div>
+          )
+        })}
       </div>
 
       <div className="mt-16 flex flex-col items-center gap-6">
