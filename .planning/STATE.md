@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 
 ## Current Position
 
-Phase: 2 of 5 (Content Collections)
-Plan: Complete (4/4 in phase)
-Status: Phase 2 complete — pending verification
-Last activity: 2026-02-14 — Completed 02-04 (Cruises & SEO Plugin) — Human verified
+Phase: 3 of 5 (Migration & SEO)
+Plan: 1 of 5 (in phase)
+Status: Active
+Last activity: 2026-02-14 — Completed 03-01 (Seed Independent Collections)
 
-Progress: [█████░░░░░] 47% (7/15 plans across all phases)
+Progress: [█████░░░░░] 53% (8/15 plans across all phases)
 
 ## Performance Metrics
 
@@ -35,6 +35,7 @@ Progress: [█████░░░░░] 47% (7/15 plans across all phases)
 - Trend: Phase 2 complete, human verification added time but caught real issues
 
 *Updated after each plan completion*
+| Phase 03 P01 | 11 | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -73,6 +74,9 @@ Recent decisions affecting current work:
 - [Phase 02-content-collections]: Banners video upload changed from URL to file upload per user requirement (02-04)
 - [Phase 02-content-collections]: Media collection accepts video mimeTypes (mp4, webm, ogg) (02-04)
 - [Phase 02-content-collections]: Boats description made optional due to richText validation issue (02-04)
+- [Phase 03-01]: Used API routes instead of CLI scripts for seed execution due to tsx/Payload 3.x compatibility issue
+- [Phase 03-01]: External images downloaded and uploaded to Media collection for required upload fields
+- [Phase 03-01]: Idempotent seed scripts check for duplicates via slug/authorName before creating
 
 ### Pending Todos
 
