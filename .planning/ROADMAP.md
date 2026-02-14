@@ -91,7 +91,6 @@ Plans:
   3. Admin can create email campaigns using responsive templates with text/image editor
   4. Admin can send campaigns to all subscribers or specific segments
   5. Subscriber can unsubscribe in one click from any email (RGPD compliant)
-  6. Email authentication (SPF, DKIM, DMARC) is configured and verified to prevent spam folder delivery
 **Plans**: 4 plans
 
 Plans:
@@ -110,8 +109,9 @@ Plans:
   1. Admin can view open rates, click rates, and unsubscribe rates per campaign in dashboard
   2. Admin can create subscriber segments based on interests, engagement, or demographics
   3. Admin can create automated email sequences (welcome series, re-engagement for inactive subscribers)
-  4. Site is deployed on VPS with PostgreSQL database in production
-  5. All features work correctly in production environment with proper backups configured
+  4. Email authentication (SPF, DKIM, DMARC) is configured and verified to prevent spam folder delivery
+  5. Site is deployed on VPS with PostgreSQL database in production
+  6. All features work correctly in production environment with proper backups configured
 **Plans**: TBD
 
 Plans:

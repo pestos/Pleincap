@@ -7,6 +7,7 @@ type Continent = 'Europe' | 'Afrique' | 'Asie' | 'Amériques' | 'Océanie'
 type Region = {
   area: string
   title: string
+  slug: string
   itineraries: number
   image: string
   continent: Continent
@@ -65,7 +66,8 @@ function convertDestinationsToRegions(destinations: Destination[]): Region[] {
   return destinations.map((dest) => ({
     area: dest.region,
     title: dest.name,
-    itineraries: 0, // Not available without querying cruises
+    slug: dest.slug || '',
+    itineraries: 0,
     image: dest.featuredImage?.url || '',
     continent: mapRegionToContinent(dest.region),
   }))
@@ -121,7 +123,11 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
           </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {filteredRegions.map((region) => (
-              <article key={region.title} className="luxury-grid-card group relative aspect-[4/5] cursor-pointer overflow-hidden">
+              <a
+                key={region.title}
+                href={`/catalogue?destination=${encodeURIComponent(region.title)}`}
+                className="luxury-grid-card group relative aspect-[4/5] cursor-pointer overflow-hidden"
+              >
                 <div className="absolute inset-0 overflow-hidden">
                   <div
                     className="card-image h-full w-full bg-cover bg-center"
@@ -137,10 +143,10 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
                   <h4 className="mb-4 text-3xl font-bold text-white">{region.title}</h4>
                   <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/80">
                     <span className="material-symbols-outlined text-sm">sailing</span>
-                    {region.itineraries} Itinéraires disponibles
+                    Découvrir les itinéraires
                   </div>
                 </div>
-              </article>
+              </a>
             ))}
           </div>
           {filteredRegions.length === 0 ? (

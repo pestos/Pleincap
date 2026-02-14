@@ -1,11 +1,33 @@
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
-import { getCruises, getTestimonials } from '@/lib/payload-queries'
+import HomeSearchBox from '@/components/HomeSearchBox'
+import { getHomepageConfig, getTestimonials, getFeaturedCruises, getDestinations } from '@/lib/payload-queries'
 
 export default async function Home() {
-  const { docs: featuredCruises } = await getCruises({ published: true, limit: 3 })
-  const testimonials = await getTestimonials({ featured: true })
+  const [homepageConfig, testimonials, destinations] = await Promise.all([
+    getHomepageConfig(),
+    getTestimonials({ featured: true }),
+    getDestinations(),
+  ])
   const featuredTestimonial = testimonials[0]
+  const destinationOptions = destinations.map((d: any) => ({ id: d.id, name: d.name }))
+
+  const intro = (homepageConfig as any).intro || {}
+  const gridCruises = ((homepageConfig as any).gridCruises || []) as any[]
+  // Use cruises selected in HomepageConfig, or fall back to cruises flagged "featured" in catalogue
+  const configCruises = ((homepageConfig as any).featuredCruises || []) as any[]
+  const featuredCruises = configCruises.length > 0
+    ? configCruises
+    : await getFeaturedCruises({ limit: 3 })
+  const trustMarks = ((homepageConfig as any).trustMarks || []) as any[]
+  const selectionHeading = (homepageConfig as any).selectionHeading || 'Les envies du moment'
+  const categoriesHeading = (homepageConfig as any).categoriesHeading || 'Trouvez le voyage qui vous ressemble'
+  const categoriesSubheading = (homepageConfig as any).categoriesSubheading || ''
+
+  // Split grid cruises into 2 rows: first 2 on top, next 3 below
+  const topRow = gridCruises.slice(0, 2)
+  const bottomRow = gridCruises.slice(2, 5)
+
   return (
       <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-abyss dark:bg-background-dark dark:text-ecru">
           <SiteHeader />
@@ -35,74 +57,21 @@ export default async function Home() {
           </section>
 
           {/* SEARCH BOX (OVERLAP HERO) */}
-          <section className="relative z-20 -mt-12 w-full">
-              <div className="mx-auto max-w-[1600px] px-6 md:px-16">
-                  <div className="flex flex-col items-end justify-between gap-8 border border-primary/30 bg-background-light p-6 shadow-2xl dark:bg-background-dark md:flex-row md:p-8">
-                      <div className="grid w-full flex-1 grid-cols-1 gap-12 md:grid-cols-2">
-                          <div className="flex flex-col gap-2">
-                              <label className="text-[10px] font-bold uppercase tracking-widest text-primary">
-                                  Destination
-                              </label>
-                              <div className="flex items-center gap-3 border-b border-abyss/20 py-2">
-                                  <span className="material-symbols-outlined text-sm">
-                                      map
-                                  </span>
-                                  <input
-                                      className="w-full border-none bg-transparent p-0 text-sm text-abyss focus:ring-0 dark:text-ecru"
-                                      type="text"
-                                      placeholder="Trouvez votre prochaine destination?"
-                                  />
-                              </div>
-                          </div>
-
-                          <div className="flex flex-col gap-2">
-                              <label className="text-[10px] font-bold uppercase tracking-widest text-primary">
-                                  Dates
-                              </label>
-                              <div className="flex items-center gap-3 border-b border-abyss/20 py-2">
-                                  <span className="material-symbols-outlined text-sm">
-                                      calendar_month
-                                  </span>
-                                  <input
-                                      className="w-full border-none bg-transparent p-0 text-sm text-abyss focus:ring-0 dark:text-ecru"
-                                      type="text"
-                                      placeholder="choisissez votre période"
-                                  />
-                              </div>
-                          </div>
-                      </div>
-
-                      <div className="flex w-full items-center gap-8 md:w-auto">
-                          <a
-                              className="whitespace-nowrap text-xs font-semibold uppercase tracking-widest text-abyss transition-colors hover:text-primary"
-                              href="/catalogue"
-                          >
-                              Recherche avancée
-                          </a>
-                          <button className="sharp-edge w-full bg-abyss px-12 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all hover:opacity-90 dark:bg-primary dark:text-white md:w-auto">
-                              Rechercher
-                          </button>
-                      </div>
-                  </div>
-              </div>
-          </section>
+          <HomeSearchBox destinations={destinationOptions} />
 
           {/* INTRO */}
           <section className="w-full pt-[120px]">
               <div className="mx-auto max-w-[1600px] px-6 md:px-16">
                   <div className="flex flex-col items-center border-y border-primary/20 py-12 text-center">
                       <span className="mb-12 text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-                          L'esprit plein cap
+                          {intro.label || "L'esprit plein cap"}
                       </span>
                       <div className="max-w-5xl">
                           <p className="serif-heading drop-cap text-left text-3xl leading-relaxed text-abyss dark:text-ecru md:text-4xl">
-                              Tour opérateur croisiériste spécialisé dans le
-                              maritime et présent sur le marché francophone,
-                              Plein Cap vous fait voguer sur les mers du Monde
-                              depuis plus de 40 ans.
+                              {intro.body || "Tour opérateur croisiériste spécialisé dans le maritime et présent sur le marché francophone, Plein Cap vous fait voguer sur les mers du Monde depuis plus de 40 ans."}
                           </p>
                           <p className="mt-8 text-right text-sm italic opacity-70">
-                              — Jean-Paul Macocco
+                              — {intro.author || 'Jean-Paul Macocco'}
                           </p>
                       </div>
                   </div>
@@ -114,90 +83,85 @@ export default async function Home() {
               <div className="mx-auto max-w-[1600px] px-6 md:px-16">
                   <div className="mb-16 w-full text-center md:mb-20">
                       <h3 className="serif-heading mb-6 text-5xl md:text-5xl">
-                          Trouvez le voyage qui vous ressemble
+                          {categoriesHeading}
                       </h3>
-                      <p className="text-sm font-light leading-relaxed opacity-70">
-                          Curated experiences across the world's most evocative
-                          waterways. From the majestic Rhine to the hidden gems
-                          of the Adriatic.
-                      </p>
+                      {categoriesSubheading && (
+                          <p className="text-sm font-light leading-relaxed opacity-70">
+                              {categoriesSubheading}
+                          </p>
+                      )}
                   </div>
 
-                  <div className="grid h-[800px] w-full grid-cols-12 gap-6">
-                      <div className="group relative col-span-12 overflow-hidden md:col-span-7">
-                          <div
-                              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                              style={{
-                                  backgroundImage:
-                                      "linear-gradient(0deg, rgba(26, 43, 60, 0.7) 0%, transparent 40%), url('https://www.plein-cap.com/images/2026/celtique/shutterstock_1240921069.jpg')",
-                              }}
-                          />
-                          <div className="absolute bottom-10 left-10 text-white">
-                              <h4 className="serif-heading text-3xl">
-                                  Croisiéres Maritimes
-                              </h4>
-                          </div>
+                  <div className="flex w-full flex-col gap-5">
+                      {/* Row 1 — 2 cards */}
+                      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                          {topRow.map((item: any, idx: number) => {
+                              const cruise = item.cruise
+                              if (!cruise || typeof cruise !== 'object') return null
+                              const imageUrl = cruise.featuredImage?.url || ''
+                              const destination = typeof cruise.destination === 'object' ? cruise.destination : null
+                              return (
+                                  <a
+                                      key={item.id || idx}
+                                      href={`/catalogue/${cruise.slug}`}
+                                      className="group relative h-[420px] overflow-hidden md:h-[480px]"
+                                  >
+                                      <div
+                                          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                                          style={{
+                                              backgroundImage: `linear-gradient(0deg, rgba(26, 43, 60, 0.7) 0%, transparent 40%), url('${imageUrl}')`,
+                                          }}
+                                      />
+                                      <div className="absolute bottom-10 left-10 text-white">
+                                          <h4 className="serif-heading text-3xl md:text-4xl">
+                                              {cruise.title}
+                                          </h4>
+                                          {destination && (
+                                              <p className="mt-2 text-[10px] font-bold uppercase tracking-widest text-white/70">
+                                                  {destination.name}
+                                              </p>
+                                          )}
+                                      </div>
+                                  </a>
+                              )
+                          })}
                       </div>
 
-                      <div className="group relative col-span-12 overflow-hidden md:col-span-5">
-                          <div
-                              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                              style={{
-                                  backgroundImage:
-                                      "linear-gradient(0deg, rgba(26, 43, 60, 0.7) 0%, transparent 40%), url('https://www.plein-cap.com/images/2026/train-autriche/shutterstock_2063740619.jpg')",
-                              }}
-                          />
-                          <div className="absolute bottom-10 left-10 text-white">
-                              <h4 className="serif-heading text-3xl">
-                                  Voyages en train
-                              </h4>
+                      {/* Row 2 — 3 cards */}
+                      {bottomRow.length > 0 && (
+                          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+                              {bottomRow.map((item: any, idx: number) => {
+                                  const cruise = item.cruise
+                                  if (!cruise || typeof cruise !== 'object') return null
+                                  const imageUrl = cruise.featuredImage?.url || ''
+                                  const destination = typeof cruise.destination === 'object' ? cruise.destination : null
+                                  return (
+                                      <a
+                                          key={item.id || idx}
+                                          href={`/catalogue/${cruise.slug}`}
+                                          className="group relative h-[360px] overflow-hidden md:h-[400px]"
+                                      >
+                                          <div
+                                              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                                              style={{
+                                                  backgroundImage: `linear-gradient(0deg, rgba(26, 43, 60, 0.7) 0%, transparent 40%), url('${imageUrl}')`,
+                                              }}
+                                          />
+                                          <div className="absolute bottom-10 left-10 text-white">
+                                              <h4 className="serif-heading text-2xl md:text-3xl">
+                                                  {cruise.title}
+                                              </h4>
+                                              {destination && (
+                                                  <p className="mt-2 text-[10px] font-bold uppercase tracking-widest text-white/70">
+                                                      {destination.name}
+                                                  </p>
+                                              )}
+                                          </div>
+                                      </a>
+                                  )
+                              })}
                           </div>
-                      </div>
-
-                      <div className="group relative col-span-12 overflow-hidden md:col-span-4">
-                          <div
-                              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                              style={{
-                                  backgroundImage:
-                                      "linear-gradient(0deg, rgba(26, 43, 60, 0.7) 0%, transparent 40%), url('https://www.plein-cap.com/images/stories/MsLadyDiletta/Lady-Diletta_08.jpg')",
-                              }}
-                          />
-                          <div className="absolute bottom-10 left-10 text-white">
-                              <h4 className="serif-heading text-3xl">
-                                  Croisiéres fluviales
-                              </h4>
-                          </div>
-                      </div>
-
-                      <div className="group relative col-span-12 overflow-hidden md:col-span-4">
-                          <div
-                              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                              style={{
-                                  backgroundImage:
-                                      "linear-gradient(0deg, rgba(26, 43, 60, 0.7) 0%, transparent 40%), url('https://www.plein-cap.com/images/2026/dakar/shutterstock_597262751.jpg')",
-                              }}
-                          />
-                          <div className="absolute bottom-10 left-10 text-white">
-                              <h4 className="serif-heading text-3xl">
-                                  Escapades culturelles
-                              </h4>
-                          </div>
-                      </div>
-
-                      <div className="group relative col-span-12 overflow-hidden md:col-span-4">
-                          <div
-                              className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                              style={{
-                                  backgroundImage:
-                                      "linear-gradient(0deg, rgba(26, 43, 60, 0.7) 0%, transparent 40%), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDMDCtemCn76yZjscVkq4u5Qgo5cRM9GhYWf2ZlJL3kgJLYMpKt9wV9M9KlJMt-ghB6vH4AYI1RzB1tBHJweLEjmOCgEZjEbPHtF1mHHu7uAY5P8v-gKpOqS_AmG020A6-P8iof7MbF6GI8iMLr0jPJfHza1nCRgzgcPaTQqYg2qTd1B17-erUVunggF1tomGga-VM9O6JXCsBJ9sjwz3DrV1bivedTaCPmvsT_h2I4wutNvDVLENEDZ61KnCKRVHC7l34cbTae_aU')",
-                              }}
-                          />
-                          <div className="absolute bottom-10 left-10 text-white">
-                              <h4 className="serif-heading text-3xl">
-                                  Conférenciers
-                              </h4>
-                          </div>
-                      </div>
+                      )}
                   </div>
               </div>
           </main>
@@ -211,12 +175,12 @@ export default async function Home() {
                               Selection
                           </span>
                           <h3 className="serif-heading text-4xl md:text-5xl">
-                              Les envies du moment
+                              {selectionHeading}
                           </h3>
                       </div>
-                      <button className="border-b border-primary pb-2 text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary">
+                      <a href="/catalogue" className="border-b border-primary pb-2 text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary">
                           Voir toutes les destinations
-                      </button>
+                      </a>
                   </div>
 
                   <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -244,7 +208,7 @@ export default async function Home() {
                                           </p>
                                       </div>
                                       <span className="font-medium text-primary">
-                                          {cruise.price ? `€${cruise.price}` : 'Prix sur demande'}
+                                          {cruise.price ? `\u20AC${cruise.price}` : 'Prix sur demande'}
                                       </span>
                                   </div>
                                   <p className="text-xs font-light leading-relaxed opacity-70">
@@ -266,98 +230,30 @@ export default async function Home() {
           {/* TRUST MARKS */}
           <section className="border-t border-primary/10 bg-abyss py-32 text-ecru">
               <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-16 px-6 md:grid-cols-4 md:px-16">
-                  <div className="flex flex-col items-center gap-6 text-center">
-                      <div className="trust-mark">
-                          <svg
-                              className="h-12 w-12 text-[#C5A059]"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                          >
-                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                          </svg>
+                  {trustMarks.map((mark: any, idx: number) => (
+                      <div key={mark.id || idx} className="flex flex-col items-center gap-6 text-center">
+                          <div className="trust-mark">
+                              <svg
+                                  className="h-12 w-12 text-[#C5A059]"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="1"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                              >
+                                  <path d={mark.iconSvg} />
+                              </svg>
+                          </div>
+                          <div className="space-y-2">
+                              <h5 className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                                  {mark.title}
+                              </h5>
+                              <p className="text-[10px] leading-loose uppercase tracking-widest opacity-60">
+                                  {mark.description}
+                              </p>
+                          </div>
                       </div>
-                      <div className="space-y-2">
-                          <h5 className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                              Conférenciers
-                          </h5>
-                          <p className="text-[10px] leading-loose uppercase tracking-widest opacity-60">
-                              à bord historiens et spécialistes culturels*
-                          </p>
-                      </div>
-                  </div>
-
-                  <div className="flex flex-col items-center gap-6 text-center">
-                      <div className="trust-mark">
-                          <svg
-                              className="h-12 w-12 text-[#C5A059]"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                          >
-                              <path d="M12 5V1m0 0a4 4 0 014 4m-4-4a4 4 0 00-4 4m4 15v4m0 0a4 4 0 01-4-4m4 4a4 4 0 004-4m-4-11a3 3 0 110 6 3 3 0 010-6zM5 12H1m0 0a4 4 0 014 4m-4-4a4 4 0 004-4m14 4h4m0 0a4 4 0 01-4-4m4 4a4 4 0 00-4 4" />
-                          </svg>
-                      </div>
-                      <div className="space-y-2">
-                          <h5 className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                              Petits Bateaux
-                          </h5>
-                          <p className="text-[10px] leading-loose uppercase tracking-widest opacity-60">
-                              Max 500 guests for an intimate atmosphere
-                          </p>
-                      </div>
-                  </div>
-
-                  <div className="flex flex-col items-center gap-6 text-center">
-                      <div className="trust-mark">
-                          <svg
-                              className="h-12 w-12 text-[#C5A059]"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                          >
-                              <path d="M18 8a3 3 0 01-3 3H5a3 3 0 01-3-3V7a3 3 0 013-3h10a3 3 0 013 3v1zm4 11a3 3 0 01-3 3H5a3 3 0 01-3-3v-1a3 3 0 013-3h14a3 3 0 013 3v1z" />
-                              <path d="M7 11v6m5-6v6m5-6v6" />
-                          </svg>
-                      </div>
-                      <div className="space-y-2">
-                          <h5 className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                              Cuisine du Monde
-                          </h5>
-                          <p className="text-[10px] leading-loose uppercase tracking-widest opacity-60">
-                              Gourmet cuisine inspirée des saveurs locales
-                          </p>
-                      </div>
-                  </div>
-
-                  <div className="flex flex-col items-center gap-6 text-center">
-                      <div className="trust-mark">
-                          <svg
-                              className="h-12 w-12 text-[#C5A059]"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                          >
-                              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                          </svg>
-                      </div>
-                      <div className="space-y-2">
-                          <h5 className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                              40 ans d'expérience
-                          </h5>
-                          <p className="text-[10px] leading-loose uppercase tracking-widest opacity-60">
-                              Crafting extraordinary journeys since 1994
-                          </p>
-                      </div>
-                  </div>
+                  ))}
               </div>
           </section>
 

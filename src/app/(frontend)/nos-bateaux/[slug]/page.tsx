@@ -54,6 +54,9 @@ export default async function BoatDetailPage({ params }: Props) {
     ? `linear-gradient(0deg, rgba(13, 18, 27, 0.6) 0%, rgba(13, 18, 27, 0.1) 100%), url('${boat.featuredImage.url}')`
     : undefined
 
+  const gallery = Array.isArray(boat.gallery) ? boat.gallery : []
+  const descriptionRoot = typeof boat.description === 'object' && boat.description && 'root' in boat.description ? boat.description : null
+
   return (
     <div className={`${plusJakarta.className} flex min-h-screen flex-col bg-[#F9F8F6] text-[#0d121b] dark:bg-[#101622] dark:text-gray-100`}>
       <SiteHeader />
@@ -65,7 +68,10 @@ export default async function BoatDetailPage({ params }: Props) {
         builtYear={boat.builtYear}
         renovatedYear={boat.renovatedYear}
       />
+      {descriptionRoot && <BoatDescription description={descriptionRoot} />}
       {boat.cabins && boat.cabins.length > 0 && <CabinCategories cabins={boat.cabins} />}
+      {gallery.length > 0 && <Gallery images={gallery} />}
+      {boat.deckPlan && typeof boat.deckPlan === 'object' && boat.deckPlan.url && <DeckPlan image={boat.deckPlan} />}
       <FooterCTA />
       <SiteFooter />
     </div>
@@ -132,6 +138,28 @@ function TechSpecs({
 
 type Cabin = any
 
+function BoatDescription({ description }: { description: any }) {
+  const paragraphs: string[] = []
+  if (description?.root?.children) {
+    for (const node of description.root.children) {
+      const text = node.children?.map((c: any) => c.text || '').join('') || ''
+      if (text.trim()) paragraphs.push(text)
+    }
+  }
+  if (paragraphs.length === 0) return null
+
+  return (
+    <section className="px-4 py-16 lg:px-[120px]">
+      <h3 className="mb-8 text-center text-xs font-bold uppercase tracking-[0.4em] text-[#C5A059]">Présentation</h3>
+      <div className="mx-auto max-w-3xl space-y-6">
+        {paragraphs.map((p, idx) => (
+          <p key={idx} className="text-sm font-light leading-relaxed opacity-70">{p}</p>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 function CabinCategories({ cabins }: { cabins: Cabin[] }) {
   return (
     <section className="px-4 pb-24 lg:px-[120px]">
@@ -140,29 +168,85 @@ function CabinCategories({ cabins }: { cabins: Cabin[] }) {
         <p className="text-sm uppercase tracking-widest text-[#0d121b]/50">Hébergement d'exception</p>
       </div>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {cabins.map((cabin, idx) => (
-          <div
-            key={cabin.id || idx}
-            className="border border-[#0d121b]/10 bg-white p-8 dark:bg-[#101622] dark:border-white/10"
-          >
-            <h4 className="mb-4 text-2xl serif-title">{cabin.name}</h4>
-            {cabin.area && (
-              <p className="mb-2 text-sm text-[#0d121b]/70 dark:text-gray-400">
-                Surface : {cabin.area}m²
-              </p>
-            )}
-            {cabin.occupancy && (
-              <p className="mb-4 text-sm text-[#0d121b]/70 dark:text-gray-400">
-                Capacité : {cabin.occupancy} {cabin.occupancy > 1 ? 'personnes' : 'personne'}
-              </p>
-            )}
-            {cabin.amenities && typeof cabin.amenities === 'string' && (
-              <div className="mt-4 border-t border-[#0d121b]/10 pt-4 text-xs dark:border-white/10">
-                <p>{cabin.amenities}</p>
+        {cabins.map((cabin, idx) => {
+          const cabinImages = Array.isArray(cabin.images) ? cabin.images : []
+          const cabinImage = cabinImages[0]
+
+          return (
+            <div
+              key={cabin.id || idx}
+              className="overflow-hidden border border-[#0d121b]/10 bg-white dark:bg-[#101622] dark:border-white/10"
+            >
+              {cabinImage?.url && (
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img
+                    src={cabinImage.url}
+                    alt={cabinImage.alt || cabin.category}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              )}
+              <div className="p-8">
+                <h4 className="mb-4 text-2xl serif-title">{cabin.category}</h4>
+                <div className="mb-4 flex flex-wrap gap-4 text-sm text-[#0d121b]/70 dark:text-gray-400">
+                  {cabin.size && (
+                    <span>Surface : {cabin.size} m²</span>
+                  )}
+                  {cabin.capacity && (
+                    <span>Capacité : {cabin.capacity} {cabin.capacity > 1 ? 'personnes' : 'personne'}</span>
+                  )}
+                  {cabin.count && (
+                    <span>{cabin.count} cabines</span>
+                  )}
+                </div>
+                {cabin.amenities && typeof cabin.amenities === 'string' && (
+                  <div className="border-t border-[#0d121b]/10 pt-4 text-xs dark:border-white/10">
+                    <p className="leading-relaxed opacity-70">{cabin.amenities}</p>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        ))}
+            </div>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
+function Gallery({ images }: { images: any[] }) {
+  return (
+    <section className="px-4 pb-24 lg:px-[120px]">
+      <h3 className="mb-12 text-center text-xs font-bold uppercase tracking-[0.4em] text-[#C5A059]">Galerie Photos</h3>
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        {images.map((img, idx) => {
+          const url = typeof img === 'object' ? img.url : null
+          const alt = typeof img === 'object' ? img.alt : ''
+          if (!url) return null
+          return (
+            <div key={img.id || idx} className="aspect-[4/3] overflow-hidden">
+              <img
+                src={url}
+                alt={alt || `Photo ${idx + 1}`}
+                className="h-full w-full object-cover transition-transform duration-500 hover:scale-110"
+              />
+            </div>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
+function DeckPlan({ image }: { image: any }) {
+  return (
+    <section className="px-4 pb-24 lg:px-[120px]">
+      <h3 className="mb-12 text-center text-xs font-bold uppercase tracking-[0.4em] text-[#C5A059]">Plan des Ponts</h3>
+      <div className="mx-auto max-w-4xl">
+        <img
+          src={image.url}
+          alt={image.alt || 'Plan des ponts'}
+          className="w-full"
+        />
       </div>
     </section>
   )

@@ -47,14 +47,38 @@ export async function getTestimonials(options?: { featured?: boolean }) {
  */
 export async function getCruises(options?: {
   published?: boolean
+  featured?: boolean
   limit?: number
   page?: number
+  destinationId?: string | number
+  month?: string // format: "2026-03"
+  search?: string // free text search on title/excerpt
 }) {
   const payload = await getPayloadClient()
+  const where: Record<string, any> = {}
+  if (options?.published) where._status = { equals: 'published' }
+  if (options?.featured) where.featured = { equals: true }
+  if (options?.destinationId) where.destination = { equals: options.destinationId }
+  if (options?.search) {
+    where.or = [
+      { title: { like: options.search } },
+      { excerpt: { like: options.search } },
+    ]
+  }
+  if (options?.month) {
+    const [year, m] = options.month.split('-').map(Number)
+    const startDate = new Date(year, m - 1, 1).toISOString()
+    const endDate = new Date(year, m, 0, 23, 59, 59).toISOString()
+    where.departureDate = {
+      greater_than_equal: startDate,
+      less_than_equal: endDate,
+    }
+  }
+
   const result = await payload.find({
     collection: 'cruises',
     depth: 2,
-    where: options?.published ? { _status: { equals: 'published' } } : undefined,
+    where: Object.keys(where).length > 0 ? where : undefined,
     limit: options?.limit || 10,
     page: options?.page || 1,
   })
@@ -108,6 +132,7 @@ export async function getBoatBySlug(slug: string) {
   const payload = await getPayloadClient()
   const { docs } = await payload.find({
     collection: 'boats',
+    depth: 2,
     where: {
       slug: { equals: slug },
     },
@@ -156,4 +181,40 @@ export async function getPostBySlug(slug: string) {
     limit: 1,
   })
   return docs[0] || null
+}
+
+/**
+ * Get homepage config global with populated relationships
+ */
+export async function getHomepageConfig() {
+  const payload = await getPayloadClient()
+  const data = await payload.findGlobal({
+    slug: 'homepage-config',
+    depth: 2,
+  })
+  return data
+}
+
+/**
+ * Get livre d'or config global with populated relationships
+ */
+export async function getLivreDOrConfig() {
+  const payload = await getPayloadClient()
+  const data = await payload.findGlobal({
+    slug: 'livre-dor-config',
+    depth: 2,
+  })
+  return data
+}
+
+/**
+ * Get featured cruises (shorthand)
+ */
+export async function getFeaturedCruises(options?: { limit?: number }) {
+  const result = await getCruises({
+    published: true,
+    featured: true,
+    limit: options?.limit || 10,
+  })
+  return result.docs
 }

@@ -21,6 +21,8 @@ import { Subscribers } from './src/payload/collections/Subscribers'
 import { Campaigns } from './src/payload/collections/Campaigns'
 import { CampaignSends } from './src/payload/collections/CampaignSends'
 import { EmailAnalytics } from './src/payload/collections/EmailAnalytics'
+import { HomepageConfig } from './src/payload/globals/HomepageConfig'
+import { LivreDOrConfig } from './src/payload/globals/LivreDOrConfig'
 import { sendCampaign } from './src/payload/jobs/sendCampaign'
 
 const filename = fileURLToPath(import.meta.url)
@@ -37,6 +39,8 @@ export default buildConfig({
   },
 
   collections: [Users, Media, Cruises, Destinations, Boats, Speakers, Team, Posts, Categories, Tags, Testimonials, Banners, Subscribers, Campaigns, CampaignSends, EmailAnalytics],
+
+  globals: [HomepageConfig, LivreDOrConfig],
 
   editor: lexicalEditor({}),
 

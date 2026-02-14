@@ -227,33 +227,42 @@ export default async function CruisePage({ params }: Props) {
                   <p className="text-[10px] uppercase tracking-widest opacity-60">par personne</p>
                 </div>
 
-                <div className="mb-6 space-y-4">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-                    Le prix comprend
-                  </span>
-                  <ul className="space-y-2 text-xs">
-                    {['Hébergement en cabine de luxe', 'Accompagnement Plein Cap permanent', 'Pension complète & Boissons', 'Excursions mentionnées', 'Wi-Fi gratuit à bord'].map(
-                      (item, idx) => (
-                        <li key={item} className={`flex items-start gap-2 ${idx === 1 ? 'font-semibold' : ''}`}>
+                {(cruise as any).priceIncludes && (cruise as any).priceIncludes.length > 0 && (
+                  <div className="mb-6 space-y-4">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+                      Le prix comprend
+                    </span>
+                    <ul className="space-y-2 text-xs">
+                      {(cruise as any).priceIncludes.map((inc: any) => (
+                        <li key={inc.id || inc.item} className={`flex items-start gap-2 ${inc.highlight ? 'font-semibold' : ''}`}>
                           <span
-                            className={`material-symbols-outlined text-sm text-primary ${idx === 1 ? 'fill-current' : ''}`}
+                            className={`material-symbols-outlined text-sm text-primary ${inc.highlight ? 'fill-current' : ''}`}
                           >
-                            {idx === 1 ? 'stars' : 'check_circle'}
+                            {inc.highlight ? 'stars' : 'check_circle'}
                           </span>
-                          {item}
+                          {inc.item}
                         </li>
-                      )
-                    )}
-                  </ul>
-                </div>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
                 <div className="space-y-3">
                   <button className="sharp-edge w-full bg-primary px-8 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-abyss">
                     Réserver maintenant
                   </button>
-                  <button className="sharp-edge w-full border border-abyss/20 bg-transparent px-8 py-3 text-xs font-bold uppercase tracking-widest transition-all hover:bg-abyss hover:text-white">
-                    Télécharger la brochure
-                  </button>
+                  {(cruise as any).brochure?.url ? (
+                    <a
+                      href={(cruise as any).brochure.url}
+                      download
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="sharp-edge flex w-full items-center justify-center gap-2 border border-abyss/20 bg-transparent px-8 py-3 text-xs font-bold uppercase tracking-widest transition-all hover:bg-abyss hover:text-white"
+                    >
+                      <span className="material-symbols-outlined text-sm">download</span>
+                      Télécharger la brochure
+                    </a>
+                  ) : null}
                   <button className="sharp-edge w-full border border-primary/30 bg-transparent px-8 py-3 text-xs font-bold uppercase tracking-widest text-primary transition-all hover:bg-primary hover:text-white">
                     Demander un devis
                   </button>

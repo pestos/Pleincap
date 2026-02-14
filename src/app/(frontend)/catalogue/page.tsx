@@ -1,10 +1,9 @@
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import { Plus_Jakarta_Sans } from 'next/font/google'
-import { getCruises } from '@/lib/payload-queries'
+import { getCruises, getDestinations, getBoats } from '@/lib/payload-queries'
 import Link from 'next/link'
 
-// Types inferred from Payload
 type Media = { url?: string; alt?: string; id?: number | string }
 
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'] })
@@ -14,7 +13,6 @@ export const metadata = {
   description: "Catalogue des croisières d'exception Plein Cap",
 }
 
-// Helper function to format date in French
 function formatFrenchDate(dateString: string): string {
   const date = new Date(dateString)
   const months = [
@@ -27,7 +25,6 @@ function formatFrenchDate(dateString: string): string {
   return `${day} ${month} ${year}`
 }
 
-// Helper to calculate duration
 function calculateDuration(departure: string, returnDate: string): string {
   const start = new Date(departure)
   const end = new Date(returnDate)
@@ -35,9 +32,58 @@ function calculateDuration(departure: string, returnDate: string): string {
   return `${days} Jours`
 }
 
-export default async function Catalogue() {
-  // Fetch cruises from CMS
-  const { docs: cruises } = await getCruises({ published: true })
+type PageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export default async function Catalogue({ searchParams }: PageProps) {
+  const params = await searchParams
+  const destinationFilter = typeof params.destination === 'string' ? params.destination : undefined
+  const monthFilter = typeof params.month === 'string' ? params.month : undefined
+  const searchQuery = typeof params.q === 'string' ? params.q : undefined
+
+  const [cruisesResult, destinations, boats] = await Promise.all([
+    getCruises({
+      published: true,
+      destinationId: destinationFilter,
+      month: monthFilter,
+      search: searchQuery,
+    }),
+    getDestinations(),
+    getBoats(),
+  ])
+
+  const cruises = cruisesResult.docs
+  const totalPages = cruisesResult.totalPages
+
+  // Derive voyage types from cruises data
+  const voyageTypeLabels: Record<string, string> = {
+    maritime: 'Maritime',
+    fluviale: 'Fluviale',
+    train: 'Train',
+    escapade: 'Escapade',
+  }
+  const voyageTypes = Array.from(new Set(
+    cruises
+      .map((c: any) => c.voyageType)
+      .filter(Boolean)
+  )) as string[]
+
+  const destinationNames = destinations.map((d: any) => d.name).filter(Boolean)
+  const boatNames = boats.map((b: any) => b.name).filter(Boolean)
+
+  // Resolve active filter labels
+  const activeDestination = destinationFilter
+    ? destinations.find((d: any) => String(d.id) === destinationFilter)
+    : null
+  const activeMonthLabel = monthFilter
+    ? (() => {
+        const [year, m] = monthFilter.split('-').map(Number)
+        const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']
+        return `${months[m - 1]} ${year}`
+      })()
+    : null
+  const hasActiveFilters = !!activeDestination || !!activeMonthLabel || !!searchQuery
 
   return (
     <div
@@ -53,6 +99,32 @@ export default async function Catalogue() {
           <p className="max-w-2xl font-serif text-xl italic text-abyss/60 dark:text-background-light/60">
             L'élégance du voyage à la française, des fleuves d'Europe aux horizons lointains.
           </p>
+          {hasActiveFilters && (
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <span className="text-[10px] font-bold uppercase tracking-widest opacity-50">Filtres actifs :</span>
+              {searchQuery && (
+                <span className="border border-primary/30 bg-primary/5 px-4 py-2 text-xs font-bold uppercase tracking-widest text-primary">
+                  &laquo; {searchQuery} &raquo;
+                </span>
+              )}
+              {activeDestination && (
+                <span className="border border-primary/30 bg-primary/5 px-4 py-2 text-xs font-bold uppercase tracking-widest text-primary">
+                  {(activeDestination as any).name}
+                </span>
+              )}
+              {activeMonthLabel && (
+                <span className="border border-primary/30 bg-primary/5 px-4 py-2 text-xs font-bold uppercase tracking-widest text-primary">
+                  {activeMonthLabel}
+                </span>
+              )}
+              <Link
+                href="/catalogue"
+                className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline"
+              >
+                Effacer les filtres
+              </Link>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-16 lg:flex-row">
@@ -66,12 +138,18 @@ export default async function Catalogue() {
               </div>
 
               <div className="space-y-10">
-                <FilterBlock
-                  title="Destination"
-                  options={["Méditerranée", "Europe du Nord", "Adriatique"]}
-                  defaultChecked={[0]}
-                />
-                <FilterBlock title="Type de croisières" options={["Fluviale", "Maritime"]} />
+                {destinationNames.length > 0 && (
+                  <FilterBlock
+                    title="Destination"
+                    options={destinationNames}
+                  />
+                )}
+                {voyageTypes.length > 0 && (
+                  <FilterBlock
+                    title="Type de croisières"
+                    options={voyageTypes.map(v => voyageTypeLabels[v] || v)}
+                  />
+                )}
                 <FilterBlock title="Accompagnement" options={["Voyage accompagné"]} />
 
                 <div className="space-y-4">
@@ -97,18 +175,20 @@ export default async function Catalogue() {
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 text-abyss dark:text-white">
-                    <span className="text-xs font-bold uppercase tracking-widest">Bateaux</span>
+                {boatNames.length > 0 && (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 text-abyss dark:text-white">
+                      <span className="text-xs font-bold uppercase tracking-widest">Bateaux</span>
+                    </div>
+                    <div className="max-h-48 space-y-2 overflow-y-auto pr-2">
+                      <FilterBlock
+                        title=""
+                        options={boatNames}
+                        hideTitle
+                      />
+                    </div>
                   </div>
-                  <div className="max-h-48 space-y-2 overflow-y-auto pr-2">
-                    <FilterBlock
-                      title=""
-                      options={["MS Berlin", "MS Belle de l'Adriatique", "Vapeur Authentique", "MS Cyrano de Bergerac"]}
-                      hideTitle
-                    />
-                  </div>
-                </div>
+                )}
               </div>
             </div>
           </aside>
@@ -132,7 +212,7 @@ export default async function Catalogue() {
             </div>
 
             <div className="grid grid-cols-1 gap-x-10 gap-y-16 md:grid-cols-2">
-              {cruises.map((cruise) => {
+              {cruises.map((cruise: any) => {
                 const featuredImage = cruise.featuredImage as Media | undefined
                 const boat = typeof cruise.boat === 'object' ? cruise.boat : null
                 const destination = typeof cruise.destination === 'object' ? cruise.destination : null
@@ -202,41 +282,45 @@ export default async function Catalogue() {
                           À partir de
                         </span>
                         <span className="text-2xl font-bold">
-                          {cruise.price.toLocaleString('fr-FR')} €
+                          {cruise.price.toLocaleString('fr-FR')} \u20AC
                         </span>
-                        <a
+                        <span
                           className="mt-2 block text-[9px] font-bold uppercase tracking-[0.2em] text-primary hover:underline"
-                          href="#"
                         >
                           Prochaines dates
-                        </a>
+                        </span>
                       </div>
-                      <button className="border border-abyss px-10 py-4 text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:bg-abyss hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-abyss">
+                      <span className="border border-abyss px-10 py-4 text-[10px] font-bold uppercase tracking-[0.2em] transition-all hover:bg-abyss hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-abyss">
                         Découvrir
-                      </button>
+                      </span>
                     </div>
                   </Link>
                 )
               })}
             </div>
 
-            <div className="mt-24 flex items-center justify-center gap-2">
-              <button className="flex h-12 w-12 items-center justify-center border border-abyss/10 opacity-30">
-                <span className="material-symbols-outlined">chevron_left</span>
-              </button>
-              <span className="flex h-12 w-12 items-center justify-center bg-abyss text-xs font-bold text-white">
-                01
-              </span>
-              <button className="flex h-12 w-12 items-center justify-center text-xs font-bold transition-colors hover:bg-abyss/5">
-                02
-              </button>
-              <button className="flex h-12 w-12 items-center justify-center text-xs font-bold transition-colors hover:bg-abyss/5">
-                03
-              </button>
-              <button className="flex h-12 w-12 items-center justify-center border border-abyss/20">
-                <span className="material-symbols-outlined">chevron_right</span>
-              </button>
-            </div>
+            {totalPages > 1 && (
+              <div className="mt-24 flex items-center justify-center gap-2">
+                <button className="flex h-12 w-12 items-center justify-center border border-abyss/10 opacity-30">
+                  <span className="material-symbols-outlined">chevron_left</span>
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <button
+                    key={i}
+                    className={`flex h-12 w-12 items-center justify-center text-xs font-bold transition-colors ${
+                      i === 0
+                        ? 'bg-abyss text-white'
+                        : 'hover:bg-abyss/5'
+                    }`}
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </button>
+                ))}
+                <button className="flex h-12 w-12 items-center justify-center border border-abyss/20">
+                  <span className="material-symbols-outlined">chevron_right</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </main>

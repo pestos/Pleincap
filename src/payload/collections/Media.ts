@@ -7,7 +7,7 @@ export const Media: CollectionConfig = {
   },
   upload: {
     staticDir: 'public/media',
-    mimeTypes: ['image/*', 'video/mp4', 'video/webm', 'video/ogg'],
+    mimeTypes: ['image/*', 'video/mp4', 'video/webm', 'video/ogg', 'application/pdf'],
     imageSizes: [
       {
         name: 'thumbnail',

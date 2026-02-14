@@ -51,6 +51,22 @@ export const Speakers: CollectionConfig = {
       label: 'Biographie',
     },
     {
+      name: 'topics',
+      type: 'array',
+      label: 'Sujets de prédilection',
+      admin: {
+        description: 'Sujets abordés lors des conférences',
+      },
+      fields: [
+        {
+          name: 'topic',
+          type: 'text',
+          required: true,
+          label: 'Sujet',
+        },
+      ],
+    },
+    {
       name: 'website',
       type: 'text',
       label: 'Site web',

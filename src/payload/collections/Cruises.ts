@@ -19,6 +19,16 @@ export const Cruises: CollectionConfig = {
   },
   fields: [
     {
+      name: 'featured',
+      type: 'checkbox',
+      label: 'Mis en avant',
+      defaultValue: false,
+      admin: {
+        position: 'sidebar',
+        description: 'Afficher cette croisière dans les sélections mises en avant',
+      },
+    },
+    {
       type: 'tabs',
       tabs: [
         {
@@ -61,6 +71,15 @@ export const Cruises: CollectionConfig = {
               relationTo: 'media',
               required: true,
               label: 'Image mise en avant',
+            },
+            {
+              name: 'brochure',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Brochure PDF',
+              admin: {
+                description: 'Téléversez le PDF de la brochure (les clients pourront le télécharger)',
+              },
             },
           ],
         },
@@ -160,6 +179,42 @@ export const Cruises: CollectionConfig = {
               max: 5,
               admin: {
                 step: 0.1,
+              },
+            },
+            {
+              name: 'priceIncludes',
+              type: 'array',
+              label: 'Le prix comprend',
+              admin: {
+                description: 'Liste des éléments inclus dans le prix (affichés sur la fiche croisière)',
+              },
+              fields: [
+                {
+                  name: 'item',
+                  type: 'text',
+                  required: true,
+                  label: 'Élément inclus',
+                },
+                {
+                  name: 'highlight',
+                  type: 'checkbox',
+                  label: 'Mettre en avant',
+                  defaultValue: false,
+                },
+              ],
+            },
+            {
+              name: 'voyageType',
+              type: 'select',
+              label: 'Type de voyage',
+              options: [
+                { label: 'Maritime', value: 'maritime' },
+                { label: 'Fluviale', value: 'fluviale' },
+                { label: 'Train', value: 'train' },
+                { label: 'Escapade', value: 'escapade' },
+              ],
+              admin: {
+                description: 'Type de voyage pour le filtrage catalogue',
               },
             },
           ],
