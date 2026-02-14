@@ -50,10 +50,13 @@ Plans:
   5. Editor can link cruises to boats, destinations, and speakers through relationships
   6. Editor can save drafts, preview content before publishing, and edit SEO meta tags
   7. Editor can bulk update prices or dates across multiple cruises at once
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] TBD (plan during phase planning)
+- [ ] 02-01-PLAN.md -- Shared utilities (formatSlug hook, SEO plugin) + Speakers, Team, Testimonials collections
+- [ ] 02-02-PLAN.md -- Destinations, Boats (cabin array), Categories, Tags collections
+- [ ] 02-03-PLAN.md -- Blog Posts (with taxonomy relationships) + Banners (blocks field)
+- [ ] 02-04-PLAN.md -- Cruises (relationships, itinerary, drafts) + SEO plugin config + Phase 2 verification
 
 ---
 
@@ -117,11 +120,11 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | ✓ Complete | 2026-02-14 |
-| 2. Content Collections | 0/? | Not started | - |
+| 2. Content Collections | 0/4 | Planned | - |
 | 3. Migration & SEO | 0/? | Not started | - |
 | 4. Newsletter Foundation | 0/? | Not started | - |
 | 5. Newsletter Advanced & Deployment | 0/? | Not started | - |
 
 ---
 *Roadmap created: 2026-02-14*
-*Last updated: 2026-02-14 (Phase 1 completed)*
+*Last updated: 2026-02-14 (Phase 2 planned)*
