@@ -71,14 +71,14 @@ export const Cruises: CollectionConfig = {
               name: 'destination',
               type: 'relationship',
               relationTo: 'destinations',
-              required: true,
+              required: false,
               label: 'Destination',
             },
             {
               name: 'boat',
               type: 'relationship',
               relationTo: 'boats',
-              required: true,
+              required: false,
               label: 'Bateau',
             },
             {
