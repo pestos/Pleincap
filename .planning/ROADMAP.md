@@ -29,10 +29,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Admin can create editor accounts with restricted permissions
   3. Editor can upload images to media library and see them in backoffice
   4. Existing Next.js pages remain unchanged and functional
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] TBD (plan during phase planning)
+- [ ] 01-01-PLAN.md -- Upgrade Next.js 14 to 15.x and React 18 to 19.x
+- [ ] 01-02-PLAN.md -- Install Payload CMS, PostgreSQL setup, route group restructuring
+- [ ] 01-03-PLAN.md -- Create Users and Media collections with RBAC, seed admin, verify
 
 ---
 
@@ -114,7 +116,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/? | Not started | - |
+| 1. Foundation | 0/3 | Planned | - |
 | 2. Content Collections | 0/? | Not started | - |
 | 3. Migration & SEO | 0/? | Not started | - |
 | 4. Newsletter Foundation | 0/? | Not started | - |
