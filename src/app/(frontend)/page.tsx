@@ -1,7 +1,11 @@
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
+import { getCruises, getTestimonials } from '@/lib/payload-queries'
 
-export default function Home() {
+export default async function Home() {
+  const { docs: featuredCruises } = await getCruises({ published: true, limit: 3 })
+  const testimonials = await getTestimonials({ featured: true })
+  const featuredTestimonial = testimonials[0]
   return (
       <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-abyss dark:bg-background-dark dark:text-ecru">
           <SiteHeader />
@@ -216,116 +220,45 @@ export default function Home() {
                   </div>
 
                   <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-                      <div className="group cursor-pointer">
-                          <div className="relative mb-6 aspect-[3/4] overflow-hidden">
-                              <img
-                                  alt="Aegean Odyssey"
-                                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                  src="https://www.plein-cap.com/images/2026/odyssee/entete_odyssee_2026.jpg"
-                              />
-                              <div className="absolute left-6 top-6 bg-white/90 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-abyss backdrop-blur-sm">
-                                  printemps 2026
-                              </div>
-                          </div>
-
-                          <div className="space-y-4">
-                              <div className="flex items-start justify-between border-b border-abyss/10 pb-4">
-                                  <div>
-                                      <h4 className="serif-heading mb-1 text-2xl">
-                                          Ms Hambourg
-                                      </h4>
-                                      <p className="text-[10px] uppercase tracking-widest opacity-60">
-                                          Athens to Istanbul | 12 Days
-                                      </p>
+                      {featuredCruises.slice(0, 3).map((cruise: any) => (
+                          <div key={cruise.id} className="group cursor-pointer">
+                              <div className="relative mb-6 aspect-[3/4] overflow-hidden">
+                                  <img
+                                      alt={cruise.title}
+                                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                      src={cruise.featuredImage?.url || ''}
+                                  />
+                                  <div className="absolute left-6 top-6 bg-white/90 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-abyss backdrop-blur-sm">
+                                      {cruise.season || 'Saison'}
                                   </div>
-                                  <span className="font-medium text-primary">
-                                      €8,450
-                                  </span>
                               </div>
-                              <p className="text-xs font-light leading-relaxed opacity-70">
-                                  A deep dive into the cradle of civilization,
-                                  exploring hidden bays and ancient ruins under
-                                  the Mediterranean sun.
-                              </p>
-                              <button className="sharp-edge w-full border border-abyss/20 bg-transparent px-8 py-3 text-[10px] font-bold uppercase tracking-widest transition-all group-hover:bg-abyss group-hover:text-white">
-                                  Decouvrir
-                              </button>
-                          </div>
-                      </div>
 
-                      <div className="group cursor-pointer">
-                          <div className="relative mb-6 aspect-[3/4] overflow-hidden">
-                              <img
-                                  alt="Baltic Heritage"
-                                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                  src="https://www.plein-cap.com/images/2026/capitales_baltes/entete_capitales_baltes.jpg"
-                              />
-                              <div className="absolute left-6 top-6 bg-white/90 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-abyss backdrop-blur-sm">
-                                  Été 2026
-                              </div>
-                          </div>
-
-                          <div className="space-y-4">
-                              <div className="flex items-start justify-between border-b border-abyss/10 pb-4">
-                                  <div>
-                                      <h4 className="serif-heading mb-1 text-2xl">
-                                          Adriana
-                                      </h4>
-                                      <p className="text-[10px] uppercase tracking-widest opacity-60">
-                                          Stockholm to St. Petersburg | 10 Days
-                                      </p>
+                              <div className="space-y-4">
+                                  <div className="flex items-start justify-between border-b border-abyss/10 pb-4">
+                                      <div>
+                                          <h4 className="serif-heading mb-1 text-2xl">
+                                              {cruise.boat?.name || 'Bateau'}
+                                          </h4>
+                                          <p className="text-[10px] uppercase tracking-widest opacity-60">
+                                              {cruise.destination?.name || 'Destination'} | {cruise.duration || 'N/A'} Jours
+                                          </p>
+                                      </div>
+                                      <span className="font-medium text-primary">
+                                          {cruise.price ? `€${cruise.price}` : 'Prix sur demande'}
+                                      </span>
                                   </div>
-                                  <span className="font-medium text-primary">
-                                      €7,900
-                                  </span>
-                              </div>
-                              <p className="text-xs font-light leading-relaxed opacity-70">
-                                  Witness the architecture of the Hanseatic
-                                  League and the artistic splendor of the
-                                  Northern capitals.
-                              </p>
-                              <button className="sharp-edge w-full border border-abyss/20 bg-transparent px-8 py-3 text-[10px] font-bold uppercase tracking-widest transition-all group-hover:bg-abyss group-hover:text-white">
-                                  Découvrir
-                              </button>
-                          </div>
-                      </div>
-
-                      <div className="group cursor-pointer">
-                          <div className="relative mb-6 aspect-[3/4] overflow-hidden">
-                              <img
-                                  alt="Nile Serenity"
-                                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                  src="https://www.plein-cap.com/images/2026/spitzberg_sh_diana/Monacobreen__SS_1672-1.jpg"
-                              />
-                              <div className="absolute left-6 top-6 bg-white/90 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-abyss backdrop-blur-sm">
-                                  Automne 2026
+                                  <p className="text-xs font-light leading-relaxed opacity-70">
+                                      {cruise.summary || cruise.title}
+                                  </p>
+                                  <a
+                                      href={`/catalogue/${cruise.slug}`}
+                                      className="sharp-edge block w-full border border-abyss/20 bg-transparent px-8 py-3 text-center text-[10px] font-bold uppercase tracking-widest transition-all group-hover:bg-abyss group-hover:text-white"
+                                  >
+                                      Découvrir
+                                  </a>
                               </div>
                           </div>
-
-                          <div className="space-y-4">
-                              <div className="flex items-start justify-between border-b border-abyss/10 pb-4">
-                                  <div>
-                                      <h4 className="serif-heading mb-1 text-2xl">
-                                          SH Diana
-                                      </h4>
-                                      <p className="text-[10px] uppercase tracking-widest opacity-60">
-                                          Luxor to Aswan | 8 Days
-                                      </p>
-                                  </div>
-                                  <span className="font-medium text-primary">
-                                      €6,200
-                                  </span>
-                              </div>
-                              <p className="text-xs font-light leading-relaxed opacity-70">
-                                  Sail the timeless river on a private dahabiya,
-                                  visiting temples at sunset and starlit desert
-                                  camps.
-                              </p>
-                              <button className="sharp-edge w-full border border-abyss/20 bg-transparent px-8 py-3 text-[10px] font-bold uppercase tracking-widest transition-all group-hover:bg-abyss group-hover:text-white">
-                                  Découvrir
-                              </button>
-                          </div>
-                      </div>
+                      ))}
                   </div>
               </div>
           </section>
@@ -436,40 +369,45 @@ export default function Home() {
                           Ce que disent nos clients
                       </span>
 
-                      <div className="relative mx-auto w-full max-w-6xl px-10 md:px-20">
-                          <div className="mb-12">
-                              <p className="serif-heading text-3xl leading-tight text-abyss md:text-5xl">
-                                  "Un voyages exceptionnel qui a équilibré une
-                                  profondeur culturelle enrichissante avec les
-                                  plus raffinés niveaux de confort. Chaque port
-                                  a ressemblé à une découverte privée."
+                      {featuredTestimonial ? (
+                          <div className="relative mx-auto w-full max-w-6xl px-10 md:px-20">
+                              <div className="mb-12">
+                                  <p className="serif-heading text-3xl leading-tight text-abyss md:text-5xl">
+                                      &quot;{featuredTestimonial.content}&quot;
+                                  </p>
+                              </div>
+
+                              <div className="flex flex-col items-center gap-2">
+                                  <div className="mb-2 h-[1px] w-10 bg-primary" />
+                                  <p className="font-serif text-sm italic opacity-70">
+                                      — {featuredTestimonial.authorName}
+                                  </p>
+                              </div>
+
+                              <button
+                                  aria-label="Previous"
+                                  className="absolute left-0 top-1/2 -translate-y-1/2 text-primary transition-transform hover:scale-110"
+                              >
+                                  <span className="material-symbols-outlined text-4xl">
+                                      chevron_left
+                                  </span>
+                              </button>
+                              <button
+                                  aria-label="Next"
+                                  className="absolute right-0 top-1/2 -translate-y-1/2 text-primary transition-transform hover:scale-110"
+                              >
+                                  <span className="material-symbols-outlined text-4xl">
+                                      chevron_right
+                                  </span>
+                              </button>
+                          </div>
+                      ) : (
+                          <div className="relative mx-auto w-full max-w-6xl px-10 md:px-20">
+                              <p className="text-center text-sm opacity-60">
+                                  Témoignages à venir
                               </p>
                           </div>
-
-                          <div className="flex flex-col items-center gap-2">
-                              <div className="mb-2 h-[1px] w-10 bg-primary" />
-                              <p className="font-serif text-sm italic opacity-70">
-                                  — Madame Hélène de V., Paris
-                              </p>
-                          </div>
-
-                          <button
-                              aria-label="Previous"
-                              className="absolute left-0 top-1/2 -translate-y-1/2 text-primary transition-transform hover:scale-110"
-                          >
-                              <span className="material-symbols-outlined text-4xl">
-                                  chevron_left
-                              </span>
-                          </button>
-                          <button
-                              aria-label="Next"
-                              className="absolute right-0 top-1/2 -translate-y-1/2 text-primary transition-transform hover:scale-110"
-                          >
-                              <span className="material-symbols-outlined text-4xl">
-                                  chevron_right
-                              </span>
-                          </button>
-                      </div>
+                      )}
 
                       <div className="mt-16 flex gap-4">
                           <div className="size-1.5 rounded-full bg-primary" />
