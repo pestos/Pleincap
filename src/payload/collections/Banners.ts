@@ -89,10 +89,11 @@ export const Banners: CollectionConfig = {
           },
           fields: [
             {
-              name: 'videoUrl',
-              type: 'text',
+              name: 'video',
+              type: 'upload',
+              relationTo: 'media',
               required: true,
-              label: 'URL vidéo YouTube/Vimeo',
+              label: 'Fichier vidéo',
             },
             {
               name: 'title',

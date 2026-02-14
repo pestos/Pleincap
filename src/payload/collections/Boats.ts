@@ -35,7 +35,6 @@ export const Boats: CollectionConfig = {
     {
       name: 'description',
       type: 'richText',
-      required: true,
       label: 'Description',
     },
     {
