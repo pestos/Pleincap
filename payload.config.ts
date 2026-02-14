@@ -9,6 +9,10 @@ import { Media } from './src/payload/collections/Media'
 import { Speakers } from './src/payload/collections/Speakers'
 import { Team } from './src/payload/collections/Team'
 import { Testimonials } from './src/payload/collections/Testimonials'
+import { Destinations } from './src/payload/collections/Destinations'
+import { Boats } from './src/payload/collections/Boats'
+import { Categories } from './src/payload/collections/Categories'
+import { Tags } from './src/payload/collections/Tags'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,7 +27,7 @@ export default buildConfig({
     },
   },
 
-  collections: [Users, Media, Speakers, Team, Testimonials],
+  collections: [Users, Media, Speakers, Team, Testimonials, Destinations, Boats, Categories, Tags],
 
   editor: lexicalEditor({}),
 
