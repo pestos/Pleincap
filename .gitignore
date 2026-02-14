@@ -38,3 +38,7 @@ coverage/
 
 # === Typescript ===
 *.tsbuildinfo
+
+# === Payload CMS ===
+public/media/
+payload-types.ts
