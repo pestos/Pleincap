@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-02-14)
 ## Current Position
 
 Phase: 3 of 5 (Migration & SEO)
-Plan: 1 of 5 (in phase)
+Plan: 2 of 5 (in phase)
 Status: Active
-Last activity: 2026-02-14 — Completed 03-01 (Seed Independent Collections)
+Last activity: 2026-02-14 — Completed 03-02 (Seed Destinations & Boats, Convert Pages to CMS)
 
-Progress: [█████░░░░░] 53% (8/15 plans across all phases)
+Progress: [██████░░░░] 60% (9/15 plans across all phases)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
-- Average duration: 4 min
-- Total execution time: 0.7 hours
+- Total plans completed: 9
+- Average duration: 5 min
+- Total execution time: 1.1 hours
 
 **By Phase:**
 
@@ -29,13 +29,15 @@ Progress: [█████░░░░░] 53% (8/15 plans across all phases)
 |-------|-------|-------|----------|
 | 01-foundation | 3 | 20 min | 7 min |
 | 02-content-collections | 4 | 12 min | 3 min |
+| 03-migration-seo | 2 | 25 min | 13 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (2 min), 02-02 (2 min), 02-03 (3 min), 02-04 (5 min)
-- Trend: Phase 2 complete, human verification added time but caught real issues
+- Last 5 plans: 02-02 (2 min), 02-03 (3 min), 02-04 (5 min), 03-01 (11 min), 03-02 (14 min)
+- Trend: Phase 3 tasks involve more data migration work, longer durations expected
 
 *Updated after each plan completion*
 | Phase 03 P01 | 11 | 2 tasks | 8 files |
+| Phase 03 P02 | 14 | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -77,6 +79,8 @@ Recent decisions affecting current work:
 - [Phase 03-01]: Used API routes instead of CLI scripts for seed execution due to tsx/Payload 3.x compatibility issue
 - [Phase 03-01]: External images downloaded and uploaded to Media collection for required upload fields
 - [Phase 03-01]: Idempotent seed scripts check for duplicates via slug/authorName before creating
+- [Phase 03-02]: Used API routes for seed execution (consistent with 03-01 tsx/Payload compatibility pattern)
+- [Phase 03-02]: Extracted plain text from richText fields using simple helper function for display-only use cases
 
 ### Pending Todos
 
@@ -98,6 +102,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-14 (phase 02 execution complete)
-Stopped at: Phase 2 complete — all 4 plans executed, human verified
+Last session: 2026-02-14 (phase 03 plan 02 execution complete)
+Stopped at: Completed 03-02-PLAN.md
 Resume file: None
