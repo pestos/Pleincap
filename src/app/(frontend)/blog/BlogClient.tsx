@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 type Post = any
 
@@ -66,7 +67,7 @@ export default function BlogClient({ posts, categories }: BlogClientProps) {
             <span className="mb-8 block text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
               Article à la une
             </span>
-            <div className="group grid grid-cols-1 gap-8 md:grid-cols-2">
+            <Link href={`/blog/${featuredPost.slug}`} className="group grid grid-cols-1 gap-8 md:grid-cols-2">
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
                   src={featuredPost.featuredImage?.url || ''}
@@ -91,11 +92,11 @@ export default function BlogClient({ posts, categories }: BlogClientProps) {
                 <p className="mb-8 text-sm font-light leading-relaxed opacity-70">
                   {featuredPost.excerpt || ''}
                 </p>
-                <button className="sharp-edge w-fit border border-abyss/20 bg-transparent px-8 py-3 text-[10px] font-bold uppercase tracking-widest transition-all hover:bg-abyss hover:text-white">
+                <span className="sharp-edge w-fit border border-abyss/20 bg-transparent px-8 py-3 text-[10px] font-bold uppercase tracking-widest transition-all group-hover:bg-abyss group-hover:text-white">
                   Lire l&apos;article
-                </button>
+                </span>
               </div>
-            </div>
+            </Link>
           </div>
         </section>
       )}
@@ -116,7 +117,7 @@ export default function BlogClient({ posts, categories }: BlogClientProps) {
               {filteredPosts.length > 0 ? (
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                   {filteredPosts.map((post: any) => (
-                    <article key={post.id} className="group cursor-pointer">
+                    <Link key={post.id} href={`/blog/${post.slug}`} className="group">
                       <div className="relative mb-4 aspect-[3/2] overflow-hidden">
                         <img
                           src={post.featuredImage?.url || ''}
@@ -146,7 +147,7 @@ export default function BlogClient({ posts, categories }: BlogClientProps) {
                           </span>
                         </div>
                       </div>
-                    </article>
+                    </Link>
                   ))}
                 </div>
               ) : (
@@ -191,13 +192,15 @@ export default function BlogClient({ posts, categories }: BlogClientProps) {
                 </h4>
                 <ul className="space-y-6">
                   {recentPosts.map((post: any) => (
-                    <li key={post.id} className="group cursor-pointer">
-                      <div className="mb-2 flex items-center gap-3 text-[9px] uppercase tracking-widest opacity-60">
-                        <span>{post.publishedDate ? new Date(post.publishedDate).toLocaleDateString('fr-FR') : ''}</span>
-                      </div>
-                      <h5 className="text-sm font-medium leading-tight transition-colors group-hover:text-primary">
-                        {post.title}
-                      </h5>
+                    <li key={post.id}>
+                      <Link href={`/blog/${post.slug}`} className="group block">
+                        <div className="mb-2 flex items-center gap-3 text-[9px] uppercase tracking-widest opacity-60">
+                          <span>{post.publishedDate ? new Date(post.publishedDate).toLocaleDateString('fr-FR') : ''}</span>
+                        </div>
+                        <h5 className="text-sm font-medium leading-tight transition-colors group-hover:text-primary">
+                          {post.title}
+                        </h5>
+                      </Link>
                     </li>
                   ))}
                 </ul>

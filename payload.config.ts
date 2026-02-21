@@ -13,6 +13,7 @@ import { Team } from './src/payload/collections/Team'
 import { Testimonials } from './src/payload/collections/Testimonials'
 import { Destinations } from './src/payload/collections/Destinations'
 import { Boats } from './src/payload/collections/Boats'
+import { Trains } from './src/payload/collections/Trains'
 import { Categories } from './src/payload/collections/Categories'
 import { Tags } from './src/payload/collections/Tags'
 import { Posts } from './src/payload/collections/Posts'
@@ -21,9 +22,13 @@ import { Subscribers } from './src/payload/collections/Subscribers'
 import { Campaigns } from './src/payload/collections/Campaigns'
 import { CampaignSends } from './src/payload/collections/CampaignSends'
 import { EmailAnalytics } from './src/payload/collections/EmailAnalytics'
+import { Visioconferences } from './src/payload/collections/Visioconferences'
+import { LiveRegistrations } from './src/payload/collections/LiveRegistrations'
 import { HomepageConfig } from './src/payload/globals/HomepageConfig'
 import { LivreDOrConfig } from './src/payload/globals/LivreDOrConfig'
+import { PagesConfig } from './src/payload/globals/PagesConfig'
 import { sendCampaign } from './src/payload/jobs/sendCampaign'
+import { sendLiveLink } from './src/payload/jobs/sendLiveLink'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -38,15 +43,15 @@ export default buildConfig({
     },
   },
 
-  collections: [Users, Media, Cruises, Destinations, Boats, Speakers, Team, Posts, Categories, Tags, Testimonials, Banners, Subscribers, Campaigns, CampaignSends, EmailAnalytics],
+  collections: [Users, Media, Cruises, Destinations, Boats, Trains, Speakers, Team, Posts, Categories, Tags, Testimonials, Banners, Subscribers, Campaigns, CampaignSends, EmailAnalytics, Visioconferences, LiveRegistrations],
 
-  globals: [HomepageConfig, LivreDOrConfig],
+  globals: [HomepageConfig, LivreDOrConfig, PagesConfig],
 
   editor: lexicalEditor({}),
 
   plugins: [
     seoPlugin({
-      collections: ['cruises', 'posts', 'destinations', 'boats'],
+      collections: ['cruises', 'posts', 'destinations', 'boats', 'trains'],
       tabbedUI: true,
       uploadsCollection: 'media',
       generateTitle: ({ doc }) => `${doc.title || doc.name} | PleinCap Croisières`,
@@ -61,7 +66,7 @@ export default buildConfig({
   sharp,
 
   jobs: {
-    tasks: [sendCampaign],
+    tasks: [sendCampaign, sendLiveLink],
   },
 
   db: postgresAdapter({

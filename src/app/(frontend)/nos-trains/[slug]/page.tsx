@@ -3,7 +3,7 @@ import SiteFooter from '@/components/SiteFooter'
 import DeckPlanViewer from '@/components/DeckPlanViewer'
 import CabinSection from '@/components/CabinSection'
 import GalleryLightbox from '@/components/GalleryLightbox'
-import { getBoatBySlug, getBoats, getCruises } from '@/lib/payload-queries'
+import { getTrainBySlug, getTrains, getCruises } from '@/lib/payload-queries'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 
@@ -12,53 +12,53 @@ type Props = {
 }
 
 export async function generateStaticParams() {
-  const boats = await getBoats()
-  return boats.map((boat) => ({
-    slug: boat.slug,
+  const trains = await getTrains()
+  return trains.map((train) => ({
+    slug: train.slug,
   }))
 }
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params
-  const boat = await getBoatBySlug(slug) as any
+  const train = await getTrainBySlug(slug) as any
 
-  if (!boat) {
+  if (!train) {
     return {
-      title: 'Bateau non trouvé | Plein Cap',
+      title: 'Train non trouve | Plein Cap',
     }
   }
 
-  const metaTitle = boat.meta?.title || `${boat.name} | Plein Cap`
-  const metaDescription = boat.meta?.description || `Présentation du ${boat.name} : spécifications, cabines, espaces, équipements, croisières à venir.`
-  const metaImageUrl = boat.meta?.image?.url || boat.featuredImage?.url
+  const metaTitle = train.meta?.title || `${train.name} | Plein Cap`
+  const metaDescription = train.meta?.description || `Presentation du ${train.name} : specifications, compartiments, equipements, voyages a venir.`
+  const metaImageUrl = train.meta?.image?.url || train.featuredImage?.url
 
   return {
     title: metaTitle,
     description: metaDescription,
     openGraph: {
-      title: boat.meta?.title || boat.name,
+      title: train.meta?.title || train.name,
       description: metaDescription,
       images: metaImageUrl ? [metaImageUrl] : [],
     },
   }
 }
 
-export default async function BoatDetailPage({ params }: Props) {
+export default async function TrainDetailPage({ params }: Props) {
   const { slug } = await params
-  const boat = await getBoatBySlug(slug) as any
+  const train = await getTrainBySlug(slug) as any
 
-  if (!boat) {
+  if (!train) {
     notFound()
   }
 
-  const gallery = Array.isArray(boat.gallery) ? boat.gallery.filter((img: any) => img?.url) : []
-  const descriptionParagraphs = extractParagraphs(boat.description)
+  const gallery = Array.isArray(train.gallery) ? train.gallery.filter((img: any) => img?.url) : []
+  const descriptionParagraphs = extractParagraphs(train.description)
 
-  // Fetch cruises on this boat
+  // Fetch cruises on this train
   const cruisesResult = await getCruises({ published: true, limit: 50 })
-  const boatCruises = cruisesResult.docs.filter((c: any) => {
-    const cruiseBoat = typeof c.boat === 'object' ? c.boat : null
-    return cruiseBoat && String(cruiseBoat.id) === String(boat.id)
+  const trainCruises = cruisesResult.docs.filter((c: any) => {
+    const cruiseTrain = typeof c.train === 'object' ? c.train : null
+    return cruiseTrain && String(cruiseTrain.id) === String(train.id)
   }).slice(0, 3)
 
   return (
@@ -70,49 +70,49 @@ export default async function BoatDetailPage({ params }: Props) {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: boat.featuredImage?.url
-              ? `linear-gradient(rgba(26, 43, 60, 0.5), rgba(26, 43, 60, 0.7)), url('${boat.featuredImage.url}')`
+            backgroundImage: train.featuredImage?.url
+              ? `linear-gradient(rgba(26, 43, 60, 0.5), rgba(26, 43, 60, 0.7)), url('${train.featuredImage.url}')`
               : 'linear-gradient(rgba(26, 43, 60, 0.9), rgba(26, 43, 60, 0.9))',
           }}
         />
         <div className="relative z-10 mx-auto max-w-[1600px] px-6 text-center text-white md:px-16">
           <span className="mb-6 block text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-            Fleuron de la flotte
+            Fleuron de la flotte ferroviaire
           </span>
-          <h1 className="serif-heading mb-8 text-6xl md:text-8xl lg:text-9xl">{boat.name}</h1>
+          <h1 className="serif-heading mb-8 text-6xl md:text-8xl lg:text-9xl">{train.name}</h1>
 
           {/* Specs ribbon */}
           <div className="flex flex-wrap items-center justify-center gap-6 text-white/80 md:gap-10">
-            {boat.capacity && (
+            {train.capacity && (
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-primary">groups</span>
-                <span className="text-sm">{boat.capacity} passagers</span>
+                <span className="text-sm">{train.capacity} passagers</span>
               </div>
             )}
-            {boat.length && (
+            {train.length && (
               <>
                 <div className="hidden h-4 w-px bg-white/20 md:block" />
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-primary">straighten</span>
-                  <span className="text-sm">{boat.length} m</span>
+                  <span className="text-sm">{train.length} m</span>
                 </div>
               </>
             )}
-            {boat.builtYear && (
+            {train.builtYear && (
               <>
                 <div className="hidden h-4 w-px bg-white/20 md:block" />
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-primary">calendar_today</span>
-                  <span className="text-sm">Construit en {boat.builtYear}</span>
+                  <span className="text-sm">Construit en {train.builtYear}</span>
                 </div>
               </>
             )}
-            {boat.renovatedYear && (
+            {train.renovatedYear && (
               <>
                 <div className="hidden h-4 w-px bg-white/20 md:block" />
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-primary">auto_fix_high</span>
-                  <span className="text-sm">Rénové en {boat.renovatedYear}</span>
+                  <span className="text-sm">Renove en {train.renovatedYear}</span>
                 </div>
               </>
             )}
@@ -130,10 +130,10 @@ export default async function BoatDetailPage({ params }: Props) {
         <div className="mx-auto max-w-[1600px] px-6 md:px-16">
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {[
-              { icon: 'groups', label: 'Capacite', value: boat.capacity ? `${boat.capacity} passagers` : null },
-              { icon: 'engineering', label: 'Equipage', value: boat.crew ? `${boat.crew} membres` : null },
-              { icon: 'straighten', label: 'Longueur', value: boat.length ? `${boat.length} metres` : null },
-              { icon: 'hotel_class', label: 'Cabines', value: boat.cabins?.length ? `${boat.cabins.reduce((t: number, c: any) => { const daTotal = (c.deckAssignments || []).reduce((s: number, da: any) => s + (da.count || 0), 0); return t + (daTotal || c.count || 0) }, 0)} cabines` : null },
+              { icon: 'groups', label: 'Capacite', value: train.capacity ? `${train.capacity} passagers` : null },
+              { icon: 'engineering', label: 'Equipage', value: train.crew ? `${train.crew} membres` : null },
+              { icon: 'straighten', label: 'Longueur', value: train.length ? `${train.length} metres` : null },
+              { icon: 'train', label: 'Compartiments', value: train.compartments?.length ? `${train.compartments.reduce((t: number, c: any) => { const daTotal = (c.deckAssignments || []).reduce((s: number, da: any) => s + (da.count || 0), 0); return t + (daTotal || c.count || 0) }, 0)} compartiments` : null },
             ].filter(s => s.value).map((spec) => (
               <div key={spec.label} className="border border-primary/20 bg-white p-6 text-center shadow-lg dark:bg-abyss">
                 <span className="material-symbols-outlined mb-3 text-3xl text-primary">{spec.icon}</span>
@@ -166,73 +166,18 @@ export default async function BoatDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* L'ART DE VIVRE A BORD */}
-      {boat.highlights && boat.highlights.length > 0 && (
-        <section className="w-full bg-white py-16 md:py-24 dark:bg-abyss">
-          <div className="mx-auto max-w-[1600px] px-6 md:px-16">
-            <div className="mb-14 text-center">
-              <span className="mb-4 block text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-                A bord
-              </span>
-              <h2 className="serif-heading text-3xl md:text-4xl lg:text-5xl">L&apos;art de vivre à bord</h2>
-            </div>
-            <div className="space-y-20">
-              {boat.highlights.map((hl: any, idx: number) => {
-                const imageUrl = hl.image?.url || ''
-                const isReversed = idx % 2 !== 0
-                return (
-                  <div
-                    key={hl.id || idx}
-                    className={`flex flex-col items-center gap-10 md:gap-16 ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'}`}
-                  >
-                    {/* Image */}
-                    <div className="w-full overflow-hidden md:w-1/2">
-                      {imageUrl ? (
-                        <img src={imageUrl} alt={hl.title} className="h-auto w-full object-cover" loading="lazy" />
-                      ) : (
-                        <div className="flex aspect-[4/3] w-full items-center justify-center bg-primary/5">
-                          <span className="material-symbols-outlined text-5xl text-primary/20">image</span>
-                        </div>
-                      )}
-                    </div>
-                    {/* Texte */}
-                    <div className="w-full md:w-1/2">
-                      <span className="mb-3 block text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-                        {hl.label}
-                      </span>
-                      <h3 className="serif-heading mb-6 text-2xl md:text-3xl">{hl.title}</h3>
-                      <p className="mb-8 text-sm font-light leading-relaxed opacity-70">{hl.description}</p>
-                      {hl.specs && hl.specs.length > 0 && (
-                        <div className="grid grid-cols-2 gap-4 border-t border-primary/20 pt-6 sm:grid-cols-3">
-                          {hl.specs.map((spec: any) => (
-                            <div key={spec.id || spec.label}>
-                              <p className="text-[10px] font-bold uppercase tracking-widest text-primary">{spec.label}</p>
-                              <p className="mt-1 text-sm font-semibold">{spec.value}</p>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* CABINS */}
-      {boat.cabins && boat.cabins.length > 0 && (
+      {/* COMPARTMENTS */}
+      {train.compartments && train.compartments.length > 0 && (
         <section className="w-full bg-white py-16 md:py-24 dark:bg-abyss">
           <div className="mx-auto max-w-[1600px] px-6 md:px-16">
             <div className="mb-10 text-center md:mb-16">
               <span className="mb-4 block text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
                 Hebergement d'exception
               </span>
-              <h2 className="serif-heading text-3xl md:text-4xl lg:text-5xl">Categories de cabines</h2>
+              <h2 className="serif-heading text-3xl md:text-4xl lg:text-5xl">Categories de compartiments</h2>
             </div>
             <CabinSection
-              cabins={boat.cabins.map((c: any) => ({
+              cabins={train.compartments.map((c: any) => ({
                 id: c.id,
                 category: c.category,
                 color: c.color,
@@ -268,35 +213,34 @@ export default async function BoatDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* DECK PLAN */}
-      {(hasDeckPlans(boat) || hasSingleDeckPlan(boat)) && (
+      {/* CARRIAGE PLANS */}
+      {(hasCarriagePlans(train) || hasSingleCarriagePlan(train)) && (
         <section className="w-full bg-white py-16 md:py-24 dark:bg-abyss">
           <div className="mx-auto max-w-[1600px] px-6 md:px-16">
             <div className="mb-16 text-center">
               <span className="mb-4 block text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
                 Vue d'ensemble
               </span>
-              <h2 className="serif-heading text-4xl md:text-5xl">Plan des ponts</h2>
+              <h2 className="serif-heading text-4xl md:text-5xl">Plan des voitures</h2>
               <p className="mx-auto mt-4 max-w-xl text-sm font-light opacity-50">
-                Explorez les differents niveaux du navire. Zoomez et naviguez pour decouvrir chaque detail.
+                Explorez les differentes voitures du train. Zoomez et naviguez pour decouvrir chaque detail.
               </p>
             </div>
             <DeckPlanViewer
-              deckPlans={hasDeckPlans(boat) ? boat.deckPlans.map((dp: any) => ({
-                deckName: dp.deckName,
-                deckNumber: dp.deckNumber,
-                image: dp.image,
-                highlights: dp.highlights,
+              deckPlans={hasCarriagePlans(train) ? train.carriagePlans.map((cp: any) => ({
+                deckName: cp.carriageName,
+                deckNumber: cp.carriageNumber,
+                image: cp.image,
+                highlights: cp.highlights,
               })) : undefined}
-              singleImage={hasSingleDeckPlan(boat) && !hasDeckPlans(boat) ? {
-                url: boat.deckPlan.url,
-                alt: boat.deckPlan.alt || 'Plan des ponts',
+              singleImage={hasSingleCarriagePlan(train) && !hasCarriagePlans(train) ? {
+                url: train.carriagePlan.url,
+                alt: train.carriagePlan.alt || 'Plan des voitures',
               } : undefined}
-              cabins={boat.cabins?.map((c: any) => {
+              cabins={train.compartments?.map((c: any) => {
                 const da = (c.deckAssignments || []).map((da: any) => ({ deckNumber: Number(da.deckNumber), count: Number(da.count) }))
-                // Fallback: ancien format assignedDecks CSV + count
-                if (da.length === 0 && c.assignedDecks) {
-                  const nums = c.assignedDecks.split(',').map((s: string) => Number(s.trim())).filter((n: number) => !isNaN(n) && n > 0)
+                if (da.length === 0 && c.assignedCarriages) {
+                  const nums = c.assignedCarriages.split(',').map((s: string) => Number(s.trim())).filter((n: number) => !isNaN(n) && n > 0)
                   const perDeck = nums.length > 0 ? Math.ceil((c.count || 0) / nums.length) : 0
                   return { category: c.category, color: c.color, deckAssignments: nums.map((n: number) => ({ deckNumber: n, count: perDeck })) }
                 }
@@ -307,8 +251,8 @@ export default async function BoatDetailPage({ params }: Props) {
         </section>
       )}
 
-      {/* CRUISES ON THIS BOAT */}
-      {boatCruises.length > 0 && (
+      {/* CRUISES ON THIS TRAIN */}
+      {trainCruises.length > 0 && (
         <section className="w-full py-16 md:py-24">
           <div className="mx-auto max-w-[1600px] px-6 md:px-16">
             <div className="mb-16 flex flex-col items-end justify-between gap-4 md:flex-row">
@@ -317,19 +261,19 @@ export default async function BoatDetailPage({ params }: Props) {
                   Prochains departs
                 </span>
                 <h2 className="serif-heading text-4xl md:text-5xl">
-                  Voyagez a bord du {boat.name}
+                  Voyagez a bord du {train.name}
                 </h2>
               </div>
               <Link
-                href="/catalogue"
+                href="/catalogue?voyageType=train"
                 className="border-b border-primary pb-2 text-xs font-bold uppercase tracking-widest transition-colors hover:text-primary"
               >
-                Voir tout le catalogue
+                Voir tous les voyages en train
               </Link>
             </div>
 
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-              {boatCruises.map((cruise: any) => {
+              {trainCruises.map((cruise: any) => {
                 const dest = typeof cruise.destination === 'object' ? cruise.destination : null
                 const img = cruise.featuredImage?.url || ''
                 const depDate = cruise.departureDate ? formatDate(cruise.departureDate) : ''
@@ -389,15 +333,15 @@ export default async function BoatDetailPage({ params }: Props) {
                 Pret a embarquer ?
               </span>
               <h3 className="serif-heading text-3xl text-white md:text-4xl">
-                Votre prochaine odyssee commence ici
+                Votre prochaine aventure ferroviaire commence ici
               </h3>
             </div>
             <div className="flex flex-col gap-3 md:flex-row">
               <Link
-                href="/catalogue"
+                href="/catalogue?voyageType=train"
                 className="sharp-edge bg-primary px-10 py-4 text-center text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-white hover:text-abyss"
               >
-                Voir les croisieres
+                Voir les voyages en train
               </Link>
               <button className="sharp-edge border border-white/30 px-10 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-white hover:text-abyss">
                 Nous contacter
@@ -412,13 +356,13 @@ export default async function BoatDetailPage({ params }: Props) {
   )
 }
 
-function hasDeckPlans(boat: any): boolean {
-  return Array.isArray(boat.deckPlans) && boat.deckPlans.length > 0 &&
-    boat.deckPlans.some((dp: any) => dp.image?.url)
+function hasCarriagePlans(train: any): boolean {
+  return Array.isArray(train.carriagePlans) && train.carriagePlans.length > 0 &&
+    train.carriagePlans.some((cp: any) => cp.image?.url)
 }
 
-function hasSingleDeckPlan(boat: any): boolean {
-  return boat.deckPlan && typeof boat.deckPlan === 'object' && !!boat.deckPlan.url
+function hasSingleCarriagePlan(train: any): boolean {
+  return train.carriagePlan && typeof train.carriagePlan === 'object' && !!train.carriagePlan.url
 }
 
 function extractParagraphs(description: any): string[] {

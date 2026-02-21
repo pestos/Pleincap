@@ -2,75 +2,39 @@
 
 import { useMemo, useState } from 'react'
 
-type Continent = 'Europe' | 'Afrique' | 'Asie' | 'Amériques' | 'Océanie'
-
-type Region = {
-  area: string
-  title: string
-  slug: string
-  itineraries: number
-  image: string
-  continent: Continent
-}
+type ContinentKey = 'europe' | 'afrique' | 'asie' | 'ameriques' | 'oceanie'
 
 type Destination = any
 
-const continents: Continent[] = ['Europe', 'Afrique', 'Asie', 'Amériques', 'Océanie']
+const continents: { key: ContinentKey; label: string }[] = [
+  { key: 'europe', label: 'Europe' },
+  { key: 'afrique', label: 'Afrique' },
+  { key: 'asie', label: 'Asie' },
+  { key: 'ameriques', label: 'Amériques' },
+  { key: 'oceanie', label: 'Océanie' },
+]
 
-const continentCopy: Record<Continent, { title: string; description: string }> = {
-  Europe: {
+const continentCopy: Record<ContinentKey, { title: string; description: string }> = {
+  europe: {
     title: "L'Europe Millénaire",
     description: 'Le berceau des arts et de la civilisation.',
   },
-  Afrique: {
+  afrique: {
     title: "L'Afrique Originelle",
     description: 'Terres de légendes, de cultures et de paysages majestueux.',
   },
-  Asie: {
+  asie: {
     title: "L'Asie Impériale",
     description: 'Rituels ancestraux et capitales vibrantes à découvrir.',
   },
-  Amériques: {
+  ameriques: {
     title: 'Les Amériques Sauvages',
     description: "Des fjords polaires aux déserts mythiques, l'aventure grandeur nature.",
   },
-  Océanie: {
+  oceanie: {
     title: "L'Océanie Infinie",
     description: 'Archipels secrets et horizons sans fin entre mer et désert.',
   },
-}
-
-// Map CMS region to continent
-function mapRegionToContinent(region: string): Continent {
-  const normalized = region.toLowerCase()
-  if (normalized.includes('mediterranee') || normalized.includes('europe')) {
-    return 'Europe'
-  }
-  if (normalized.includes('afrique')) {
-    return 'Afrique'
-  }
-  if (normalized.includes('asie')) {
-    return 'Asie'
-  }
-  if (normalized.includes('amerique')) {
-    return 'Amériques'
-  }
-  if (normalized.includes('oceanie')) {
-    return 'Océanie'
-  }
-  return 'Europe' // default
-}
-
-// Convert CMS destinations to Region format
-function convertDestinationsToRegions(destinations: Destination[]): Region[] {
-  return destinations.map((dest) => ({
-    area: dest.region,
-    title: dest.name,
-    slug: dest.slug || '',
-    itineraries: 0,
-    image: dest.featuredImage?.url || '',
-    continent: mapRegionToContinent(dest.region),
-  }))
 }
 
 type DestinationsClientProps = {
@@ -78,11 +42,10 @@ type DestinationsClientProps = {
 }
 
 export default function DestinationsClient({ destinations }: DestinationsClientProps) {
-  const regions = useMemo(() => convertDestinationsToRegions(destinations), [destinations])
-  const [activeContinent, setActiveContinent] = useState<Continent>('Europe')
-  const filteredRegions = useMemo(
-    () => regions.filter((region) => region.continent === activeContinent),
-    [activeContinent]
+  const [activeContinent, setActiveContinent] = useState<ContinentKey>('europe')
+  const filtered = useMemo(
+    () => destinations.filter((d) => d.continent === activeContinent),
+    [activeContinent, destinations]
   )
   const continentDetails = continentCopy[activeContinent]
 
@@ -94,12 +57,12 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
             Choisissez un continent
           </h4>
           <div className="flex flex-wrap justify-center gap-8 md:gap-16 lg:gap-24">
-            {continents.map((continent) => (
+            {continents.map((c) => (
               <Tab
-                key={continent}
-                label={continent}
-                active={continent === activeContinent}
-                onClick={() => setActiveContinent(continent)}
+                key={c.key}
+                label={c.label}
+                active={c.key === activeContinent}
+                onClick={() => setActiveContinent(c.key)}
               />
             ))}
           </div>
@@ -122,25 +85,25 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
             </div>
           </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {filteredRegions.map((region) => (
+            {filtered.map((dest: any) => (
               <a
-                key={region.title}
-                href={`/catalogue?destination=${encodeURIComponent(region.title)}`}
+                key={dest.id}
+                href={`/catalogue?destination=${dest.id}`}
                 className="luxury-grid-card group relative aspect-[4/5] cursor-pointer overflow-hidden"
               >
                 <div className="absolute inset-0 overflow-hidden">
                   <div
                     className="card-image h-full w-full bg-cover bg-center"
-                    style={{ backgroundImage: `url('${region.image}')` }}
-                    aria-label={region.title}
+                    style={{ backgroundImage: `url('${dest.featuredImage?.url || ''}')` }}
+                    aria-label={dest.name}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/80 via-transparent to-transparent" />
                 </div>
                 <div className="absolute bottom-0 left-0 w-full p-8 transition-transform group-hover:-translate-y-2">
                   <span className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-[#c5a050]">
-                    {region.area}
+                    {dest.region}
                   </span>
-                  <h4 className="mb-4 text-3xl font-bold text-white">{region.title}</h4>
+                  <h4 className="mb-4 text-3xl font-bold text-white">{dest.name}</h4>
                   <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/80">
                     <span className="material-symbols-outlined text-sm">sailing</span>
                     Découvrir les itinéraires
@@ -149,7 +112,7 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
               </a>
             ))}
           </div>
-          {filteredRegions.length === 0 ? (
+          {filtered.length === 0 ? (
             <p className="mt-8 text-center text-sm text-[#0A1128]/60">
               Aucun itinéraire disponible pour cette sélection.
             </p>

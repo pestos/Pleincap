@@ -45,19 +45,59 @@ export const HomepageConfig: GlobalConfig = {
       label: 'Sous-titre section catégories',
     },
     {
-      name: 'gridCruises',
+      name: 'categories',
       type: 'array',
-      label: 'Grille destinations mises en avant',
+      label: 'Catégories mises en avant',
       admin: {
-        description: 'Choisissez les croisières du catalogue à afficher dans la grille (5 max recommandé). L\'image et le titre viennent de la fiche croisière.',
+        description: 'Créez les catégories affichées sur la page d\'accueil (5 max recommandé). Cliquer sur une catégorie redirige vers le catalogue filtré.',
       },
       fields: [
         {
-          name: 'cruise',
-          type: 'relationship',
-          relationTo: 'cruises',
+          name: 'title',
+          type: 'text',
           required: true,
-          label: 'Croisière',
+          label: 'Titre',
+          admin: {
+            placeholder: 'ex: Croisières Maritimes',
+          },
+        },
+        {
+          name: 'subtitle',
+          type: 'text',
+          label: 'Sous-titre',
+          admin: {
+            placeholder: 'ex: Explorez les mers du monde',
+          },
+        },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+          label: 'Image de fond',
+        },
+        {
+          name: 'voyageType',
+          type: 'select',
+          label: 'Filtre : Type de voyage',
+          options: [
+            { label: 'Maritime', value: 'maritime' },
+            { label: 'Fluviale', value: 'fluviale' },
+            { label: 'Train', value: 'train' },
+            { label: 'Escapade', value: 'escapade' },
+          ],
+          admin: {
+            description: 'Optionnel — filtre appliqué au catalogue quand on clique sur cette catégorie',
+          },
+        },
+        {
+          name: 'destination',
+          type: 'relationship',
+          relationTo: 'destinations',
+          label: 'Filtre : Destination',
+          admin: {
+            description: 'Optionnel — filtre par destination au lieu du type de voyage',
+          },
         },
       ],
     },

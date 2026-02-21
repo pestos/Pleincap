@@ -81,6 +81,43 @@ export const Cruises: CollectionConfig = {
                 description: 'Téléversez le PDF de la brochure (les clients pourront le télécharger)',
               },
             },
+            {
+              name: 'conditionsGenerales',
+              type: 'richText',
+              label: 'Conditions et Formalités',
+            },
+            {
+              name: 'prixComprend',
+              type: 'richText',
+              label: 'Notre prix comprend',
+            },
+            {
+              name: 'nonInclus',
+              type: 'richText',
+              label: 'Ne sont pas inclus',
+            },
+            {
+              name: 'formalitesPolice',
+              type: 'richText',
+              label: 'Formalités de police pour les ressortissants français',
+            },
+            {
+              name: 'conditionsAnnulation',
+              type: 'richText',
+              label: "Conditions spécifiques d'annulation pour cette croisière",
+            },
+            {
+              name: 'notaBene',
+              type: 'richText',
+              label: 'Nota Bene',
+            },
+            {
+              name: 'gallery',
+              type: 'upload',
+              relationTo: 'media',
+              hasMany: true,
+              label: 'Galerie photos',
+            },
           ],
         },
         {
@@ -99,6 +136,19 @@ export const Cruises: CollectionConfig = {
               relationTo: 'boats',
               required: false,
               label: 'Bateau',
+              admin: {
+                condition: (data) => !data?.voyageType || data.voyageType !== 'train',
+              },
+            },
+            {
+              name: 'train',
+              type: 'relationship',
+              relationTo: 'trains',
+              required: false,
+              label: 'Train',
+              admin: {
+                condition: (data) => data?.voyageType === 'train',
+              },
             },
             {
               name: 'speakers',
@@ -169,6 +219,18 @@ export const Cruises: CollectionConfig = {
               name: 'flightIncluded',
               type: 'checkbox',
               label: 'Vol inclus',
+              defaultValue: false,
+            },
+            {
+              name: 'accompanied',
+              type: 'checkbox',
+              label: 'Voyage accompagné',
+              defaultValue: false,
+            },
+            {
+              name: 'allInclusive',
+              type: 'checkbox',
+              label: 'All Inclusive',
               defaultValue: false,
             },
             {

@@ -1,11 +1,11 @@
 import type { CollectionConfig } from 'payload'
 import { formatSlug } from '../hooks/formatSlug'
 
-export const Boats: CollectionConfig = {
-  slug: 'boats',
+export const Trains: CollectionConfig = {
+  slug: 'trains',
   admin: {
     useAsTitle: 'name',
-    group: 'Croisieres',
+    group: 'Voyages en Train',
     defaultColumns: ['name', 'capacity', 'updatedAt'],
   },
   fields: [
@@ -13,7 +13,7 @@ export const Boats: CollectionConfig = {
       name: 'name',
       type: 'text',
       required: true,
-      label: 'Nom',
+      label: 'Nom du train',
     },
     {
       name: 'slug',
@@ -41,13 +41,13 @@ export const Boats: CollectionConfig = {
       name: 'capacity',
       type: 'number',
       required: true,
-      label: 'Capacité (passagers)',
+      label: 'Capacite (passagers)',
       min: 1,
     },
     {
       name: 'crew',
       type: 'number',
-      label: "Nombre d'équipage",
+      label: "Nombre d'equipage",
     },
     {
       name: 'length',
@@ -57,49 +57,49 @@ export const Boats: CollectionConfig = {
     {
       name: 'builtYear',
       type: 'number',
-      label: 'Année de construction',
+      label: 'Annee de construction',
       min: 1900,
       max: 2100,
     },
     {
       name: 'renovatedYear',
       type: 'number',
-      label: 'Année de rénovation',
+      label: 'Annee de renovation',
       min: 1900,
       max: 2100,
     },
     {
-      name: 'deckPlan',
+      name: 'carriagePlan',
       type: 'upload',
       relationTo: 'media',
-      label: 'Plan des ponts (image unique)',
+      label: 'Plan des voitures (image unique)',
       admin: {
-        description: 'Image unique du plan complet. Utilisez "Plans par pont" ci-dessous pour un affichage interactif par niveau.',
+        description: 'Image unique du plan complet. Utilisez "Plans par voiture" ci-dessous pour un affichage interactif.',
       },
     },
     {
-      name: 'deckPlans',
+      name: 'carriagePlans',
       type: 'array',
-      label: 'Plans par pont',
+      label: 'Plans par voiture',
       admin: {
-        description: 'Ajoutez un plan par niveau de pont pour un affichage interactif avec onglets. Si vide, l\'image unique ci-dessus sera utilisee.',
+        description: 'Ajoutez un plan par voiture pour un affichage interactif avec onglets. Si vide, l\'image unique ci-dessus sera utilisee.',
       },
       fields: [
         {
-          name: 'deckName',
+          name: 'carriageName',
           type: 'text',
           required: true,
-          label: 'Nom du pont',
+          label: 'Nom de la voiture',
           admin: {
-            placeholder: 'ex: Pont Supérieur, Pont Principal, Pont Inférieur',
+            placeholder: 'ex: Voiture-restaurant, Voiture-bar, Voiture-salon',
           },
         },
         {
-          name: 'deckNumber',
+          name: 'carriageNumber',
           type: 'number',
-          label: 'Numéro de pont',
+          label: 'Numero de voiture',
           admin: {
-            description: 'Pour ordonner les ponts (du plus haut au plus bas)',
+            description: 'Pour ordonner les voitures',
           },
         },
         {
@@ -107,79 +107,15 @@ export const Boats: CollectionConfig = {
           type: 'upload',
           relationTo: 'media',
           required: true,
-          label: 'Plan du pont',
+          label: 'Plan de la voiture',
         },
         {
           name: 'highlights',
           type: 'textarea',
-          label: 'Points d\'intérêt',
+          label: 'Points d\'interet',
           admin: {
-            placeholder: 'Un élément par ligne (ex: Restaurant, Piscine, Spa)',
+            placeholder: 'Un element par ligne (ex: Restaurant, Bar, Salon)',
           },
-        },
-      ],
-    },
-    {
-      name: 'highlights',
-      type: 'array',
-      label: "L'art de vivre à bord",
-      maxRows: 4,
-      admin: {
-        description: 'Espaces et infrastructures du bateau (bar, piscine, restaurant, spa, salon, etc.)',
-      },
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-          required: true,
-          label: 'Sous-titre',
-          admin: {
-            placeholder: 'ex: Pont Supérieur, Espace Détente',
-          },
-        },
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-          label: 'Titre',
-          admin: {
-            placeholder: 'ex: Bar Panoramique, Piscine & Spa, Restaurant Gastronomique',
-          },
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-          required: true,
-          label: 'Description',
-        },
-        {
-          name: 'image',
-          type: 'upload',
-          relationTo: 'media',
-          required: true,
-          label: 'Photo',
-        },
-        {
-          name: 'specs',
-          type: 'array',
-          label: 'Caractéristiques',
-          maxRows: 6,
-          fields: [
-            {
-              name: 'label',
-              type: 'text',
-              required: true,
-              label: 'Intitulé',
-              admin: { placeholder: 'ex: Superficie, Capacité' },
-            },
-            {
-              name: 'value',
-              type: 'text',
-              required: true,
-              label: 'Valeur',
-              admin: { placeholder: 'ex: 22-24 m², 2 personnes' },
-            },
-          ],
         },
       ],
     },
@@ -191,24 +127,24 @@ export const Boats: CollectionConfig = {
       label: 'Galerie photos',
     },
     {
-      name: 'cabins',
+      name: 'compartments',
       type: 'array',
-      label: 'Cabines',
+      label: 'Compartiments',
       minRows: 1,
       fields: [
         {
           name: 'category',
           type: 'text',
           required: true,
-          label: 'Catégorie',
+          label: 'Categorie',
           admin: {
-            placeholder: 'ex: Suite Deluxe, Cabine Standard',
+            placeholder: 'ex: Suite Grand Luxe, Compartiment Standard',
           },
         },
         {
           name: 'color',
           type: 'select',
-          label: 'Couleur (plan de pont)',
+          label: 'Couleur (plan des voitures)',
           defaultValue: '#7EB5D6',
           options: [
             { label: '02 — Bleu clair', value: '#7EB5D6' },
@@ -228,27 +164,27 @@ export const Boats: CollectionConfig = {
           name: 'size',
           type: 'number',
           required: true,
-          label: 'Surface (m²)',
+          label: 'Surface (m\u00B2)',
         },
         {
           name: 'capacity',
           type: 'number',
           required: true,
-          label: 'Capacité (personnes)',
+          label: 'Capacite (personnes)',
           defaultValue: 2,
         },
         {
           name: 'count',
           type: 'number',
-          label: 'Nombre total de cabines',
+          label: 'Nombre total de compartiments',
           admin: {
-            description: 'Sera calcule automatiquement si vous remplissez la repartition par pont ci-dessous.',
+            description: 'Sera calcule automatiquement si vous remplissez la repartition par voiture ci-dessous.',
           },
         },
         {
-          name: 'assignedDecks',
+          name: 'assignedCarriages',
           type: 'text',
-          label: 'Ponts associes (ancien format)',
+          label: 'Voitures associees (ancien format)',
           admin: {
             hidden: true,
           },
@@ -256,25 +192,25 @@ export const Boats: CollectionConfig = {
         {
           name: 'deckAssignments',
           type: 'array',
-          label: 'Repartition par pont',
+          label: 'Repartition par voiture',
           admin: {
-            description: 'Nombre de cabines de ce type par pont. Si vide, la cabine apparait sur tous les ponts.',
+            description: 'Nombre de compartiments de ce type par voiture. Si vide, le compartiment apparait sur toutes les voitures.',
           },
           fields: [
             {
               name: 'deckNumber',
               type: 'number',
               required: true,
-              label: 'N° de pont',
+              label: 'N° de voiture',
               admin: {
-                description: 'Correspond au numero de pont dans "Plans par pont".',
+                description: 'Correspond au numero de voiture dans "Plans par voiture".',
               },
             },
             {
               name: 'count',
               type: 'number',
               required: true,
-              label: 'Nombre de cabines',
+              label: 'Nombre de compartiments',
               min: 1,
             },
           ],
@@ -282,9 +218,9 @@ export const Boats: CollectionConfig = {
         {
           name: 'amenities',
           type: 'textarea',
-          label: 'Équipements',
+          label: 'Equipements',
           admin: {
-            placeholder: 'Un équipement par ligne',
+            placeholder: 'Un equipement par ligne',
           },
         },
         {
@@ -292,7 +228,7 @@ export const Boats: CollectionConfig = {
           type: 'upload',
           relationTo: 'media',
           hasMany: true,
-          label: 'Photos de la cabine',
+          label: 'Photos du compartiment',
         },
       ],
     },

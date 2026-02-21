@@ -51,6 +51,7 @@ export async function getCruises(options?: {
   limit?: number
   page?: number
   destinationId?: string | number
+  voyageType?: string
   month?: string // format: "2026-03"
   search?: string // free text search on title/excerpt
 }) {
@@ -59,6 +60,7 @@ export async function getCruises(options?: {
   if (options?.published) where._status = { equals: 'published' }
   if (options?.featured) where.featured = { equals: true }
   if (options?.destinationId) where.destination = { equals: options.destinationId }
+  if (options?.voyageType) where.voyageType = { equals: options.voyageType }
   if (options?.search) {
     where.or = [
       { title: { like: options.search } },
@@ -205,6 +207,63 @@ export async function getLivreDOrConfig() {
     depth: 2,
   })
   return data
+}
+
+/**
+ * Get pages config global
+ */
+export async function getPagesConfig() {
+  const payload = await getPayloadClient()
+  const data = await payload.findGlobal({
+    slug: 'pages-config',
+    depth: 2,
+  })
+  return data
+}
+
+/**
+ * Get visioconferences with optional type filter
+ */
+export async function getVisioconferences(options?: { type?: 'live' | 'replay' }) {
+  const payload = await getPayloadClient()
+  const where: Record<string, any> = {}
+  if (options?.type) where.type = { equals: options.type }
+  const { docs } = await payload.find({
+    collection: 'visioconferences',
+    depth: 2,
+    where: Object.keys(where).length > 0 ? where : undefined,
+    pagination: false,
+    sort: '-date',
+  })
+  return docs
+}
+
+/**
+ * Get all trains
+ */
+export async function getTrains() {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'trains',
+    pagination: false,
+  })
+  return docs
+}
+
+/**
+ * Get single train by slug
+ */
+export async function getTrainBySlug(slug: string) {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'trains',
+    depth: 2,
+    where: {
+      slug: { equals: slug },
+    },
+    limit: 1,
+  })
+  return docs[0] || null
 }
 
 /**

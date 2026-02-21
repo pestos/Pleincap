@@ -26,6 +26,22 @@ export const Destinations: CollectionConfig = {
       },
     },
     {
+      name: 'continent',
+      type: 'select',
+      required: true,
+      label: 'Continent',
+      options: [
+        { label: 'Europe', value: 'europe' },
+        { label: 'Afrique', value: 'afrique' },
+        { label: 'Asie', value: 'asie' },
+        { label: 'Amériques', value: 'ameriques' },
+        { label: 'Océanie', value: 'oceanie' },
+      ],
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'region',
       type: 'select',
       required: true,

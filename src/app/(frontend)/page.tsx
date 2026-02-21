@@ -3,6 +3,14 @@ import SiteFooter from '@/components/SiteFooter'
 import HomeSearchBox from '@/components/HomeSearchBox'
 import { getHomepageConfig, getTestimonials, getFeaturedCruises, getDestinations } from '@/lib/payload-queries'
 
+function getSeason(dateString: string): string {
+  const month = new Date(dateString).getMonth() // 0-11
+  if (month >= 2 && month <= 4) return 'Printemps'
+  if (month >= 5 && month <= 7) return 'Été'
+  if (month >= 8 && month <= 10) return 'Automne'
+  return 'Hiver'
+}
+
 export default async function Home() {
   const [homepageConfig, testimonials, destinations] = await Promise.all([
     getHomepageConfig(),
@@ -13,7 +21,7 @@ export default async function Home() {
   const destinationOptions = destinations.map((d: any) => ({ id: d.id, name: d.name }))
 
   const intro = (homepageConfig as any).intro || {}
-  const gridCruises = ((homepageConfig as any).gridCruises || []) as any[]
+  const categories = ((homepageConfig as any).categories || []) as any[]
   // Use cruises selected in HomepageConfig, or fall back to cruises flagged "featured" in catalogue
   const configCruises = ((homepageConfig as any).featuredCruises || []) as any[]
   const featuredCruises = configCruises.length > 0
@@ -24,9 +32,22 @@ export default async function Home() {
   const categoriesHeading = (homepageConfig as any).categoriesHeading || 'Trouvez le voyage qui vous ressemble'
   const categoriesSubheading = (homepageConfig as any).categoriesSubheading || ''
 
-  // Split grid cruises into 2 rows: first 2 on top, next 3 below
-  const topRow = gridCruises.slice(0, 2)
-  const bottomRow = gridCruises.slice(2, 5)
+  // Split categories into 2 rows: first 2 on top, next 3 below
+  const topRow = categories.slice(0, 2)
+  const bottomRow = categories.slice(2, 5)
+
+  // Build category link from filter fields
+  function buildCategoryLink(cat: any): string {
+    const params = new URLSearchParams()
+    if (cat.voyageType) params.set('voyageType', cat.voyageType)
+    if (cat.destination && typeof cat.destination === 'object') {
+      params.set('destination', String(cat.destination.id))
+    } else if (cat.destination) {
+      params.set('destination', String(cat.destination))
+    }
+    const qs = params.toString()
+    return `/catalogue${qs ? `?${qs}` : ''}`
+  }
 
   return (
       <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden bg-background-light text-abyss dark:bg-background-dark dark:text-ecru">
@@ -95,15 +116,12 @@ export default async function Home() {
                   <div className="flex w-full flex-col gap-5">
                       {/* Row 1 — 2 cards */}
                       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                          {topRow.map((item: any, idx: number) => {
-                              const cruise = item.cruise
-                              if (!cruise || typeof cruise !== 'object') return null
-                              const imageUrl = cruise.featuredImage?.url || ''
-                              const destination = typeof cruise.destination === 'object' ? cruise.destination : null
+                          {topRow.map((cat: any, idx: number) => {
+                              const imageUrl = cat.image?.url || ''
                               return (
                                   <a
-                                      key={item.id || idx}
-                                      href={`/catalogue/${cruise.slug}`}
+                                      key={cat.id || idx}
+                                      href={buildCategoryLink(cat)}
                                       className="group relative h-[420px] overflow-hidden md:h-[480px]"
                                   >
                                       <div
@@ -114,11 +132,11 @@ export default async function Home() {
                                       />
                                       <div className="absolute bottom-10 left-10 text-white">
                                           <h4 className="serif-heading text-3xl md:text-4xl">
-                                              {cruise.title}
+                                              {cat.title}
                                           </h4>
-                                          {destination && (
+                                          {cat.subtitle && (
                                               <p className="mt-2 text-[10px] font-bold uppercase tracking-widest text-white/70">
-                                                  {destination.name}
+                                                  {cat.subtitle}
                                               </p>
                                           )}
                                       </div>
@@ -130,15 +148,12 @@ export default async function Home() {
                       {/* Row 2 — 3 cards */}
                       {bottomRow.length > 0 && (
                           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-                              {bottomRow.map((item: any, idx: number) => {
-                                  const cruise = item.cruise
-                                  if (!cruise || typeof cruise !== 'object') return null
-                                  const imageUrl = cruise.featuredImage?.url || ''
-                                  const destination = typeof cruise.destination === 'object' ? cruise.destination : null
+                              {bottomRow.map((cat: any, idx: number) => {
+                                  const imageUrl = cat.image?.url || ''
                                   return (
                                       <a
-                                          key={item.id || idx}
-                                          href={`/catalogue/${cruise.slug}`}
+                                          key={cat.id || idx}
+                                          href={buildCategoryLink(cat)}
                                           className="group relative h-[360px] overflow-hidden md:h-[400px]"
                                       >
                                           <div
@@ -149,11 +164,11 @@ export default async function Home() {
                                           />
                                           <div className="absolute bottom-10 left-10 text-white">
                                               <h4 className="serif-heading text-2xl md:text-3xl">
-                                                  {cruise.title}
+                                                  {cat.title}
                                               </h4>
-                                              {destination && (
+                                              {cat.subtitle && (
                                                   <p className="mt-2 text-[10px] font-bold uppercase tracking-widest text-white/70">
-                                                      {destination.name}
+                                                      {cat.subtitle}
                                                   </p>
                                               )}
                                           </div>
@@ -192,16 +207,18 @@ export default async function Home() {
                                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                                       src={cruise.featuredImage?.url || ''}
                                   />
-                                  <div className="absolute left-6 top-6 bg-white/90 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-abyss backdrop-blur-sm">
-                                      {cruise.season || 'Saison'}
-                                  </div>
+                                  {cruise.departureDate && (
+                                      <div className="absolute left-6 top-6 bg-white/90 px-4 py-2 text-[10px] font-bold uppercase tracking-widest text-abyss backdrop-blur-sm">
+                                          {getSeason(cruise.departureDate)}
+                                      </div>
+                                  )}
                               </div>
 
                               <div className="space-y-4">
                                   <div className="flex items-start justify-between border-b border-abyss/10 pb-4">
                                       <div>
                                           <h4 className="serif-heading mb-1 text-2xl">
-                                              {cruise.boat?.name || 'Bateau'}
+                                              {cruise.title}
                                           </h4>
                                           <p className="text-[10px] uppercase tracking-widest opacity-60">
                                               {cruise.destination?.name || 'Destination'} | {cruise.duration || 'N/A'} Jours
