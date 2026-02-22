@@ -24,6 +24,7 @@ import { CampaignSends } from './src/payload/collections/CampaignSends'
 import { EmailAnalytics } from './src/payload/collections/EmailAnalytics'
 import { Visioconferences } from './src/payload/collections/Visioconferences'
 import { LiveRegistrations } from './src/payload/collections/LiveRegistrations'
+import { ReservationRequests } from './src/payload/collections/ReservationRequests'
 import { HomepageConfig } from './src/payload/globals/HomepageConfig'
 import { LivreDOrConfig } from './src/payload/globals/LivreDOrConfig'
 import { PagesConfig } from './src/payload/globals/PagesConfig'
@@ -43,7 +44,7 @@ export default buildConfig({
     },
   },
 
-  collections: [Users, Media, Cruises, Destinations, Boats, Trains, Speakers, Team, Posts, Categories, Tags, Testimonials, Banners, Subscribers, Campaigns, CampaignSends, EmailAnalytics, Visioconferences, LiveRegistrations],
+  collections: [Users, Media, Cruises, Destinations, Boats, Trains, Speakers, Team, Posts, Categories, Tags, Testimonials, Banners, Subscribers, Campaigns, CampaignSends, EmailAnalytics, Visioconferences, LiveRegistrations, ReservationRequests],
 
   globals: [HomepageConfig, LivreDOrConfig, PagesConfig],
 

@@ -2,7 +2,7 @@ import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import DestinationsClient from "./DestinationsClient";
-import { getDestinations, getFeaturedCruises } from '@/lib/payload-queries'
+import { getDestinations, getFeaturedCruises, getCruises } from '@/lib/payload-queries'
 
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'] })
 
@@ -18,9 +18,10 @@ function calculateDuration(departure: string, returnDate: string): number {
 }
 
 export default async function DestinationsPage() {
-  const [destinations, featuredCruises] = await Promise.all([
+  const [destinations, featuredCruises, allCruises] = await Promise.all([
     getDestinations(),
     getFeaturedCruises({ limit: 2 }),
+    getCruises({ published: true, limit: 100 }),
   ])
 
   return (
@@ -30,7 +31,7 @@ export default async function DestinationsPage() {
           <SiteHeader />
           <main className="flex-1">
               <Hero />
-              <DestinationsClient destinations={destinations} />
+              <DestinationsClient destinations={destinations} cruises={allCruises.docs} />
               <TopItineraries cruises={featuredCruises} />
           </main>
           <SiteFooter />

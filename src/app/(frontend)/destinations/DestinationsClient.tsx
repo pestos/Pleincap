@@ -37,16 +37,26 @@ const continentCopy: Record<ContinentKey, { title: string; description: string }
   },
 }
 
+type Cruise = any
+
 type DestinationsClientProps = {
   destinations: Destination[]
+  cruises: Cruise[]
 }
 
-export default function DestinationsClient({ destinations }: DestinationsClientProps) {
+export default function DestinationsClient({ destinations, cruises }: DestinationsClientProps) {
   const [activeContinent, setActiveContinent] = useState<ContinentKey>('europe')
   const filtered = useMemo(
     () => destinations.filter((d) => d.continent === activeContinent),
     [activeContinent, destinations]
   )
+  const filteredCruises = useMemo(() => {
+    const destIds = new Set(filtered.map((d: any) => String(d.id)))
+    return cruises.filter((c: any) => {
+      const dest = typeof c.destination === 'object' ? c.destination : null
+      return dest && destIds.has(String(dest.id))
+    })
+  }, [filtered, cruises])
   const continentDetails = continentCopy[activeContinent]
 
   return (
@@ -85,9 +95,10 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
             </div>
           </div>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {/* Destinations */}
             {filtered.map((dest: any) => (
               <a
-                key={dest.id}
+                key={`dest-${dest.id}`}
                 href={`/catalogue?destination=${dest.id}`}
                 className="luxury-grid-card group relative aspect-[4/5] cursor-pointer overflow-hidden"
               >
@@ -111,8 +122,42 @@ export default function DestinationsClient({ destinations }: DestinationsClientP
                 </div>
               </a>
             ))}
+            {/* Croisières */}
+            {filteredCruises.map((cruise: any) => {
+              const imageUrl = cruise.featuredImage?.url || ''
+              const dest = typeof cruise.destination === 'object' ? cruise.destination : null
+
+              return (
+                <a
+                  key={`cruise-${cruise.id}`}
+                  href={`/catalogue/${cruise.slug}`}
+                  className="luxury-grid-card group relative aspect-[4/5] cursor-pointer overflow-hidden"
+                >
+                  <div className="absolute inset-0 overflow-hidden">
+                    <div
+                      className="card-image h-full w-full bg-cover bg-center"
+                      style={{ backgroundImage: `url('${imageUrl}')` }}
+                      aria-label={cruise.title}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A1128]/80 via-transparent to-transparent" />
+                  </div>
+                  <div className="absolute bottom-0 left-0 w-full p-8 transition-transform group-hover:-translate-y-2">
+                    <span className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-[#c5a050]">
+                      {dest?.name || ''}
+                    </span>
+                    <h4 className="mb-4 text-3xl font-bold text-white">{cruise.title}</h4>
+                    <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/80">
+                      <span className="material-symbols-outlined text-sm">{cruise.voyageType === 'train' ? 'train' : 'sailing'}</span>
+                      {cruise.price
+                        ? `À partir de ${cruise.price.toLocaleString('fr-FR')} €`
+                        : 'Découvrir'}
+                    </div>
+                  </div>
+                </a>
+              )
+            })}
           </div>
-          {filtered.length === 0 ? (
+          {filtered.length === 0 && filteredCruises.length === 0 ? (
             <p className="mt-8 text-center text-sm text-[#0A1128]/60">
               Aucun itinéraire disponible pour cette sélection.
             </p>

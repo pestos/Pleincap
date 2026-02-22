@@ -266,6 +266,34 @@ export const Cruises: CollectionConfig = {
               ],
             },
             {
+              name: 'cabinPricing',
+              type: 'array',
+              label: 'Tarifs par cabine',
+              admin: {
+                description: 'Indiquez le nom exact de la catégorie telle que définie dans le bateau, et le prix pour cette croisière.',
+              },
+              fields: [
+                {
+                  name: 'cabinCategory',
+                  type: 'text',
+                  required: true,
+                  label: 'Catégorie de cabine',
+                  admin: {
+                    components: {
+                      Field: '@/components/admin/CabinCategorySelect',
+                    },
+                  },
+                },
+                {
+                  name: 'price',
+                  type: 'number',
+                  required: true,
+                  label: 'Prix par personne (€)',
+                  min: 0,
+                },
+              ],
+            },
+            {
               name: 'voyageType',
               type: 'select',
               label: 'Type de voyage',
@@ -338,6 +366,63 @@ export const Cruises: CollectionConfig = {
                   relationTo: 'media',
                   hasMany: true,
                   label: 'Photos du jour',
+                },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'stopType',
+                      type: 'select',
+                      label: "Type d'escale",
+                      defaultValue: 'stop',
+                      options: [
+                        { label: 'Départ', value: 'departure' },
+                        { label: 'Escale', value: 'stop' },
+                        { label: 'Navigation', value: 'sailing' },
+                        { label: 'Arrivée', value: 'arrival' },
+                      ],
+                      admin: {
+                        width: '50%',
+                      },
+                    },
+                    {
+                      name: 'duration',
+                      type: 'text',
+                      label: 'Durée escale',
+                      admin: {
+                        width: '50%',
+                        placeholder: 'ex: Journée entière',
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: 'mapPicker',
+                  type: 'ui',
+                  admin: {
+                    components: {
+                      Field: '@/components/admin/MapCoordinatePicker',
+                    },
+                  },
+                },
+                {
+                  type: 'row',
+                  fields: [
+                    {
+                      name: 'latitude',
+                      type: 'number',
+                      admin: {
+                        hidden: true,
+                      },
+                    },
+                    {
+                      name: 'longitude',
+                      type: 'number',
+                      admin: {
+                        hidden: true,
+                      },
+                    },
+                  ],
                 },
               ],
             },

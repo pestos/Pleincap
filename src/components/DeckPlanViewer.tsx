@@ -13,9 +13,10 @@ type Props = {
   deckPlans?: DeckPlan[]
   singleImage?: { url: string; alt?: string }
   cabins?: { category: string; color?: string; deckAssignments?: { deckNumber: number; count: number }[] }[]
+  onDeckChange?: (deckNumber: number | null) => void
 }
 
-export default function DeckPlanViewer({ deckPlans, singleImage, cabins }: Props) {
+export default function DeckPlanViewer({ deckPlans, singleImage, cabins, onDeckChange }: Props) {
   const hasMultipleDecks = deckPlans && deckPlans.length > 0
   const [activeDeck, setActiveDeck] = useState(0)
   const [zoom, setZoom] = useState(1)
@@ -54,7 +55,10 @@ export default function DeckPlanViewer({ deckPlans, singleImage, cabins }: Props
     setActiveDeck(idx)
     setZoom(1)
     setPan({ x: 0, y: 0 })
-  }, [])
+    if (onDeckChange && hasMultipleDecks && deckPlans) {
+      onDeckChange(deckPlans[idx]?.deckNumber ?? null)
+    }
+  }, [onDeckChange, hasMultipleDecks, deckPlans])
 
   const zoomIn = useCallback(() => {
     setZoom(prev => Math.min(prev + 0.5, 5))
@@ -206,6 +210,14 @@ export default function DeckPlanViewer({ deckPlans, singleImage, cabins }: Props
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
   }, [isFullscreen, activeDeck, hasMultipleDecks, deckPlans?.length, zoomIn, zoomOut, resetView, switchDeck])
+
+  // Fire onDeckChange on initial mount
+  useEffect(() => {
+    if (onDeckChange && hasMultipleDecks && deckPlans) {
+      onDeckChange(deckPlans[0]?.deckNumber ?? null)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const activeDeckNumber = hasMultipleDecks ? deckPlans[activeDeck]?.deckNumber : undefined
   const filteredCabins = cabins?.map((cabin) => {

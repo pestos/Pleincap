@@ -5,7 +5,10 @@ import { notFound } from 'next/navigation'
 import SiteHeader from '@/components/SiteHeader'
 import SiteFooter from '@/components/SiteFooter'
 import ProgrammeSection from '@/components/ProgrammeSection'
+import CruiseItineraryMap from '@/components/CruiseItineraryMap'
 import GalleryLightbox from '@/components/GalleryLightbox'
+import DeckPlanViewer from '@/components/DeckPlanViewer'
+import CabinPricingSection from '@/components/CabinPricingSection'
 import type { Metadata } from 'next'
 
 // Types inferred from Payload
@@ -70,6 +73,33 @@ export default async function CruisePage({ params }: Props) {
   const gallery = Array.isArray((cruise as any).gallery)
     ? (cruise as any).gallery.filter((img: any) => img?.url)
     : []
+  const cabinPricing = Array.isArray((cruise as any).cabinPricing)
+    ? (cruise as any).cabinPricing
+    : []
+  const boatData = boat as any
+  const boatCabins = Array.isArray(boatData?.cabins) ? boatData.cabins : []
+  const hasDeckPlans = Array.isArray(boatData?.deckPlans) && boatData.deckPlans.length > 0 && boatData.deckPlans.some((dp: any) => dp.image?.url)
+  const hasSingleDeckPlan = boatData?.deckPlan && typeof boatData.deckPlan === 'object' && !!boatData.deckPlan.url
+  const showCabinPricing = cabinPricing.length > 0
+
+  // Merge cabin pricing with boat cabin data by matching category name
+  const mergedCabins = cabinPricing.map((cp: any) => {
+    const matchedBoatCabin = boatCabins.find(
+      (bc: any) => bc.category?.toLowerCase().trim() === cp.cabinCategory?.toLowerCase().trim()
+    )
+    return {
+      cabinCategory: cp.cabinCategory,
+      price: cp.price,
+      id: cp.id,
+      // From boat cabin data
+      color: matchedBoatCabin?.color || '#C5A059',
+      size: matchedBoatCabin?.size || null,
+      capacity: matchedBoatCabin?.capacity || null,
+      amenities: matchedBoatCabin?.amenities || null,
+      images: Array.isArray(matchedBoatCabin?.images) ? matchedBoatCabin.images : [],
+      deckAssignments: Array.isArray(matchedBoatCabin?.deckAssignments) ? matchedBoatCabin.deckAssignments : [],
+    }
+  })
 
   // Format date helper
   const formatDate = (date: string) => {
@@ -300,10 +330,17 @@ export default async function CruisePage({ params }: Props) {
                   </div>
                 )}
 
+                {showCabinPricing && (
+                  <a
+                    href="#tarifs-cabines"
+                    className="mb-6 flex w-full items-center justify-center gap-2 border border-primary/30 bg-primary/5 px-6 py-3 text-xs font-bold uppercase tracking-widest text-primary transition-all hover:bg-primary hover:text-white"
+                  >
+                    <span className="material-symbols-outlined text-sm">bed</span>
+                    Prix par cabines
+                  </a>
+                )}
+
                 <div className="space-y-3">
-                  <button className="sharp-edge w-full bg-primary px-8 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-abyss">
-                    Reserver maintenant
-                  </button>
                   {(cruise as any).brochure?.url ? (
                     <a
                       href={(cruise as any).brochure.url}
@@ -347,11 +384,18 @@ export default async function CruisePage({ params }: Props) {
         </section>
       )}
 
-      {/* --- PROGRAMME (ecru / light) --- */}
+      {/* --- PROGRAMME + CARTE (ecru / light) --- */}
       {cruise.itinerary && cruise.itinerary.length > 0 && (
         <section className="border-t border-primary/10 bg-background-light py-16 text-abyss dark:bg-background-dark dark:text-ecru md:py-24">
-          <div className="mx-auto max-w-[1100px] px-6 md:px-16">
-            <ProgrammeSection itinerary={cruise.itinerary} />
+          <div className="mx-auto max-w-[1600px] px-6 md:px-16">
+            <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
+              <div className="lg:sticky lg:top-32 lg:self-start">
+                <CruiseItineraryMap itinerary={cruise.itinerary} />
+              </div>
+              <div>
+                <ProgrammeSection itinerary={cruise.itinerary} />
+              </div>
+            </div>
           </div>
         </section>
       )}
@@ -368,7 +412,7 @@ export default async function CruisePage({ params }: Props) {
                 {speakers.length > 1 ? 'Les Experts qui vous Accompagnent' : "L'Expert qui vous Accompagne"}
               </h3>
             </div>
-            <div className={`mx-auto grid gap-8 ${speakers.length === 1 ? 'max-w-[800px] grid-cols-1' : 'max-w-[1100px] grid-cols-1 md:grid-cols-2'}`}>
+            <div className={`mx-auto grid gap-8 ${speakers.length === 1 ? 'max-w-[800px] grid-cols-1' : 'max-w-[1600px] grid-cols-1 md:grid-cols-2'}`}>
               {speakers.map((speaker: any) => {
                 const photoUrl = speaker.photo?.url || ''
                 const bioText = speaker.bio?.root?.children
@@ -378,15 +422,9 @@ export default async function CruisePage({ params }: Props) {
                 return (
                   <div
                     key={speaker.id}
-                    className={`group overflow-hidden border border-abyss/20 bg-abyss text-ecru ${
-                      speakers.length === 1 ? 'flex flex-col md:flex-row' : 'flex flex-col'
-                    }`}
+                    className="group flex flex-col overflow-hidden border border-abyss/20 bg-abyss text-ecru md:flex-row"
                   >
-                    <div className={`relative overflow-hidden bg-white/10 ${
-                      speakers.length === 1
-                        ? 'aspect-[4/5] w-full md:aspect-auto md:w-[280px] md:shrink-0'
-                        : 'aspect-[4/5]'
-                    }`}>
+                    <div className="relative aspect-[4/5] w-full overflow-hidden bg-white/10 md:aspect-auto md:w-[280px] md:shrink-0">
                       {photoUrl ? (
                         <img src={photoUrl} alt={speaker.name} className="h-full w-full object-cover object-top" loading="lazy" />
                       ) : (
@@ -410,7 +448,7 @@ export default async function CruisePage({ params }: Props) {
                         </div>
                       )}
 
-                      <p className={`text-sm font-light leading-relaxed text-white/70 ${speakers.length === 1 ? 'line-clamp-4' : 'line-clamp-3'}`}>
+                      <p className="line-clamp-4 text-sm font-light leading-relaxed text-white/70">
                         {bioText}
                       </p>
 
@@ -426,6 +464,48 @@ export default async function CruisePage({ params }: Props) {
                 )
               })}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* --- TARIFS & PLAN DE PONT --- */}
+      {showCabinPricing && (
+        <section id="tarifs-cabines" className="scroll-mt-24 border-t border-primary/10 bg-background-light py-16 text-abyss dark:bg-background-dark dark:text-ecru md:py-24">
+          <div className="mx-auto max-w-[1600px] px-6 md:px-16">
+            <div className="mb-10 text-center md:mb-14">
+              <span className="mb-4 block text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+                Tarifs par categorie
+              </span>
+              <h3 className="serif-heading text-3xl md:text-4xl lg:text-5xl">Prix par Cabines</h3>
+            </div>
+
+            <CabinPricingSection
+              mergedCabins={mergedCabins}
+              boatName={boatData?.name}
+              deckPlans={hasDeckPlans ? boatData.deckPlans.map((dp: any) => ({
+                deckName: dp.deckName,
+                deckNumber: dp.deckNumber,
+                image: dp.image,
+                highlights: dp.highlights,
+              })) : undefined}
+              singleDeckPlan={hasSingleDeckPlan && !hasDeckPlans ? {
+                url: boatData.deckPlan.url,
+                alt: boatData.deckPlan.alt || 'Plan des ponts',
+              } : undefined}
+              hasDeckPlans={hasDeckPlans}
+              hasSingleDeckPlan={hasSingleDeckPlan}
+              cruise={{
+                id: String(cruise.id),
+                title: cruise.title,
+                departureDate: cruise.departureDate,
+                returnDate: cruise.returnDate,
+                destination: destination?.name || undefined,
+                vehicleName: vehicle?.name || undefined,
+                vehicleType: isTrain ? 'train' : 'bateau',
+                featuredImage: featuredImage?.url || undefined,
+                price: cruise.price,
+              }}
+            />
           </div>
         </section>
       )}
