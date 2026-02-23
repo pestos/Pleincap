@@ -181,31 +181,75 @@ export default async function VoyagesEnTrainPage() {
         </section>
       )}
 
-      {/* CTA */}
-      <section className="border-t border-primary/10 bg-abyss py-24 text-white">
+      {/* ART DE VIVRE / CTA */}
+      <section className="bg-abyss py-32 text-white">
         <div className="mx-auto max-w-[1600px] px-6 md:px-16">
-          <div className="flex flex-col items-center justify-between gap-8 text-center md:flex-row md:text-left">
-            <div>
-              <span className="mb-2 block text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
-                Envie de partir ?
+          <div className="flex flex-col items-center gap-16 md:flex-row">
+            <div className="flex-1 space-y-6">
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
+                L&apos;Art du Voyage Ferroviaire
               </span>
-              <h3 className="serif-heading text-3xl text-white md:text-4xl">
-                Decouvrez tous nos voyages
+              <h3 className="serif-heading text-4xl leading-tight md:text-5xl">
+                Le train, une invitation au voyage contemplatif.
               </h3>
+              <p className="text-lg font-light leading-relaxed text-white/70">
+                Redécouvrez le plaisir de voir défiler les paysages depuis le confort feutré
+                d&apos;un wagon d&apos;exception. Nos itinéraires ferroviaires sont pensés pour ceux
+                qui préfèrent savourer chaque kilomètre plutôt que de simplement arriver.
+              </p>
+              <div className="grid grid-cols-2 gap-6 border-t border-white/10 pt-8">
+                <div className="flex items-start gap-3">
+                  <span className="material-symbols-outlined mt-0.5 text-primary">train</span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-primary">Trains mythiques</p>
+                    <p className="mt-1 text-[11px] leading-relaxed text-white/50">Les plus beaux trains du monde</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="material-symbols-outlined mt-0.5 text-primary">landscape</span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-primary">Panoramas uniques</p>
+                    <p className="mt-1 text-[11px] leading-relaxed text-white/50">Des paysages inaccessibles autrement</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="material-symbols-outlined mt-0.5 text-primary">restaurant</span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-primary">Gastronomie à bord</p>
+                    <p className="mt-1 text-[11px] leading-relaxed text-white/50">Cuisine raffinée et terroirs locaux</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="material-symbols-outlined mt-0.5 text-primary">groups</span>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-primary">Voyage accompagné</p>
+                    <p className="mt-1 text-[11px] leading-relaxed text-white/50">Guides et conférenciers experts</p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-3 pt-4 md:flex-row">
+                <Link
+                  href="/catalogue?voyageType=train"
+                  className="bg-primary px-10 py-4 text-center text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-white hover:text-abyss"
+                >
+                  Voir les voyages en train
+                </Link>
+                <Link
+                  href="/catalogue"
+                  className="border border-white/30 px-10 py-4 text-center text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-white hover:text-abyss"
+                >
+                  Tout le catalogue
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-col gap-3 md:flex-row">
-              <Link
-                href="/catalogue?voyageType=train"
-                className="sharp-edge bg-primary px-10 py-4 text-center text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-white hover:text-abyss"
-              >
-                Voir au catalogue
-              </Link>
-              <Link
-                href="/catalogue"
-                className="sharp-edge border border-white/30 px-10 py-4 text-center text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-white hover:text-abyss"
-              >
-                Toutes les croisieres
-              </Link>
+            <div className="flex-1">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXkSnuIRHgG9TI6-m4PZmR-bIQ8SzGDCSnd_f3ciai0XorRgrmpRXPEmG5Gy2nunOu6rYHFab-c11xocxMwd3Dd73x0wVJA9wu2CZu37BBMqK2XAsTlUUOz9GcjHy15zpy5R2GnTyLRbrtT5QkF6Avm90OA7f9QKWvijfp_iDL4xvj9KlhHNf0pFtgiFU3NaAkCltMUM5RsiyahdmGt5_5GwAnOBnYtBU--rdoSS_e_-m2ccPSKZcl9CJbWcwsIFBisxEa8ApNOAs"
+                  alt="Vue panoramique depuis un train d'exception"
+                  className="h-full w-full object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>

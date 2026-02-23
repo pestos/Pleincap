@@ -197,6 +197,15 @@ export const PagesConfig: GlobalConfig = {
                   required: true,
                   label: 'Description',
                 },
+                {
+                  name: 'image',
+                  type: 'upload',
+                  relationTo: 'media',
+                  label: 'Image',
+                  admin: {
+                    description: 'Photo illustrant cette étape',
+                  },
+                },
               ],
             },
             {

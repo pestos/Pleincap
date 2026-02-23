@@ -33,6 +33,15 @@ export const Boats: CollectionConfig = {
       label: 'Photo principale',
     },
     {
+      name: 'atmosphere',
+      type: 'text',
+      label: 'Atmosphère',
+      admin: {
+        placeholder: "ex: Navigation d'exception, Élégance intimiste",
+        description: 'Courte phrase affichée sur la carte du bateau dans la page listing',
+      },
+    },
+    {
       name: 'description',
       type: 'richText',
       label: 'Description',

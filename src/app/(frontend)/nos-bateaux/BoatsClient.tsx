@@ -9,7 +9,7 @@ type Ship = {
   slug: string
   atmosphere: string
   capacity: string
-  decks: string
+  length: string
   image: string
 }
 
@@ -18,9 +18,9 @@ function convertBoatsToShips(boats: Boat[]): Ship[] {
   return boats.map((boat) => ({
     name: boat.name,
     slug: boat.slug,
-    atmosphere: 'Navigation d\'exception', // Placeholder since description is richText
+    atmosphere: boat.atmosphere || 'Navigation d\'exception',
     capacity: boat.capacity ? `${boat.capacity} Passagers` : 'N/A',
-    decks: 'N/A', // Not available in CMS
+    length: boat.length ? `${boat.length} m` : 'N/A',
     image: boat.featuredImage?.url || '',
   }))
 }
@@ -75,9 +75,9 @@ function ShipGrid({ ships }: ShipGridProps) {
                                   icon="groups"
                               />
                               <Info
-                                  label="Ponts"
-                                  value={ship.decks}
-                                  icon="layers"
+                                  label="Longueur"
+                                  value={ship.length}
+                                  icon="straighten"
                               />
                           </div>
                           <div className="mt-auto">

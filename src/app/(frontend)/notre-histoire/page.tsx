@@ -102,7 +102,7 @@ export default async function NotreHistoirePage() {
       <main className="w-full overflow-x-hidden">
         {/* Hero — full width */}
         <section
-          className="relative flex min-h-[600px] flex-col items-center justify-center gap-6 bg-cover bg-center bg-no-repeat p-8 text-center"
+          className="relative flex min-h-[80vh] flex-col items-center justify-center gap-6 bg-cover bg-center bg-no-repeat p-8 text-center"
           style={{ backgroundImage: heroBg }}
           aria-label="Bannière Notre Histoire"
         >
@@ -156,6 +156,8 @@ export default async function NotreHistoirePage() {
             <div className="space-y-16">
               {timeline.map((item: any, idx: number) => {
                 const isLeft = idx % 2 === 0
+                const imageUrl =
+                  typeof item.image === 'object' && item.image?.url ? item.image.url : null
                 return (
                   <div
                     key={item.year}
@@ -169,7 +171,17 @@ export default async function NotreHistoirePage() {
                       <p className="opacity-80">{item.text}</p>
                     </div>
                     <div className="absolute left-1/2 z-10 hidden size-4 -translate-x-1/2 rounded-full border-4 border-[#f8f7f6] bg-[#dfaf20] md:block dark:border-[#211d11]" />
-                    <div className="md:w-1/2" />
+                    <div className={`mt-4 md:mt-0 md:w-1/2 ${isLeft ? 'md:pl-12' : 'md:pr-12'}`}>
+                      {imageUrl && (
+                        <div className="overflow-hidden rounded-lg shadow-lg">
+                          <img
+                            src={imageUrl}
+                            alt={item.title}
+                            className="h-[200px] w-full object-cover transition-transform duration-500 hover:scale-105"
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )
               })}
@@ -177,9 +189,9 @@ export default async function NotreHistoirePage() {
           </div>
         </section>
 
-        {/* Founder Note — full width */}
-        <section className="flex flex-col items-stretch border-y border-[#dfaf20]/20 bg-white dark:bg-[#1a170e] md:flex-row">
-          <div className="h-[320px] w-full md:h-auto md:w-1/2">
+        {/* Founder Note */}
+        <section className="mx-auto my-16 max-w-[1200px] overflow-hidden rounded-xl border border-[#dfaf20]/20 bg-white shadow-lg dark:bg-[#1a170e] md:flex md:flex-row">
+          <div className="h-[360px] w-full md:h-auto md:w-1/2">
             {founderImageUrl ? (
               <img
                 alt="Founder portrait"
