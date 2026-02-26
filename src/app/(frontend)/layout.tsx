@@ -4,6 +4,9 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Plein Cap Luxury Voyages',
   description: 'Boutique luxury voyages: maritime, fluvial, rail, cultural.',
+  verification: {
+    google: 'hoU2jDRNkDh3pKxF2y6Nfd4dIPrp-LcytPwblHEyi18',
+  },
 }
 
 export default function FrontendLayout({

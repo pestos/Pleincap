@@ -107,15 +107,15 @@ function Privatization() {
     <section className="bg-white py-24 lg:bg-white/80">
       <div className="mx-auto flex max-w-[1440px] flex-col items-stretch gap-16 px-6 md:px-16 lg:flex-row lg:px-[120px]">
         <div className="h-full min-h-[500px] flex-1">
-          <div
-            className="relative h-full w-full overflow-hidden rounded-sm bg-cover bg-center shadow-2xl"
-            style={{
-              backgroundImage:
-                "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAPP6EAVa9PnkPaapH_uzcJz2QqsPFPFJ_E188k97PB-qXnxO3lFkr0nj7fcR_NHNQ27dAV7fQ5_O5u2cA6YHoTImL4r33UYQmRCCOO8M7GnrddEmKahkZLw-YsNRzqbjlaCRufn3f8NKl1y7Bb-xrS2aqA7nMjm6RK51Zhc_nhUUFbVzRnmvx9w2b-EdBpM5c1MVlu8EV1eYZQjgPixgnPOpDvN84APX6vUUaF-K2bc9e-8fBUhCyAhn_SHCbHtlM61g8C6Cq0WGA')",
-            }}
-          >
+          <div className="relative h-full w-full overflow-hidden rounded-sm shadow-2xl">
+            <img
+              src="/media/MS_LADY_CRISTINA_in-Frankfurt_2.jpg"
+              alt="Navire privatisé pour groupes"
+              className="h-full w-full object-cover"
+              style={{ minHeight: '500px' }}
+            />
             <div className="absolute -bottom-6 -right-6 hidden bg-[#c59f59] p-12 text-white shadow-xl xl:block">
-              <p className="text-2xl font-light italic">"L'intimité d'un yacht privé"</p>
+              <p className="text-2xl font-light italic">&ldquo;L&rsquo;intimité d&rsquo;un yacht privé&rdquo;</p>
             </div>
           </div>
         </div>
